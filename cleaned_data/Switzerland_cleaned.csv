@@ -1,0 +1,124 @@
+"age","sex","chest_pain_type","resting_bp","cholesterol","fasting_blood_sugar","resting_ecg","max_heart_rate","exercise_induced_angina","st_depression","st_slope","num_major_vessels","thalassemia","num_diagnosis"
+65,"male","asymptomatic",115,0,"False","Normal",93,"Yes",0,"flat","Unknown","reversible defect",1
+32,"male","typical angina",95,0,"Unknown","Normal",127,"No",0.7,"upsloping","Unknown","Unknown",1
+61,"male","asymptomatic",105,0,"Unknown","Normal",110,"Yes",1.5,"upsloping","Unknown","Unknown",1
+50,"male","asymptomatic",145,0,"Unknown","Normal",139,"Yes",0.7,"flat","Unknown","Unknown",1
+57,"male","asymptomatic",110,0,"Unknown","ST-T wave abnormality",131,"Yes",1.4,"upsloping","1","Unknown",3
+51,"male","asymptomatic",110,0,"Unknown","Normal",92,"No",0,"flat","Unknown","Unknown",4
+47,"male","asymptomatic",110,0,"Unknown","ST-T wave abnormality",149,"No",2.1,"upsloping","Unknown","Unknown",2
+60,"male","asymptomatic",160,0,"Unknown","Normal",149,"No",0.4,"flat","Unknown","Unknown",1
+55,"male","atypical angina",140,0,"Unknown","ST-T wave abnormality",150,"No",0.2,"upsloping","Unknown","Unknown",0
+53,"male","asymptomatic",125,0,"Unknown","Normal",120,"No",1.5,"upsloping","Unknown","Unknown",4
+62,"female","asymptomatic",120,0,"Unknown","ST-T wave abnormality",123,"Yes",1.7,"downsloping","Unknown","Unknown",1
+51,"male","asymptomatic",95,0,"Unknown","Normal",126,"No",2.2,"flat","Unknown","Unknown",2
+51,"female","asymptomatic",120,0,"Unknown","Normal",127,"Yes",1.5,"upsloping","Unknown","Unknown",2
+55,"male","asymptomatic",115,0,"Unknown","Normal",155,"No",0.1,"flat","Unknown","Unknown",1
+53,"male","atypical angina",130,0,"Unknown","ST-T wave abnormality",120,"No",0.7,"downsloping","Unknown","Unknown",0
+58,"male","asymptomatic",115,0,"Unknown","Normal",138,"No",0.5,"upsloping","Unknown","Unknown",1
+57,"male","asymptomatic",95,0,"Unknown","Normal",182,"No",0.7,"downsloping","Unknown","Unknown",1
+65,"male","asymptomatic",155,0,"Unknown","Normal",154,"No",1,"upsloping","Unknown","Unknown",0
+60,"male","asymptomatic",125,0,"Unknown","Normal",110,"No",0.1,"upsloping","2","Unknown",3
+41,"male","asymptomatic",125,0,"Unknown","Normal",176,"No",1.6,"upsloping","Unknown","Unknown",2
+34,"male","asymptomatic",115,0,"Unknown","Unknown",154,"No",0.2,"upsloping","Unknown","Unknown",1
+53,"male","asymptomatic",80,0,"Unknown","Normal",141,"Yes",2,"downsloping","Unknown","Unknown",0
+74,"male","atypical angina",145,0,"Unknown","ST-T wave abnormality",123,"No",1.3,"upsloping","Unknown","Unknown",1
+57,"male","non-anginal pain",105,0,"Unknown","Normal",148,"No",0.3,"flat","Unknown","Unknown",1
+56,"male","asymptomatic",140,0,"Unknown","Normal",121,"Yes",1.8,"upsloping","Unknown","Unknown",1
+61,"male","asymptomatic",130,0,"Unknown","Normal",77,"No",2.5,"flat","Unknown","Unknown",3
+68,"male","asymptomatic",145,0,"Unknown","Normal",136,"No",1.8,"upsloping","Unknown","Unknown",1
+59,"male","non-anginal pain",125,0,"Unknown","Normal",175,"No",2.6,"flat","Unknown","Unknown",1
+63,"male","asymptomatic",100,0,"Unknown","Normal",109,"No",-0.9,"flat","Unknown","Unknown",1
+38,"female","asymptomatic",105,0,"Unknown","Normal",166,"No",2.8,"upsloping","Unknown","Unknown",2
+62,"male","asymptomatic",115,0,"Unknown","Normal",128,"Yes",2.5,"downsloping","Unknown","Unknown",2
+46,"male","asymptomatic",100,0,"Unknown","ST-T wave abnormality",133,"No",-2.6,"flat","Unknown","Unknown",1
+42,"male","asymptomatic",105,0,"Unknown","Normal",128,"Yes",-1.5,"downsloping","Unknown","Unknown",1
+45,"male","non-anginal pain",110,0,"Unknown","Normal",138,"No",-0.1,"upsloping","Unknown","Unknown",0
+59,"male","asymptomatic",125,0,"Unknown","Normal",119,"Yes",0.9,"upsloping","Unknown","Unknown",1
+52,"male","asymptomatic",95,0,"Unknown","Normal",82,"Yes",0.653846153846154,"Unknown","Unknown","Unknown",2
+60,"male","asymptomatic",130,0,"Unknown","ST-T wave abnormality",130,"Yes",1.1,"downsloping","1","Unknown",1
+60,"male","non-anginal pain",115,0,"Unknown","Normal",143,"No",2.4,"upsloping","Unknown","Unknown",1
+56,"male","asymptomatic",115,0,"Unknown","ST-T wave abnormality",82,"No",-1,"upsloping","Unknown","Unknown",1
+38,"male","non-anginal pain",100,0,"Unknown","Normal",179,"No",-1.1,"upsloping","Unknown","Unknown",0
+40,"male","asymptomatic",95,0,"Unknown","ST-T wave abnormality",144,"No",0,"upsloping","Unknown","Unknown",2
+51,"male","asymptomatic",130,0,"Unknown","Normal",170,"No",-0.7,"upsloping","Unknown","Unknown",2
+62,"male","typical angina",120,0,"Unknown","Left ventricular hypertrophy",134,"No",-0.8,"flat","2","Unknown",1
+72,"male","non-anginal pain",160,0,"Unknown","Left ventricular hypertrophy",114,"No",1.6,"flat","2","Unknown",0
+63,"male","asymptomatic",150,0,"Unknown","ST-T wave abnormality",154,"No",3.7,"upsloping","Unknown","Unknown",3
+63,"male","asymptomatic",140,0,"Unknown","Left ventricular hypertrophy",149,"No",2,"upsloping","Unknown","Unknown",2
+64,"female","asymptomatic",95,0,"Unknown","Normal",145,"No",1.1,"downsloping","Unknown","Unknown",1
+43,"male","asymptomatic",100,0,"Unknown","Normal",122,"No",1.5,"downsloping","Unknown","Unknown",3
+64,"male","asymptomatic",110,0,"Unknown","Normal",114,"Yes",1.3,"downsloping","Unknown","Unknown",1
+61,"male","asymptomatic",110,0,"Unknown","Normal",113,"No",1.4,"flat","Unknown","Unknown",1
+52,"male","asymptomatic",130,0,"Unknown","Normal",120,"No",0,"flat","Unknown","reversible defect",2
+51,"male","asymptomatic",120,0,"True","Normal",104,"No",0,"flat","Unknown","normal",3
+69,"male","asymptomatic",135,0,"False","Normal",130,"No",0,"flat","Unknown","fixed defect",1
+59,"male","asymptomatic",120,0,"False","Normal",115,"No",0,"flat","Unknown","normal",2
+48,"male","asymptomatic",115,0,"Unknown","Normal",128,"No",0,"flat","Unknown","fixed defect",2
+69,"male","asymptomatic",130.206611570248,0,"False","ST-T wave abnormality",121.55737704918,"Unknown",0.653846153846154,"Unknown","Unknown","reversible defect",3
+36,"male","asymptomatic",110,0,"Unknown","Normal",125,"Yes",1,"flat","Unknown","fixed defect",1
+53,"male","asymptomatic",120,0,"Unknown","Normal",120,"No",0,"flat","Unknown","reversible defect",1
+43,"male","asymptomatic",140,0,"False","ST-T wave abnormality",140,"Yes",0.5,"upsloping","Unknown","reversible defect",2
+56,"male","asymptomatic",120,0,"False","ST-T wave abnormality",100,"Yes",-1,"downsloping","Unknown","reversible defect",2
+58,"male","asymptomatic",130,0,"False","ST-T wave abnormality",100,"Yes",1,"flat","Unknown","fixed defect",4
+55,"male","asymptomatic",120,0,"False","ST-T wave abnormality",92,"No",0.3,"upsloping","Unknown","reversible defect",4
+67,"male","typical angina",145,0,"False","Left ventricular hypertrophy",125,"No",0,"flat","Unknown","normal",2
+46,"male","asymptomatic",115,0,"False","Normal",113,"Yes",1.5,"flat","Unknown","reversible defect",1
+53,"male","atypical angina",120,0,"False","Normal",95,"No",0,"flat","Unknown","normal",3
+38,"male","non-anginal pain",115,0,"False","Normal",128,"Yes",0,"flat","Unknown","reversible defect",1
+53,"male","non-anginal pain",105,0,"False","Normal",115,"No",0,"flat","Unknown","reversible defect",1
+62,"male","non-anginal pain",160,0,"False","Normal",72,"Yes",0,"flat","Unknown","normal",3
+47,"male","asymptomatic",160,0,"False","Normal",124,"Yes",0,"flat","Unknown","reversible defect",1
+56,"male","non-anginal pain",155,0,"False","ST-T wave abnormality",99,"No",0,"flat","Unknown","normal",2
+56,"male","asymptomatic",120,0,"False","ST-T wave abnormality",148,"No",0,"flat","Unknown",NA,2
+56,"male","non-anginal pain",120,0,"False","Normal",97,"No",0,"flat","Unknown","reversible defect",0
+64,"female","asymptomatic",200,0,"False","Normal",140,"Yes",1,"flat","Unknown","normal",3
+61,"male","asymptomatic",150,0,"False","Normal",117,"Yes",2,"flat","Unknown","reversible defect",2
+68,"male","asymptomatic",135,0,"False","ST-T wave abnormality",120,"Yes",0,"upsloping","Unknown","reversible defect",3
+57,"male","asymptomatic",140,0,"False","Normal",120,"Yes",2,"flat","Unknown","fixed defect",2
+63,"male","asymptomatic",150,0,"False","Normal",86,"Yes",2,"flat","Unknown",NA,3
+60,"male","asymptomatic",135,0,"False","Normal",63,"Yes",0.5,"upsloping","Unknown","reversible defect",3
+66,"male","asymptomatic",150,0,"False","Normal",108,"Yes",2,"flat","Unknown","reversible defect",3
+63,"male","asymptomatic",185,0,"False","Normal",98,"Yes",0,"upsloping","Unknown","reversible defect",1
+59,"male","asymptomatic",135,0,"False","Normal",115,"Yes",1,"flat","Unknown","reversible defect",1
+61,"male","asymptomatic",125,0,"False","Normal",105,"Yes",0,"downsloping","Unknown","reversible defect",3
+73,"female","non-anginal pain",160,0,"False","ST-T wave abnormality",121,"No",0,"upsloping","Unknown","normal",1
+47,"male","non-anginal pain",155,0,"False","Normal",118,"Yes",1,"flat","Unknown","normal",3
+65,"male","asymptomatic",160,0,"True","ST-T wave abnormality",122,"No",0.653846153846154,"Unknown","Unknown","reversible defect",3
+70,"male","asymptomatic",140,0,"True","Normal",157,"Yes",2,"flat","Unknown","reversible defect",3
+50,"male","asymptomatic",120,0,"False","ST-T wave abnormality",156,"Yes",0,"upsloping","Unknown","fixed defect",3
+60,"male","asymptomatic",160,0,"False","ST-T wave abnormality",99,"Yes",0.5,"flat","Unknown","reversible defect",3
+50,"male","asymptomatic",115,0,"False","Normal",120,"Yes",0.5,"flat","Unknown","fixed defect",3
+43,"male","asymptomatic",115,0,"False","Normal",145,"Yes",2,"flat","Unknown","reversible defect",4
+38,"female","asymptomatic",110,0,"False","Normal",156,"No",0,"flat","Unknown","normal",1
+54,"male","asymptomatic",120,0,"False","Normal",155,"No",0,"flat","Unknown","reversible defect",2
+61,"male","asymptomatic",150,0,"False","Normal",105,"Yes",0,"flat","Unknown","reversible defect",1
+42,"male","asymptomatic",145,0,"False","Normal",99,"Yes",0,"flat","Unknown","Unknown",2
+53,"male","asymptomatic",130,0,"False","Left ventricular hypertrophy",135,"Yes",1,"flat","Unknown","reversible defect",2
+55,"male","asymptomatic",140,0,"False","Normal",83,"No",0,"flat","Unknown","reversible defect",2
+61,"male","asymptomatic",160,0,"True","ST-T wave abnormality",145,"No",1,"flat","Unknown","reversible defect",2
+51,"male","asymptomatic",140,0,"False","Normal",60,"No",0,"flat","Unknown","normal",2
+70,"male","asymptomatic",115,0,"False","ST-T wave abnormality",92,"Yes",0,"flat","Unknown","reversible defect",1
+61,"male","asymptomatic",130,0,"False","Left ventricular hypertrophy",115,"No",0,"flat","Unknown","reversible defect",3
+38,"male","asymptomatic",150,0,"Unknown","Normal",120,"Yes",0.653846153846154,"Unknown","Unknown","normal",1
+57,"male","asymptomatic",160,0,"Unknown","Normal",98,"Yes",2,"flat","Unknown","reversible defect",2
+38,"male","asymptomatic",135,0,"Unknown","Normal",150,"No",0,"Unknown","Unknown","normal",2
+62,"female","typical angina",140,0,"Unknown","Normal",143,"No",0,"Unknown","Unknown","normal",2
+58,"male","asymptomatic",170,0,"Unknown","ST-T wave abnormality",105,"Yes",0,"Unknown","Unknown","normal",1
+52,"male","asymptomatic",165,0,"Unknown","Normal",122,"Yes",1,"upsloping","Unknown","reversible defect",2
+61,"male","non-anginal pain",200,0,"Unknown","ST-T wave abnormality",70,"No",0,"Unknown","Unknown","normal",3
+50,"female","asymptomatic",160,0,"Unknown","Normal",110,"No",0,"Unknown","Unknown","normal",1
+51,"male","asymptomatic",130,0,"Unknown","ST-T wave abnormality",163,"No",0,"Unknown","Unknown","reversible defect",1
+65,"male","asymptomatic",145,0,"Unknown","ST-T wave abnormality",67,"No",0.653846153846154,"Unknown","Unknown","fixed defect",3
+52,"male","asymptomatic",135,0,"Unknown","Normal",128,"Yes",2,"flat","Unknown","reversible defect",2
+47,"male","non-anginal pain",110,0,"Unknown","Normal",120,"Yes",0,"Unknown","Unknown","normal",1
+35,"male","asymptomatic",130.206611570248,0,"Unknown","Normal",130,"Yes",0.653846153846154,"Unknown","Unknown","reversible defect",3
+57,"male","asymptomatic",140,0,"Unknown","Normal",100,"Yes",0,"Unknown","Unknown","fixed defect",3
+62,"male","asymptomatic",115,0,"Unknown","Normal",72,"Yes",-0.5,"flat","Unknown","normal",1
+59,"male","asymptomatic",110,0,"Unknown","Normal",94,"No",0,"Unknown","Unknown","fixed defect",3
+53,"male","non-anginal pain",160,0,"Unknown","Left ventricular hypertrophy",122,"Yes",0,"Unknown","Unknown","reversible defect",1
+62,"male","asymptomatic",150,0,"Unknown","ST-T wave abnormality",78,"No",2,"flat","Unknown","reversible defect",3
+54,"male","asymptomatic",180,0,"Unknown","Normal",150,"No",1.5,"flat","Unknown","reversible defect",1
+56,"male","asymptomatic",125,0,"True","Normal",103,"Yes",1,"flat","Unknown","reversible defect",3
+56,"male","non-anginal pain",125,0,"Unknown","Normal",98,"No",-2,"flat","Unknown","reversible defect",2
+54,"male","asymptomatic",130,0,"Unknown","Normal",110,"Yes",3,"flat","Unknown","reversible defect",3
+66,"female","asymptomatic",155,0,"Unknown","Normal",90,"No",0,"Unknown","Unknown","reversible defect",1
