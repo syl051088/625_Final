@@ -1,4 +1,4 @@
-# ================================================
+  # ================================================
 # Heart Disease Datasets Cleanup Script
 # ================================================
 
@@ -13,7 +13,8 @@
 library(dplyr)
 
 # Path
-data_folder <- "~/Desktop/625_Final/Heart+Disease/"
+data_folder <- "./Heart+Disease/"
+  
 
 # List dataset
 dataset_names <- list(
