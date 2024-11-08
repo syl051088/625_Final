@@ -1,0 +1,156 @@
+---
+title: "625 Decision Tree"
+author: "yana xu"
+date: "2024-10-31"
+output: html_document
+---
+## Libraries and Data
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(pROC)
+# Combine all datasets
+file_paths <- list.files(path = "~/Desktop/625_Final/cleaned_data/", pattern = "\\.csv$", full.names = TRUE)
+combined_data <- bind_rows(lapply(file_paths, read.csv))
+```
+
+## Creating Features
+### Numerical Variables
+```{r }
+# Identify numerical variables
+num_vars <- names(combined_data)[sapply(combined_data, is.numeric)]
+
+# Remove any NA values
+num_vars <- num_vars[!is.na(num_vars)]
+
+# Generate interaction terms between numerical variables
+for (i in 1:length(num_vars)) {
+  for (j in (i + 1):length(num_vars)) {
+    var1 <- num_vars[i]
+    var2 <- num_vars[j]
+    
+    # Check if both variables exist and have the correct number of rows
+    if (var1 %in% names(combined_data) && var2 %in% names(combined_data) &&
+        length(combined_data[[var1]]) == nrow(combined_data) &&
+        length(combined_data[[var2]]) == nrow(combined_data)) {
+      
+      interaction_term <- combined_data[[var1]] * combined_data[[var2]]
+      feature_name <- paste0(var1, "_x_", var2)
+      combined_data[[feature_name]] <- interaction_term
+    }
+  }
+}
+```
+### Categorical Variables
+```{r categorical}
+# List of categorical variables
+categorical_vars <- c("sex", "chest_pain_type", "fasting_blood_sugar", "resting_ecg", "exercise_induced_angina", "st_slope", "num_major_vessels", "thalassemia")
+
+# Convert specified variables to factors
+combined_data[categorical_vars] <- lapply(combined_data[categorical_vars], factor)
+```
+
+## Feature Selections
+
+```{r feature_selection}
+# Identify near-zero variance predictors
+nzv <- nearZeroVar(combined_data, saveMetrics = TRUE)
+# Remove near-zero variance predictors
+if (any(nzv$nzv)) {
+  combined_data <- combined_data[, !nzv$nzv]
+}
+# Identify numeric variables for correlation analysis
+numeric_vars <- names(combined_data)[sapply(combined_data, is.numeric)]
+numeric_data <- combined_data[, numeric_vars]
+
+# Compute correlation matrix
+cor_matrix <- cor(numeric_data, use = "pairwise.complete.obs")
+
+# Find variables correlation > 0.9 
+high_cor_vars <- findCorrelation(cor_matrix, cutoff = 0.9, names = TRUE)
+
+# Remove those highly correlated variables
+if (length(high_cor_vars) > 0) {
+  combined_data <- combined_data[, !(names(combined_data) %in% high_cor_vars)]
+}
+```
+
+```{r save_dataset}
+write.csv(combined_data, "feature_engineered_data.csv", row.names = FALSE)
+```
+
+# Decsion Tree
+## Data Preparation
+```{r}
+# Create binary target variable
+combined_data$heart_disease <- ifelse(combined_data$num_diagnosis > 0, "Yes", "No")
+combined_data$heart_disease <- factor(combined_data$heart_disease, levels = c("No", "Yes"))
+
+# Remove original diagnosis variable
+combined_data$num_diagnosis <- NULL
+
+# Remove rows with missing values
+combined_data <- na.omit(combined_data)
+
+# Split the data into 70% training and 30% testing sets
+set.seed(123)
+trainIndex <- createDataPartition(combined_data$heart_disease, p = 0.7, list = FALSE)
+trainData <- combined_data[trainIndex, ]
+testData  <- combined_data[-trainIndex, ]
+```
+## Building Model
+```{r model}
+# Set up cross-validation and hyper parameter grid
+train_control <- trainControl(method = "cv",  
+                              number = 10,    
+                              classProbs = TRUE,  
+                              summaryFunction = twoClassSummary)
+
+rpart_grid <- expand.grid(cp = seq(0, 0.05, by = 0.005))
+```
+## Model Training
+```{r model_training}
+set.seed(123)
+rpart_model <- train(heart_disease ~ ., 
+                     data = trainData,
+                     method = "rpart",
+                     trControl = train_control,
+                     tuneGrid = rpart_grid,
+                     metric = "ROC")
+```
+## Model Evaluation
+```{r model_evaluation}
+# Make predictions
+predictions <- predict(rpart_model, newdata = testData)
+
+# Confusion matrix
+confusion_matrix <- confusionMatrix(predictions, testData$heart_disease)
+print(confusion_matrix)
+
+# Predicted probabilities
+predicted <- predict(rpart_model, newdata = testData, type = "prob")
+
+# Compute ROC and AUC
+ROC <- roc(response = testData$heart_disease,
+               predictor = predicted$Yes,
+               levels = rev(levels(testData$heart_disease)))
+
+# Print AUC
+print(paste("AUC:", auc(ROC)))
+
+# Plot ROC curve
+plot(ROC, main = "ROC Curve for Decision Tree Model")
+png("ROC_Curve_Decision_Tree_Model.png")
+dev.off()
+```
+## Visualization of Decision Tree
+
+```{r visualization}
+rpart.plot(rpart_model$finalModel, main = "Decision Tree")
+png("Decision_Tree_Plot.png")
+dev.off()
+```
+

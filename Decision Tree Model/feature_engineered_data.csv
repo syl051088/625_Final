@@ -1,0 +1,907 @@
+"age","sex","chest_pain_type","resting_bp","fasting_blood_sugar","resting_ecg","exercise_induced_angina","st_depression","st_slope","num_major_vessels","thalassemia","num_diagnosis","age_x_resting_bp","resting_bp_x_cholesterol","resting_bp_x_max_heart_rate","cholesterol_x_st_depression","st_depression_x_num_diagnosis"
+63,"male","typical angina",145,"True","Left ventricular hypertrophy","No",2.3,"downsloping","0","fixed defect",0,9135,33785,21750,535.9,0
+67,"male","asymptomatic",160,"False","Left ventricular hypertrophy","Yes",1.5,"flat","3","normal",2,10720,45760,17280,429,3
+67,"male","asymptomatic",120,"False","Left ventricular hypertrophy","Yes",2.6,"flat","2","reversible defect",1,8040,27480,15480,595.4,2.6
+37,"male","non-anginal pain",130,"False","Normal","No",3.5,"downsloping","0","normal",0,4810,32500,24310,875,0
+41,"female","atypical angina",130,"False","Left ventricular hypertrophy","No",1.4,"upsloping","0","normal",0,5330,26520,22360,285.6,0
+56,"male","atypical angina",120,"False","Normal","No",0.8,"upsloping","0","normal",0,6720,28320,21360,188.8,0
+62,"female","asymptomatic",140,"False","Left ventricular hypertrophy","No",3.6,"downsloping","2","normal",3,8680,37520,22400,964.8,10.8
+57,"female","asymptomatic",120,"False","Normal","Yes",0.6,"upsloping","0","normal",0,6840,42480,19560,212.4,0
+63,"male","asymptomatic",130,"False","Left ventricular hypertrophy","No",1.4,"flat","1","reversible defect",2,8190,33020,19110,355.6,2.8
+53,"male","asymptomatic",140,"True","Left ventricular hypertrophy","Yes",3.1,"downsloping","0","reversible defect",1,7420,28420,21700,629.3,3.1
+57,"male","asymptomatic",140,"False","Normal","No",0.4,"flat","0","fixed defect",0,7980,26880,20720,76.8,0
+56,"female","atypical angina",140,"False","Left ventricular hypertrophy","No",1.3,"flat","0","normal",0,7840,41160,21420,382.2,0
+56,"male","non-anginal pain",130,"True","Left ventricular hypertrophy","Yes",0.6,"flat","1","fixed defect",2,7280,33280,18460,153.6,1.2
+44,"male","atypical angina",120,"False","Normal","No",0,"upsloping","0","reversible defect",0,5280,31560,20760,0,0
+52,"male","non-anginal pain",172,"True","Normal","No",0.5,"upsloping","0","reversible defect",0,8944,34228,27864,99.5,0
+57,"male","non-anginal pain",150,"False","Normal","No",1.6,"upsloping","0","normal",0,8550,25200,26100,268.8,0
+48,"male","atypical angina",110,"False","Normal","No",1,"downsloping","0","reversible defect",1,5280,25190,18480,229,1
+54,"male","asymptomatic",140,"False","Normal","No",1.2,"upsloping","0","normal",0,7560,33460,22400,286.8,0
+48,"female","non-anginal pain",130,"False","Normal","No",0.2,"upsloping","0","normal",0,6240,35750,18070,55,0
+49,"male","atypical angina",130,"False","Normal","No",0.6,"upsloping","0","normal",0,6370,34580,22230,159.6,0
+64,"male","typical angina",110,"False","Left ventricular hypertrophy","Yes",1.8,"flat","0","normal",0,7040,23210,15840,379.8,0
+58,"female","typical angina",150,"True","Left ventricular hypertrophy","No",1,"upsloping","0","normal",0,8700,42450,24300,283,0
+58,"male","atypical angina",120,"False","Left ventricular hypertrophy","No",1.8,"flat","0","normal",1,6960,34080,19200,511.2,1.8
+58,"male","non-anginal pain",132,"False","Left ventricular hypertrophy","No",3.2,"upsloping","2","reversible defect",3,7656,29568,22836,716.8,9.6
+60,"male","asymptomatic",130,"False","Left ventricular hypertrophy","Yes",2.4,"flat","2","reversible defect",4,7800,26780,17160,494.4,9.6
+50,"female","non-anginal pain",120,"False","Normal","No",1.6,"flat","0","normal",0,6000,26280,18960,350.4,0
+58,"female","non-anginal pain",120,"False","Normal","No",0,"upsloping","0","normal",0,6960,40800,20640,0,0
+66,"female","typical angina",150,"False","Normal","No",2.6,"downsloping","0","normal",0,9900,33900,17100,587.6,0
+43,"male","asymptomatic",150,"False","Normal","No",1.5,"upsloping","0","normal",0,6450,37050,25650,370.5,0
+40,"male","asymptomatic",110,"False","Left ventricular hypertrophy","Yes",2,"flat","0","reversible defect",3,4400,18370,12540,334,6
+69,"female","typical angina",140,"False","Normal","No",1.8,"upsloping","2","normal",0,9660,33460,21140,430.2,0
+60,"male","asymptomatic",117,"True","Normal","Yes",1.4,"upsloping","2","reversible defect",2,7020,26910,18720,322,2.8
+64,"male","non-anginal pain",140,"False","Normal","No",0,"upsloping","0","normal",1,8960,46900,22120,0,0
+59,"male","asymptomatic",135,"False","Normal","No",0.5,"flat","0","reversible defect",0,7965,31590,21735,117,0
+44,"male","non-anginal pain",130,"False","Normal","Yes",0.4,"upsloping","0","normal",0,5720,30290,23270,93.2,0
+42,"male","asymptomatic",140,"False","Normal","No",0,"upsloping","0","normal",0,5880,31640,24920,0,0
+43,"male","asymptomatic",120,"False","Left ventricular hypertrophy","Yes",2.5,"flat","0","reversible defect",3,5160,21240,14400,442.5,7.5
+57,"male","asymptomatic",150,"False","Left ventricular hypertrophy","Yes",0.6,"flat","1","fixed defect",1,8550,41400,16800,165.6,0.6
+55,"male","asymptomatic",132,"False","Normal","Yes",1.2,"flat","1","reversible defect",3,7260,46596,17424,423.6,3.6
+61,"male","non-anginal pain",150,"True","Normal","Yes",1,"flat","0","normal",0,9150,36450,20550,243,0
+65,"female","asymptomatic",150,"False","Left ventricular hypertrophy","No",1,"flat","3","reversible defect",4,9750,33750,17100,225,4
+40,"male","typical angina",140,"False","Normal","Yes",1.4,"upsloping","0","reversible defect",0,5600,27860,24920,278.6,0
+71,"female","atypical angina",160,"False","Normal","No",0.4,"upsloping","2","normal",0,11360,48320,25920,120.8,0
+59,"male","non-anginal pain",150,"True","Normal","No",1.6,"upsloping","0","normal",0,8850,31800,23550,339.2,0
+61,"female","asymptomatic",130,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",1,7930,42900,21970,0,0
+58,"male","non-anginal pain",112,"False","Left ventricular hypertrophy","No",2.5,"flat","1","reversible defect",4,6496,25760,18480,575,10
+51,"male","non-anginal pain",110,"False","Normal","No",0.6,"upsloping","0","normal",0,5610,19250,13530,105,0
+50,"male","asymptomatic",150,"False","Left ventricular hypertrophy","No",2.6,"flat","0","reversible defect",4,7500,36450,19200,631.8,10.4
+65,"female","non-anginal pain",140,"True","Left ventricular hypertrophy","No",0.8,"upsloping","1","normal",0,9100,58380,21980,333.6,0
+53,"male","non-anginal pain",130,"True","Left ventricular hypertrophy","No",1.2,"downsloping","0","normal",0,6890,25610,19760,236.4,0
+41,"female","atypical angina",105,"False","Normal","No",0,"upsloping","1","normal",0,4305,20790,17640,0,0
+65,"male","asymptomatic",120,"False","Normal","No",0.4,"upsloping","0","reversible defect",0,7800,21240,16800,70.8,0
+44,"male","asymptomatic",112,"False","Left ventricular hypertrophy","No",0,"upsloping","1","normal",2,4928,32480,17136,0,0
+44,"male","atypical angina",130,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5720,28470,24440,0,0
+60,"male","asymptomatic",130,"False","Normal","Yes",1.4,"upsloping","1","reversible defect",1,7800,32890,18720,354.2,1.4
+54,"male","asymptomatic",124,"False","Left ventricular hypertrophy","Yes",2.2,"flat","1","reversible defect",1,6696,32984,13516,585.2,2.2
+50,"male","non-anginal pain",140,"False","Normal","No",0.6,"flat","1","reversible defect",1,7000,32620,22820,139.8,0.6
+41,"male","asymptomatic",110,"False","Left ventricular hypertrophy","No",0,"upsloping","0","reversible defect",1,4510,18920,17380,0,0
+54,"male","non-anginal pain",125,"False","Left ventricular hypertrophy","No",0.5,"downsloping","1","normal",0,6750,34125,19000,136.5,0
+51,"male","typical angina",125,"False","Left ventricular hypertrophy","Yes",1.4,"upsloping","1","normal",0,6375,26625,15625,298.2,0
+51,"female","asymptomatic",130,"False","Normal","Yes",1.2,"flat","0","reversible defect",2,6630,39650,18460,366,2.4
+46,"female","non-anginal pain",142,"False","Left ventricular hypertrophy","Yes",1.4,"downsloping","0","normal",0,6532,25134,22720,247.8,0
+58,"male","asymptomatic",128,"False","Left ventricular hypertrophy","Yes",2.2,"flat","3","reversible defect",1,7424,27648,16768,475.2,2.2
+54,"female","non-anginal pain",135,"True","Normal","No",0,"upsloping","0","normal",0,7290,41040,22950,0,0
+54,"male","asymptomatic",120,"False","Normal","No",1.4,"flat","1","reversible defect",2,6480,22560,13560,263.2,2.8
+60,"male","asymptomatic",145,"False","Left ventricular hypertrophy","Yes",2.8,"flat","2","reversible defect",2,8700,40890,20590,789.6,5.6
+60,"male","non-anginal pain",140,"False","Left ventricular hypertrophy","No",3,"flat","0","normal",1,8400,25900,21700,555,3
+54,"male","non-anginal pain",150,"False","Left ventricular hypertrophy","No",1.6,"upsloping","0","reversible defect",0,8100,34800,24750,371.2,0
+59,"male","asymptomatic",170,"False","Left ventricular hypertrophy","Yes",3.4,"downsloping","0","reversible defect",2,10030,55420,23800,1108.4,6.8
+46,"male","non-anginal pain",150,"False","Normal","No",3.6,"flat","0","normal",1,6900,34650,22050,831.6,3.6
+65,"female","non-anginal pain",155,"False","Normal","No",0.8,"upsloping","0","normal",0,10075,41695,22940,215.2,0
+67,"male","asymptomatic",125,"True","Normal","No",0.2,"flat","2","reversible defect",3,8375,31750,20375,50.8,0.6
+62,"male","asymptomatic",120,"False","Normal","Yes",1.8,"flat","2","reversible defect",1,7440,32040,11880,480.6,1.8
+65,"male","asymptomatic",110,"False","Left ventricular hypertrophy","No",0.6,"upsloping","2","fixed defect",1,7150,27280,17380,148.8,0.6
+44,"male","asymptomatic",110,"False","Left ventricular hypertrophy","No",0,"upsloping","1","normal",1,4840,21670,19470,0,0
+65,"female","non-anginal pain",160,"False","Left ventricular hypertrophy","No",0.8,"upsloping","0","normal",0,10400,57600,24160,288,0
+60,"male","asymptomatic",125,"False","Left ventricular hypertrophy","Yes",2.8,"flat","1","reversible defect",1,7500,32250,17625,722.4,2.8
+51,"female","non-anginal pain",140,"False","Left ventricular hypertrophy","No",1.5,"upsloping","1","normal",0,7140,43120,19880,462,0
+48,"male","atypical angina",130,"False","Left ventricular hypertrophy","No",0.2,"flat","0","normal",0,6240,31850,23400,49,0
+58,"male","asymptomatic",150,"False","Left ventricular hypertrophy","Yes",0.8,"upsloping","0","reversible defect",3,8700,40500,16650,216,2.4
+45,"male","asymptomatic",104,"False","Left ventricular hypertrophy","Yes",3,"flat","0","normal",0,4680,21632,15392,624,0
+53,"female","asymptomatic",130,"False","Left ventricular hypertrophy","No",0.4,"flat","0","normal",0,6890,34320,18590,105.6,0
+39,"male","non-anginal pain",140,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5460,44940,25480,0,0
+68,"male","non-anginal pain",180,"True","Left ventricular hypertrophy","Yes",1.6,"flat","0","reversible defect",3,12240,49320,27000,438.4,4.8
+52,"male","atypical angina",120,"False","Normal","No",0.2,"upsloping","0","normal",0,6240,39000,20640,65,0
+44,"male","non-anginal pain",140,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,6160,32900,25200,0,0
+47,"male","non-anginal pain",138,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,6486,35466,21528,0,0
+53,"female","non-anginal pain",128,"False","Left ventricular hypertrophy","No",0,"upsloping","0","Unknown",0,6784,27648,14720,0,0
+53,"female","asymptomatic",138,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,7314,32292,22080,0,0
+51,"female","non-anginal pain",130,"False","Left ventricular hypertrophy","No",0.5,"upsloping","0","normal",0,6630,33280,19370,128,0
+66,"male","asymptomatic",120,"False","Left ventricular hypertrophy","No",0.4,"flat","0","normal",0,7920,36240,18120,120.8,0
+62,"female","asymptomatic",160,"False","Left ventricular hypertrophy","No",6.2,"downsloping","3","reversible defect",3,9920,26240,23200,1016.8,18.6
+62,"male","non-anginal pain",130,"False","Normal","No",1.8,"flat","3","reversible defect",0,8060,30030,18980,415.8,0
+44,"female","non-anginal pain",108,"False","Normal","No",0.6,"flat","0","normal",0,4752,15228,18900,84.6,0
+63,"female","non-anginal pain",135,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,8505,34020,23220,0,0
+52,"male","asymptomatic",128,"False","Normal","Yes",0,"upsloping","1","reversible defect",1,6656,32640,20608,0,0
+59,"male","asymptomatic",110,"False","Left ventricular hypertrophy","Yes",1.2,"flat","1","reversible defect",2,6490,26290,15620,286.8,2.4
+60,"female","asymptomatic",150,"False","Left ventricular hypertrophy","No",2.6,"flat","2","reversible defect",3,9000,38700,23550,670.8,7.8
+52,"male","atypical angina",134,"False","Normal","No",0.8,"upsloping","1","normal",0,6968,26934,21172,160.8,0
+48,"male","asymptomatic",122,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5856,27084,22692,0,0
+45,"male","asymptomatic",115,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5175,29900,21275,0,0
+34,"male","typical angina",118,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,4012,21476,20532,0,0
+57,"female","asymptomatic",128,"False","Left ventricular hypertrophy","No",0,"upsloping","1","normal",0,7296,38784,20352,0,0
+71,"female","non-anginal pain",110,"True","Left ventricular hypertrophy","No",0,"upsloping","1","normal",0,7810,29150,14300,0,0
+49,"male","non-anginal pain",120,"False","Normal","No",2,"flat","3","reversible defect",3,5880,22560,16680,376,6
+54,"male","atypical angina",108,"False","Normal","No",0,"upsloping","0","reversible defect",0,5832,33372,16848,0,0
+59,"male","asymptomatic",140,"False","Normal","Yes",0,"upsloping","1","reversible defect",2,8260,24780,22680,0,0
+57,"male","non-anginal pain",128,"False","Left ventricular hypertrophy","No",0.4,"flat","1","reversible defect",1,7296,29312,19200,91.6,0.4
+61,"male","asymptomatic",120,"False","Normal","Yes",3.6,"flat","1","reversible defect",2,7320,31200,16800,936,7.2
+39,"male","asymptomatic",118,"False","Normal","No",1.2,"flat","0","reversible defect",3,4602,25842,16520,262.8,3.6
+61,"female","asymptomatic",145,"False","Left ventricular hypertrophy","Yes",1,"flat","0","reversible defect",1,8845,44515,21170,307,1
+56,"male","asymptomatic",125,"True","Left ventricular hypertrophy","Yes",1.2,"flat","1","normal",1,7000,31125,18000,298.8,1.2
+52,"male","typical angina",118,"False","Left ventricular hypertrophy","No",0,"flat","0","fixed defect",0,6136,21948,22420,0,0
+43,"female","asymptomatic",132,"True","Left ventricular hypertrophy","Yes",3,"flat","0","reversible defect",2,5676,45012,17952,1023,6
+62,"female","non-anginal pain",130,"False","Normal","No",1.2,"flat","1","reversible defect",2,8060,34190,12610,315.6,2.4
+41,"male","atypical angina",135,"False","Normal","No",0,"flat","0","fixed defect",0,5535,27405,17820,0,0
+58,"male","non-anginal pain",140,"True","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,8120,29540,23100,0,0
+35,"female","asymptomatic",138,"False","Normal","No",1.4,"upsloping","0","normal",0,4830,25254,25116,256.2,0
+63,"male","asymptomatic",130,"True","Left ventricular hypertrophy","Yes",1.8,"upsloping","3","reversible defect",3,8190,42900,17160,594,5.4
+65,"male","asymptomatic",135,"False","Left ventricular hypertrophy","No",2.8,"flat","1","reversible defect",2,8775,34290,17145,711.2,5.6
+48,"male","asymptomatic",130,"True","Left ventricular hypertrophy","Yes",0,"upsloping","2","reversible defect",3,6240,33280,19500,0,0
+63,"female","asymptomatic",150,"False","Left ventricular hypertrophy","No",4,"flat","3","reversible defect",4,9450,61050,23100,1628,16
+51,"male","non-anginal pain",100,"False","Normal","Yes",1.2,"flat","0","normal",0,5100,22200,14300,266.4,0
+55,"male","asymptomatic",140,"False","Normal","Yes",5.6,"downsloping","0","reversible defect",3,7700,30380,15540,1215.2,16.8
+65,"male","typical angina",138,"True","Left ventricular hypertrophy","No",1.4,"flat","1","normal",1,8970,38916,24012,394.8,1.4
+45,"female","atypical angina",130,"False","Left ventricular hypertrophy","No",0.6,"flat","0","normal",0,5850,30420,22750,140.4,0
+56,"female","asymptomatic",200,"True","Left ventricular hypertrophy","Yes",4,"downsloping","2","reversible defect",3,11200,57600,26600,1152,12
+54,"male","asymptomatic",110,"False","Normal","Yes",2.8,"flat","1","reversible defect",3,5940,26290,13860,669.2,8.4
+44,"male","atypical angina",120,"False","Normal","No",0,"upsloping","0","normal",0,5280,26400,20400,0,0
+62,"female","asymptomatic",124,"False","Normal","No",0,"upsloping","0","normal",0,7688,25916,20212,0,0
+54,"male","non-anginal pain",120,"False","Left ventricular hypertrophy","No",0.4,"flat","0","reversible defect",0,6480,30960,17640,103.2,0
+51,"male","non-anginal pain",94,"False","Normal","Yes",0,"upsloping","1","reversible defect",0,4794,21338,14476,0,0
+29,"male","atypical angina",130,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,3770,26520,26260,0,0
+51,"male","asymptomatic",140,"False","Left ventricular hypertrophy","Yes",0,"upsloping","0","normal",0,7140,36540,26040,0,0
+43,"female","non-anginal pain",122,"False","Normal","No",0.2,"flat","0","normal",0,5246,25986,20130,42.6,0
+55,"female","atypical angina",135,"False","Left ventricular hypertrophy","No",1.4,"flat","0","normal",0,7425,33750,21735,350,0
+70,"male","asymptomatic",145,"False","Normal","Yes",2.6,"downsloping","0","reversible defect",4,10150,25230,18125,452.4,10.4
+62,"male","atypical angina",120,"False","Left ventricular hypertrophy","No",1.4,"flat","1","reversible defect",3,7440,33720,12360,393.4,4.2
+35,"male","asymptomatic",120,"False","Normal","Yes",1.6,"flat","0","reversible defect",1,4200,23760,15600,316.8,1.6
+51,"male","non-anginal pain",125,"True","Left ventricular hypertrophy","No",2.4,"flat","0","normal",0,6375,30625,20750,588,0
+59,"male","atypical angina",140,"False","Normal","Yes",0,"upsloping","0","normal",0,8260,30940,22960,0,0
+59,"male","typical angina",170,"False","Left ventricular hypertrophy","No",0.2,"flat","0","reversible defect",1,10030,48960,27030,57.6,0.2
+52,"male","atypical angina",128,"True","Normal","No",0,"upsloping","0","normal",0,6656,26240,23552,0,0
+64,"male","non-anginal pain",125,"False","Normal","Yes",1.8,"flat","0","reversible defect",1,8000,38625,16375,556.2,1.8
+58,"male","non-anginal pain",105,"False","Left ventricular hypertrophy","Yes",0.6,"flat","0","reversible defect",0,6090,25200,16170,144,0
+47,"male","non-anginal pain",108,"False","Normal","No",0,"upsloping","0","normal",1,5076,26244,16416,0,0
+57,"male","asymptomatic",165,"True","Left ventricular hypertrophy","No",1,"flat","3","reversible defect",4,9405,47685,20460,289,4
+41,"male","non-anginal pain",112,"False","Normal","No",0,"upsloping","0","normal",0,4592,28000,20048,0,0
+45,"male","atypical angina",128,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5760,39424,21760,0,0
+60,"female","non-anginal pain",102,"False","Normal","No",0,"upsloping","1","normal",0,6120,32436,16320,0,0
+52,"male","typical angina",152,"True","Normal","No",1.2,"flat","0","reversible defect",0,7904,45296,27056,357.6,0
+42,"female","asymptomatic",102,"False","Left ventricular hypertrophy","No",0.6,"flat","0","normal",0,4284,27030,12444,159,0
+67,"female","non-anginal pain",115,"False","Left ventricular hypertrophy","No",1.6,"flat","0","reversible defect",0,7705,64860,18400,902.4,0
+55,"male","asymptomatic",160,"False","Left ventricular hypertrophy","Yes",0.8,"flat","1","reversible defect",4,8800,46240,23200,231.2,3.2
+64,"male","asymptomatic",120,"False","Left ventricular hypertrophy","Yes",2.2,"downsloping","1","normal",3,7680,29520,11520,541.2,6.6
+70,"male","asymptomatic",130,"False","Left ventricular hypertrophy","No",2.4,"flat","3","normal",1,9100,41860,14170,772.8,2.4
+51,"male","asymptomatic",140,"False","Normal","Yes",1.6,"upsloping","0","reversible defect",1,7140,41860,24220,478.4,1.6
+58,"male","asymptomatic",125,"False","Left ventricular hypertrophy","No",0,"upsloping","2","reversible defect",1,7250,37500,21375,0,0
+60,"male","asymptomatic",140,"False","Left ventricular hypertrophy","No",1.2,"flat","2","reversible defect",2,8400,41020,23800,351.6,2.4
+68,"male","non-anginal pain",118,"False","Normal","No",1,"upsloping","1","reversible defect",0,8024,32686,17818,277,0
+46,"male","atypical angina",101,"True","Normal","No",0,"upsloping","0","reversible defect",0,4646,19897,15756,0,0
+77,"male","asymptomatic",125,"False","Left ventricular hypertrophy","Yes",0,"upsloping","3","normal",4,9625,38000,20250,0,0
+54,"female","non-anginal pain",110,"False","Normal","No",1.6,"flat","0","normal",0,5940,23540,17380,342.4,0
+58,"female","asymptomatic",100,"False","Left ventricular hypertrophy","No",1,"flat","0","normal",0,5800,24800,12200,248,0
+48,"male","non-anginal pain",124,"True","Normal","No",0,"upsloping","2","normal",0,5952,31620,21700,0,0
+57,"male","asymptomatic",132,"False","Normal","Yes",0,"upsloping","0","reversible defect",0,7524,27324,22176,0,0
+52,"male","non-anginal pain",138,"False","Normal","No",0,"upsloping","Unknown","normal",0,7176,30774,23322,0,0
+54,"female","atypical angina",132,"True","Left ventricular hypertrophy","Yes",0,"upsloping","1","normal",0,7128,38016,20988,0,0
+35,"male","asymptomatic",126,"False","Left ventricular hypertrophy","Yes",0,"upsloping","0","reversible defect",1,4410,35532,19656,0,0
+45,"female","atypical angina",112,"False","Normal","No",0,"flat","0","normal",0,5040,17920,15456,0,0
+70,"male","non-anginal pain",160,"False","Normal","Yes",2.9,"flat","1","reversible defect",3,11200,43040,17920,780.1,8.7
+53,"male","asymptomatic",142,"False","Left ventricular hypertrophy","Yes",0,"upsloping","0","reversible defect",0,7526,32092,15762,0,0
+59,"female","asymptomatic",174,"False","Normal","Yes",0,"flat","0","normal",1,10266,43326,24882,0,0
+62,"female","asymptomatic",140,"False","Left ventricular hypertrophy","No",1.2,"flat","0","normal",0,8680,55160,21980,472.8,0
+64,"male","asymptomatic",145,"False","Left ventricular hypertrophy","No",2,"flat","2","fixed defect",4,9280,30740,19140,424,8
+57,"male","asymptomatic",152,"False","Normal","Yes",1.2,"flat","1","reversible defect",1,8664,41648,13376,328.8,1.2
+52,"male","asymptomatic",108,"True","Normal","No",0.1,"upsloping","3","reversible defect",0,5616,25164,15876,23.3,0
+56,"male","asymptomatic",132,"False","Left ventricular hypertrophy","Yes",2.1,"flat","1","fixed defect",1,7392,24288,13860,386.4,2.1
+43,"male","non-anginal pain",130,"False","Normal","No",1.9,"upsloping","1","normal",0,5590,40950,21060,598.5,0
+53,"male","non-anginal pain",130,"True","Left ventricular hypertrophy","No",0,"upsloping","3","normal",0,6890,31980,22490,0,0
+48,"male","asymptomatic",124,"False","Left ventricular hypertrophy","No",0.5,"flat","0","reversible defect",3,5952,33976,20584,137,1.5
+56,"female","asymptomatic",134,"False","Left ventricular hypertrophy","Yes",1.9,"flat","2","reversible defect",2,7504,54806,20100,777.1,3.8
+42,"male","typical angina",148,"False","Left ventricular hypertrophy","No",0.8,"upsloping","2","normal",0,6216,36112,26344,195.2,0
+59,"male","typical angina",178,"False","Left ventricular hypertrophy","No",4.2,"downsloping","0","reversible defect",0,10502,48060,25810,1134,0
+60,"female","asymptomatic",158,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",1,9480,48190,25438,0,0
+63,"female","atypical angina",140,"False","Normal","No",0,"upsloping","2","normal",0,8820,27300,25060,0,0
+42,"male","non-anginal pain",120,"True","Normal","No",0.8,"downsloping","0","reversible defect",0,5040,28800,23280,192,0
+66,"male","atypical angina",160,"False","Normal","Yes",0,"flat","3","fixed defect",2,10560,39360,19200,0,0
+54,"male","atypical angina",192,"False","Left ventricular hypertrophy","No",0,"upsloping","1","reversible defect",1,10368,54336,37440,0,0
+69,"male","non-anginal pain",140,"False","Left ventricular hypertrophy","No",2,"flat","3","reversible defect",2,9660,35560,20440,508,4
+50,"male","non-anginal pain",129,"False","Normal","No",0,"upsloping","0","normal",0,6450,25284,21027,0,0
+51,"male","asymptomatic",140,"False","Normal","Yes",4.2,"flat","3","reversible defect",3,7140,41720,17080,1251.6,12.6
+43,"male","asymptomatic",132,"True","Left ventricular hypertrophy","Yes",0.1,"flat","Unknown","reversible defect",1,5676,32604,18876,24.7,0.1
+62,"female","asymptomatic",138,"True","Normal","No",1.9,"flat","3","normal",2,8556,40572,14628,558.6,3.8
+68,"female","non-anginal pain",120,"False","Left ventricular hypertrophy","No",1.5,"flat","0","normal",0,8160,25320,13800,316.5,0
+67,"male","asymptomatic",100,"False","Left ventricular hypertrophy","Yes",0.9,"flat","2","normal",3,6700,29900,12500,269.1,2.7
+69,"male","typical angina",160,"True","Left ventricular hypertrophy","No",0.1,"flat","1","normal",0,11040,37440,20960,23.4,0
+45,"female","asymptomatic",138,"False","Left ventricular hypertrophy","Yes",0.2,"flat","0","normal",0,6210,32568,20976,47.2,0
+50,"female","atypical angina",120,"False","Normal","No",1.1,"upsloping","0","normal",0,6000,29280,19440,268.4,0
+59,"male","typical angina",160,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",1,9440,43680,20000,0,0
+50,"female","asymptomatic",110,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5500,27940,17490,0,0
+64,"female","asymptomatic",180,"False","Normal","Yes",0,"upsloping","0","normal",0,11520,58500,27720,0,0
+57,"male","non-anginal pain",150,"True","Normal","No",0.2,"upsloping","1","reversible defect",0,8550,18900,25950,25.2,0
+64,"female","non-anginal pain",140,"False","Normal","No",0.2,"upsloping","0","reversible defect",0,8960,43820,18620,62.6,0
+43,"male","asymptomatic",110,"False","Normal","No",0,"upsloping","0","reversible defect",0,4730,23210,17710,0,0
+45,"male","asymptomatic",142,"False","Left ventricular hypertrophy","Yes",0,"flat","3","reversible defect",3,6390,43878,20874,0,0
+58,"male","asymptomatic",128,"False","Left ventricular hypertrophy","Yes",3,"flat","2","reversible defect",3,7424,33152,16640,777,9
+50,"male","asymptomatic",144,"False","Left ventricular hypertrophy","Yes",0.9,"flat","0","reversible defect",3,7200,28800,18144,180,2.7
+55,"male","atypical angina",130,"False","Normal","No",0,"upsloping","0","normal",0,7150,34060,20150,0,0
+62,"female","asymptomatic",150,"False","Normal","Yes",1.4,"flat","0","normal",1,9300,36600,23100,341.6,1.4
+37,"female","non-anginal pain",120,"False","Normal","No",0,"upsloping","0","normal",0,4440,25800,20400,0,0
+38,"male","typical angina",120,"False","Normal","Yes",3.8,"flat","0","reversible defect",4,4560,27720,21840,877.8,15.2
+41,"male","non-anginal pain",130,"False","Left ventricular hypertrophy","No",2,"flat","0","normal",0,5330,27820,21840,428,0
+66,"female","asymptomatic",178,"True","Normal","Yes",1,"flat","2","reversible defect",3,11748,40584,29370,228,3
+52,"male","asymptomatic",112,"False","Normal","No",0,"upsloping","1","normal",1,5824,25760,17920,0,0
+56,"male","typical angina",120,"False","Left ventricular hypertrophy","No",1.9,"flat","0","reversible defect",0,6720,23160,19440,366.7,0
+46,"female","atypical angina",105,"False","Normal","No",0,"upsloping","0","normal",0,4830,21420,18060,0,0
+46,"female","asymptomatic",138,"False","Left ventricular hypertrophy","Yes",0,"flat","0","normal",0,6348,33534,20976,0,0
+64,"female","asymptomatic",130,"False","Normal","No",2,"flat","2","normal",0,8320,39390,15860,606,0
+59,"male","asymptomatic",138,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,8142,37398,25116,0,0
+41,"female","non-anginal pain",112,"False","Left ventricular hypertrophy","Yes",0,"upsloping","0","normal",0,4592,30016,19264,0,0
+54,"female","non-anginal pain",108,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,5832,28836,18036,0,0
+39,"female","non-anginal pain",94,"False","Normal","No",0,"upsloping","0","normal",0,3666,18706,16826,0,0
+53,"male","asymptomatic",123,"False","Normal","Yes",2,"flat","2","reversible defect",3,6519,34686,11685,564,6
+63,"female","asymptomatic",108,"False","Normal","Yes",1.8,"flat","2","normal",1,6804,29052,18252,484.2,1.8
+34,"female","atypical angina",118,"False","Normal","No",0.7,"upsloping","0","normal",0,4012,24780,22656,147,0
+47,"male","asymptomatic",112,"False","Normal","No",0.1,"upsloping","0","normal",0,5264,22848,16016,20.4,0
+67,"female","non-anginal pain",152,"False","Normal","No",0,"upsloping","1","normal",0,10184,42104,26144,0,0
+54,"male","asymptomatic",110,"False","Left ventricular hypertrophy","Yes",0,"flat","1","normal",3,5940,22660,11880,0,0
+66,"male","asymptomatic",112,"False","Left ventricular hypertrophy","Yes",0.1,"upsloping","1","normal",2,7392,23744,14784,21.2,0.2
+52,"female","non-anginal pain",136,"False","Left ventricular hypertrophy","No",0.1,"flat","0","normal",0,7072,26656,22984,19.6,0
+55,"female","asymptomatic",180,"False","ST-T wave abnormality","Yes",3.4,"flat","0","normal",2,9900,58860,21060,1111.8,6.8
+49,"male","non-anginal pain",118,"False","Left ventricular hypertrophy","No",0.8,"upsloping","3","normal",1,5782,17582,14868,119.2,0.8
+74,"female","atypical angina",120,"False","Left ventricular hypertrophy","Yes",0.2,"upsloping","1","normal",0,8880,32280,14520,53.8,0
+54,"female","non-anginal pain",160,"False","Normal","No",0,"upsloping","1","normal",0,8640,32160,26080,0,0
+54,"male","asymptomatic",122,"False","Left ventricular hypertrophy","Yes",3.2,"flat","2","normal",3,6588,34892,14152,915.2,9.6
+56,"male","asymptomatic",130,"True","Left ventricular hypertrophy","Yes",1.6,"downsloping","0","reversible defect",2,7280,36790,13390,452.8,3.2
+46,"male","asymptomatic",120,"False","Left ventricular hypertrophy","No",0.8,"upsloping","0","reversible defect",1,5520,29880,17280,199.2,0.8
+49,"female","atypical angina",134,"False","Normal","No",0,"flat","0","normal",0,6566,36314,21708,0,0
+42,"male","atypical angina",120,"False","Normal","No",0,"upsloping","0","normal",0,5040,35400,19440,0,0
+41,"male","atypical angina",110,"False","Normal","No",0,"upsloping","0","normal",0,4510,25850,16830,0,0
+41,"female","atypical angina",126,"False","Normal","No",0,"upsloping","0","normal",0,5166,38556,20538,0,0
+49,"female","asymptomatic",130,"False","Normal","No",0,"upsloping","0","normal",0,6370,34970,21190,0,0
+61,"male","typical angina",134,"False","Normal","No",2.6,"flat","2","normal",2,8174,31356,19430,608.4,5.2
+60,"female","non-anginal pain",120,"True","Normal","No",0,"upsloping","0","normal",0,7200,21360,11520,0,0
+67,"male","asymptomatic",120,"False","Normal","No",1,"flat","0","normal",2,8040,28440,8520,237,2
+58,"male","asymptomatic",100,"False","Normal","No",0.1,"upsloping","1","reversible defect",2,5800,23400,15600,23.4,0.2
+47,"male","asymptomatic",110,"False","Left ventricular hypertrophy","Yes",1,"flat","1","normal",1,5170,30250,12980,275,1
+52,"male","asymptomatic",125,"False","Normal","No",1,"upsloping","2","reversible defect",3,6500,26500,21000,212,3
+62,"male","atypical angina",128,"True","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,7936,26624,17920,0,0
+57,"male","asymptomatic",110,"False","Normal","Yes",1.5,"flat","0","fixed defect",0,6270,22110,13860,301.5,0
+58,"male","asymptomatic",146,"False","Normal","No",2,"flat","1","reversible defect",1,8468,31828,15330,436,2
+64,"male","asymptomatic",128,"False","Normal","Yes",0.2,"flat","1","reversible defect",0,8192,33664,13440,52.6,0
+51,"female","non-anginal pain",120,"False","Left ventricular hypertrophy","No",0.6,"upsloping","0","normal",0,6120,35400,18840,177,0
+43,"male","asymptomatic",115,"False","Normal","No",1.2,"flat","0","normal",0,4945,34845,20815,363.6,0
+42,"female","non-anginal pain",120,"False","Normal","No",0,"flat","0","normal",0,5040,25080,20760,0,0
+67,"female","asymptomatic",106,"False","Normal","No",0.3,"upsloping","2","normal",0,7102,23638,15052,66.9,0
+76,"female","non-anginal pain",140,"False","ST-T wave abnormality","No",1.1,"flat","0","normal",0,10640,27580,16240,216.7,0
+70,"male","atypical angina",156,"False","Left ventricular hypertrophy","No",0,"upsloping","0","normal",0,10920,38220,22308,0,0
+57,"male","atypical angina",124,"False","Normal","No",0.3,"upsloping","0","reversible defect",1,7068,32364,17484,78.3,0.3
+44,"female","non-anginal pain",118,"False","Normal","No",0.3,"flat","1","normal",0,5192,28556,17582,72.6,0
+58,"female","atypical angina",136,"True","Left ventricular hypertrophy","No",0,"upsloping","2","normal",3,7888,43384,20672,0,0
+60,"female","typical angina",150,"False","Normal","No",0.9,"upsloping","0","normal",0,9000,36000,25650,216,0
+44,"male","non-anginal pain",120,"False","Normal","No",0,"upsloping","0","normal",0,5280,27120,20280,0,0
+61,"male","asymptomatic",138,"False","Left ventricular hypertrophy","Yes",3.6,"flat","1","normal",4,8418,22908,17250,597.6,14.4
+42,"male","asymptomatic",136,"False","Normal","Yes",1.8,"flat","0","fixed defect",2,5712,42840,17000,567,3.6
+52,"male","asymptomatic",128,"True","Normal","Yes",1,"flat","0","Unknown",2,6656,26112,19968,204,2
+59,"male","non-anginal pain",126,"True","Normal","No",2.2,"flat","1","fixed defect",2,7434,27468,16884,479.6,4.4
+40,"male","asymptomatic",152,"False","Normal","No",0,"upsloping","0","reversible defect",1,6080,33896,27512,0,0
+42,"male","non-anginal pain",130,"False","Normal","No",0,"upsloping","0","normal",0,5460,23400,19500,0,0
+61,"male","asymptomatic",140,"False","Left ventricular hypertrophy","Yes",1.9,"upsloping","1","reversible defect",1,8540,28980,19320,393.3,1.9
+66,"male","asymptomatic",160,"False","Left ventricular hypertrophy","No",2.3,"upsloping","0","fixed defect",0,10560,36480,22080,524.4,0
+46,"male","asymptomatic",140,"False","Normal","Yes",1.8,"flat","2","reversible defect",2,6440,43540,16800,559.8,3.6
+71,"female","asymptomatic",112,"False","Normal","No",1.6,"flat","0","normal",0,7952,16688,14000,238.4,0
+59,"male","typical angina",134,"False","Normal","No",0.8,"upsloping","2","normal",1,7906,27336,21708,163.2,0.8
+64,"male","typical angina",170,"False","Left ventricular hypertrophy","No",0.6,"flat","0","reversible defect",0,10880,38590,26350,136.2,0
+66,"female","non-anginal pain",146,"False","Left ventricular hypertrophy","No",0,"flat","1","normal",0,9636,40588,22192,0,0
+39,"female","non-anginal pain",138,"False","Normal","No",0,"flat","0","normal",0,5382,30360,20976,0,0
+57,"male","atypical angina",154,"False","Left ventricular hypertrophy","No",0,"upsloping","1","normal",1,8778,35728,25256,0,0
+58,"female","asymptomatic",130,"False","Normal","No",0.6,"flat","0","normal",0,7540,25610,17030,118.2,0
+57,"male","asymptomatic",110,"False","Normal","Yes",3,"flat","1","reversible defect",2,6270,36850,15730,1005,6
+47,"male","non-anginal pain",130,"False","Normal","No",0,"upsloping","0","normal",0,6110,32890,23270,0,0
+55,"female","asymptomatic",128,NA,NA,NA,3,"Unknown","Unknown",NA,22,7040,261632,1037440,6132,66
+53.8251748251748,NA,NA,0,NA,NA,"Yes",13,"flat","0",NA,0,0,0,0,13,0
+0,"male","Unknown",130.628070175439,"Unknown","Unknown","Unknown",1.07228070175439,"Unknown","Unknown","Unknown",0.978947368421052,0,33134.1537580795,23157.5051025451,271.986821791321,1.04970637119114
+-7,NA,"Unknown",130.628070175439,"Unknown","Unknown","Unknown",1.07228070175439,"Unknown","Unknown","Unknown",0.978947368421052,-914.396491228073,33134.1537580795,23157.5051025451,271.986821791321,1.04970637119114
+53.8251748251748,"Unknown","Unknown",130.628070175439,"Unknown","Unknown","Unknown",1.07228070175439,"Unknown","Unknown","Unknown",0.978947368421052,7031.07871426821,33134.1537580795,23157.5051025451,271.986821791321,1.04970637119114
+2,"male",NA,0,"True","Unknown",NA,0,NA,NA,"Unknown",1,0,0,0,0,0
+53.8251748251748,"Unknown","Unknown",130.628070175439,"Unknown","Unknown","Unknown",1.07228070175439,"Unknown","Unknown","Unknown",0.978947368421052,7031.07871426821,33134.1537580795,23157.5051025451,271.986821791321,1.04970637119114
+40,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5600,40460,24080,0,0
+49,"female","non-anginal pain",160,"False","Normal","No",1,"flat","Unknown","Unknown",1,7840,28800,24960,180,1
+37,"male","atypical angina",130,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4810,36790,12740,0,0
+48,"female","asymptomatic",138,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",3,6624,29532,14904,321,4.5
+54,"male","non-anginal pain",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8100,37627.3062730627,18300,0,0
+39,"male","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4680,40680,20400,0,0
+45,"female","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5850,30810,22100,0,0
+54,"male","atypical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5940,22880,15620,0,0
+37,"male","asymptomatic",140,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",1,5180,28980,18200,310.5,1.5
+48,"female","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5760,34080,14400,0,0
+37,"female","non-anginal pain",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4810,27430,18460,0,0
+58,"male","atypical angina",136,"False","ST-T wave abnormality","Yes",2,"flat","Unknown","Unknown",3,7888,22304,13464,328,6
+39,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4680,24480,17400,0,0
+49,"male","asymptomatic",140,"False","Normal","Yes",1,"flat","Unknown","Unknown",3,6860,32760,19600,234,3
+42,"female","non-anginal pain",115,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4830,24265,15755,0,0
+54,"female","atypical angina",120,"False","Normal","No",1.5,"flat","Unknown","Unknown",0,6480,32760,18000,409.5,0
+38,"male","asymptomatic",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,4180,21560,18260,0,0
+43,"female","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5160,24120,19800,0,0
+60,"male","asymptomatic",100,"False","Normal","No",1,"flat","Unknown","Unknown",1,6000,24800,12500,248,1
+36,"male","atypical angina",120,"False","Normal","No",3,"flat","Unknown","Unknown",1,4320,32040,19200,801,3
+43,"female","typical angina",100,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4300,22300,14200,0,0
+44,"male","atypical angina",120,"False","Normal","No",1,"flat","Unknown","Unknown",0,5280,22080,17040,184,0
+49,"female","atypical angina",124,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6076,24924,20336,0,0
+44,"male","atypical angina",150,"False","Normal","Yes",3,"flat","Unknown","Unknown",3,6600,43200,22500,864,9
+40,"male","non-anginal pain",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5200,27950,17940,0,0
+36,"male","non-anginal pain",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4680,27170,23140,0,0
+53,"male","asymptomatic",124,"False","ST-T wave abnormality","Yes",3,"flat","Unknown","Unknown",0,6572,32240,13888,780,0
+52,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6240,34080,14160,0,0
+53,"female","atypical angina",113,"Unknown","Normal","No",0,"Unknown","Unknown","Unknown",0,5989,52884,14351,0,0
+51,"male","atypical angina",125,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6375,23500,18125,0,0
+53,"male","non-anginal pain",145,"False","Normal","No",0,"Unknown","Unknown","Unknown",3,7685,75110,18850,0,0
+56,"male","non-anginal pain",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7280,32610.332103321,14820,0,0
+54,"male","asymptomatic",125,"False","Normal","No",2,"flat","Unknown","Unknown",1,6750,28000,15250,448,2
+41,"male","asymptomatic",130,"False","ST-T wave abnormality","No",2,"flat","Unknown","Unknown",3,5330,22360,16900,344,6
+43,"female","atypical angina",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6450,27900,23100,0,0
+32,"male","atypical angina",125,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4000,31750,19375,0,0
+65,"male","asymptomatic",140,"True","Normal","Yes",1.5,"flat","Unknown","Unknown",1,9100,42840,12180,459,1.5
+41,"female","atypical angina",110,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4510,27500,15620,0,0
+48,"female","atypical angina",120,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5760,30101.8450184502,17760,0,0
+48,"female","asymptomatic",150,"False","Normal","Yes",1,"flat",NA,"Unknown",0,7200,34050,19500,227,0
+54,"female","atypical angina",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8100,34500,19500,0,0
+54,"female","non-anginal pain",130,"False","ST-T wave abnormality","Yes",0,"flat","Unknown","Unknown",4,7020,38220,13000,0,0
+35,"male","atypical angina",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5250,39600,25200,0,0
+52,"male","non-anginal pain",140,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,7280,36260,23800,0,0
+43,"male","asymptomatic",120,"False","Normal","Yes",1,"flat","Unknown","reversible defect",3,5160,21000,14400,175,3
+59,"male","non-anginal pain",130,"False","Normal","Yes",1,"flat","Unknown","normal",0,7670,41340,15600,318,0
+37,"male","asymptomatic",120,"False","Normal","No",0,"Unknown","Unknown","normal",0,4440,26760,20160,0,0
+50,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","normal",0,7000,30240,23800,0,0
+36,"male","non-anginal pain",112,"False","Normal","No",1,"flat","Unknown","normal",0,4032,38080,20608,340,0
+41,"male","asymptomatic",110,"False","Normal","No",0,"Unknown","Unknown","fixed defect",1,4510,31790,18700,0,0
+50,"male","asymptomatic",130,"False","Normal","Yes",2,"flat","Unknown","reversible defect",2,6500,30290,15730,466,4
+47,"female","asymptomatic",120,"False","Normal","Yes",2,"flat","Unknown","fixed defect",4,5640,24600,11760,410,8
+45,"male","atypical angina",140,"True","Normal","No",0,"Unknown","Unknown","Unknown",0,6300,31360,17080,0,0
+41,"female","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5330,31850,19500,0,0
+52,"female","asymptomatic",130,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",0,6760,23400,18200,270,0
+51,"female","atypical angina",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8160,31040,27200,0,0
+31,"male","asymptomatic",120,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",1,3720,32400,18360,405,1.5
+58,"male","non-anginal pain",130,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","fixed defect",1,7540,27690,18200,0,0
+54,"male","asymptomatic",150,"False","ST-T wave abnormality","No",1,"upsloping","Unknown","Unknown",0,8100,54750,20100,365,0
+52,"male","asymptomatic",112,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",3,5824,38304,10752,342,3
+49,"male","atypical angina",100,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4900,25300,17400,0,0
+43,"female","non-anginal pain",150,"False","Normal","No",0,"Unknown","Unknown","normal",0,6450,37627.3062730627,26250,0,0
+45,"male","asymptomatic",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6300,31360,20160,0,0
+46,"male","asymptomatic",120,"False","Normal","Yes",1,"flat","Unknown","Unknown",1,5520,33240,15000,277,1
+50,"female","atypical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5500,22220,15950,0,0
+37,"female","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4440,31200,15600,0,0
+45,"female","asymptomatic",132,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5940,39204,19008,0,0
+32,"male","atypical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,3520,24750,20240,0,0
+52,"male","asymptomatic",160,"False","ST-T wave abnormality","Yes",4,"flat","Unknown","Unknown",3,8320,39360,13120,984,12
+44,"male","asymptomatic",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6600,61800,25500,0,0
+57,"male","atypical angina",140,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",1,7980,37100,20300,265,1
+44,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5720,27950,17550,0,0
+52,"male","asymptomatic",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",2,6240,21840,18000,0,0
+44,"female","asymptomatic",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5280,26160,13800,0,0
+55,"male","asymptomatic",140,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",2,7700,37520,17920,402,3
+46,"male","non-anginal pain",150,"Unknown","Normal","No",0,"Unknown","Unknown","Unknown",0,6900,24450,17400,0,0
+32,"male","asymptomatic",118,"False","Normal","No",0,"Unknown","Unknown","Unknown",2,3776,62422,15340,0,0
+35,"female","asymptomatic",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4900,23380,21000,0,0
+52,"male","atypical angina",140,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",0,7280,14000,19320,0,0
+49,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,6370,26780,22100,0,0
+55,"male","non-anginal pain",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6050,30470,17600,0,0
+54,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6480,28560,18480,0,0
+63,"male","asymptomatic",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,9450,33450,17250,0,0
+52,"male","atypical angina",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8320,31360,26400,0,0
+56,"male","asymptomatic",150,"True","Normal","Yes",1,"flat","Unknown","Unknown",2,8400,31950,18750,213,2
+66,"male","asymptomatic",140,"False","Normal","Yes",1,"flat","Unknown","Unknown",3,9240,35118.8191881919,13160,250.848708487085,3
+65,"male","asymptomatic",170,"True","Normal","Yes",2,"flat","Unknown","Unknown",3,11050,44710,19040,526,6
+53,"female","atypical angina",140,"False","Normal","Yes",2,"flat","Unknown","Unknown",0,7420,30240,19880,432,0
+43,"male","typical angina",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",2,5160,34920,18600,0,0
+55,"male","asymptomatic",140,"False","Normal","Yes",0.5,"flat","Unknown","Unknown",0,7700,32060,15400,114.5,0
+49,"female","atypical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5390,27593.3579335793,17600,0,0
+39,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5070,39910,18200,0,0
+52,"female","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6240,25200,17760,0,0
+48,"male","asymptomatic",160,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",2,7680,52640,14720,493.5,3
+39,"female","non-anginal pain",110,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4290,20020,19800,0,0
+58,"male","asymptomatic",130,"False","Normal","Yes",2,"flat","Unknown","Unknown",2,7540,34190,18200,526,4
+43,"male","atypical angina",142,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6106,29394,19596,0,0
+39,"male","non-anginal pain",160,"True","Normal","No",0,"Unknown","Unknown","Unknown",0,6240,23520,25600,0,0
+56,"male","asymptomatic",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6720,10200,16800,0,0
+41,"male","atypical angina",125,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5125,33625,18000,0,0
+65,"male","asymptomatic",130,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",4,8450,35750,14950,275,4
+51,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","reversible defect",0,6630,23270,13000,0,0
+40,"female","asymptomatic",150,"False","Normal","No",2,"flat","Unknown","fixed defect",2,6000,58800,19500,784,4
+40,"male","asymptomatic",120,"Unknown","Normal","Yes",1,"flat","Unknown","fixed defect",1,4800,55920,18240,466,1
+46,"male","asymptomatic",118,"False","Normal","No",0,"Unknown","Unknown","reversible defect",1,5428,21948,14632,0,0
+57,"male","atypical angina",140,"True","Normal","No",0,"Unknown","Unknown","fixed defect",0,7980,36400,19600,0,0
+48,"female","asymptomatic",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5760,30480,13200,0,0
+34,"male","atypical angina",150,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5100,32100,25200,0,0
+50,"male","asymptomatic",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7000,18060,18900,0,0
+39,"male","atypical angina",190,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7410,45790,20140,0,0
+59,"female","atypical angina",130,"False","Normal","No",1,"flat","Unknown","Unknown",0,7670,24440,16120,188,0
+57,"male","asymptomatic",150,"False","Normal","Yes",3,"flat","Unknown","Unknown",2,8550,38250,13800,765,6
+47,"male","asymptomatic",140,"True","Normal","Yes",0,"Unknown","Unknown","Unknown",0,6580,38640,17500,0,0
+38,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5320,41580,21000,0,0
+49,"female","non-anginal pain",130,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,6370,26910,17550,0,0
+33,"female","asymptomatic",100,"False","Normal","Yes",1,"flat","Unknown","Unknown",1,3300,24600,15000,246,1
+38,"male","asymptomatic",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,4560,33840,20400,0,0
+59,"female","asymptomatic",130,"True","ST-T wave abnormality","Yes",1.5,"flat","Unknown","Unknown",1,7670,43940,16900,507,1.5
+35,"female","typical angina",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4200,19200,22200,0,0
+34,"male","typical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,4760,21840,25200,0,0
+47,"female","non-anginal pain",135,"True","Normal","No",0,"Unknown","Unknown","Unknown",3,6345,33480,22950,0,0
+52,"female","non-anginal pain",125,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6500,34000,17375,0,0
+46,"male","asymptomatic",110,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","normal",0,5060,26400,15400,0,0
+58,"female","atypical angina",180,"False","Normal","Yes",1,"flat","Unknown","reversible defect",4,10440,70740,19800,393,4
+58,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7540,29900,19500,0,0
+54,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6480,29520,13200,0,0
+34,"female","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4420,20930,24700,0,0
+48,"female","asymptomatic",108,"False","Normal","No",2,"upsloping","Unknown","Unknown",0,5184,17604,18900,326,0
+54,"female","atypical angina",120,"True","Normal","No",0,"Unknown","Unknown","Unknown",0,6480,27600,16800,0,0
+42,"male","non-anginal pain",120,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",0,5040,27360,18240,342,0
+38,"male","non-anginal pain",145,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5510,42340,18850,0,0
+46,"male","asymptomatic",110,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",1,5060,22220,16500,0,0
+56,"male","asymptomatic",170,"False","ST-T wave abnormality","Yes",2,"flat","Unknown","Unknown",3,9520,65960,20740,776,6
+56,"male","asymptomatic",150,"False","ST-T wave abnormality","Yes",1.5,"flat","Unknown","Unknown",3,8400,34500,18600,345,4.5
+61,"female","asymptomatic",130,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",0,7930,38220,15600,294,0
+49,"male","non-anginal pain",115,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,5635,30475,20125,0,0
+43,"female","atypical angina",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5160,25800,21000,0,0
+39,"male","atypical angina",120,"False","ST-T wave abnormality","No",2,"upsloping","Unknown","Unknown",0,4680,30101.8450184502,17520,501.69741697417,0
+54,"male","asymptomatic",140,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",2,7560,35118.8191881919,16520,0,0
+43,"male","asymptomatic",150,"False","Normal","Yes",2,"flat","Unknown","Unknown",1,6450,37050,19500,494,2
+52,"male","asymptomatic",160,"False","Normal","Yes",2.5,"Unknown","Unknown","Unknown",4,8320,52960,15040,827.5,10
+50,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",2.5,"flat","Unknown","Unknown",4,7000,47740,17500,852.5,10
+47,"male","asymptomatic",160,"False","ST-T wave abnormality","Yes",3,"flat","Unknown","Unknown",4,7520,46560,25280,873,12
+53,"male","asymptomatic",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7420,34020,21700,0,0
+56,"female","atypical angina",120,"False","Normal","No",1,"flat","Unknown","Unknown",3,6720,33480,18000,279,3
+39,"male","asymptomatic",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4290,30030,14520,0,0
+42,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5040,23760,18600,0,0
+43,"female","atypical angina",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5160,29880,21120,0,0
+50,"male","atypical angina",120,"False","Normal","No",0,"Unknown","0","Unknown",0,6000,20160,19200,0,0
+54,"male","asymptomatic",130,"True","Normal","Yes",1,"flat","Unknown","Unknown",2,7020,78390,16250,603,2
+39,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5070,32610.332103321,15600,0,0
+48,"male","atypical angina",100,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4800,25084.8708487085,10000,0,0
+40,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5200,35750,19500,0,0
+55,"male","asymptomatic",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6600,32400,16800,0,0
+41,"male","atypical angina",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4920,34920,19200,0,0
+56,"male","asymptomatic",155,"True","Normal","Yes",3,"flat","Unknown","Unknown",4,8680,53010,23250,1026,12
+38,"male","asymptomatic",110,"False","Normal","Yes",1,"flat","Unknown","Unknown",2,4180,27593.3579335793,16500,250.848708487085,2
+49,"male","asymptomatic",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6860,35118.8191881919,18200,0,0
+44,"male","asymptomatic",130,"False","Normal","Yes",2,"flat","Unknown","Unknown",3,5720,37700,13000,580,6
+54,"male","atypical angina",160,"False","ST-T wave abnormality","No",1,"upsloping","Unknown","Unknown",0,8640,31200,20800,195,0
+59,"male","asymptomatic",140,"True","Left ventricular hypertrophy","Yes",0,"Unknown","Unknown","Unknown",3,8260,36960,16660,0,0
+49,"male","asymptomatic",128,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",4,6272,27136,12288,0,0
+47,"male","atypical angina",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7520,42080,27840,0,0
+49,"female","atypical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5390,27593.3579335793,17600,0,0
+42,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5040,23520,18000,0,0
+52,"female","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7280,35118.8191881919,19600,0,0
+46,"male","typical angina",140,"True","Normal","No",2,"flat","Unknown","Unknown",3,6440,38080,24500,544,6
+50,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",5,"flat","Unknown","Unknown",4,7000,32340,19600,1155,20
+48,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6720,33320,16520,0,0
+58,"male","asymptomatic",135,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7830,29970,13500,0,0
+58,"male","non-anginal pain",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8120,25060,22400,0,0
+29,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,3480,29160,19200,0,0
+40,"male","non-anginal pain",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5600,35118.8191881919,26320,0,0
+53,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7420,44800,22680,0,0
+49,"male","non-anginal pain",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6860,26180,24080,0,0
+52,"male","asymptomatic",140,"False","Normal","Yes",2,"flat","Unknown","Unknown",4,7280,37240,18760,532,8
+43,"male","asymptomatic",140,"False","Normal","Yes",2,"flat","Unknown","Unknown",4,6020,40320,18900,576,8
+54,"male","asymptomatic",140,"False","Normal","No",1.5,"flat","Unknown","Unknown",3,7560,30240,14700,324,4.5
+59,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8260,40180,21000,0,0
+37,"male","non-anginal pain",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4810,25220,19500,0,0
+46,"female","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5980,30940,11700,0,0
+52,"male","asymptomatic",130,"False","Normal","Yes",2,"flat","Unknown","Unknown",1,6760,29250,15600,450,2
+51,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6630,29120,19500,0,0
+52,"male","asymptomatic",140,"False","Normal","Yes",2,"flat","Unknown","Unknown",3,7280,56560,17360,808,6
+46,"male","asymptomatic",110,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","normal",0,5060,26180,15400,238,0
+54,"female","atypical angina",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8640,49920,20800,0,0
+58,"male","non-anginal pain",160,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",2,9280,33760,14720,0,0
+58,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7540,32630,14300,0,0
+41,"male","asymptomatic",120,"Unknown","Normal","Yes",1,"flat","Unknown","Unknown",1,4920,28440,16560,237,1
+50,"female","asymptomatic",120,"False","Normal","Yes",1,"flat","Unknown","Unknown",0,6000,39360,13200,328,0
+53,"male","asymptomatic",180,"False","ST-T wave abnormality","Yes",1.5,"flat","Unknown","Unknown",3,9540,51300,21600,427.5,4.5
+46,"male","asymptomatic",180,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,8280,50400,21600,0,0
+50,"male","atypical angina",170,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,8500,35530,19720,0,0
+48,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6240,31850,20800,0,0
+45,"male","non-anginal pain",135,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6075,33864.5756457565,14850,0,0
+41,"female","atypical angina",125,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5125,23000,22500,0,0
+62,"female","typical angina",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,9920,30880,18560,0,0
+49,"male","asymptomatic",120,"Unknown","Normal","No",1,"flat","Unknown","Unknown",0,5880,35640,15840,297,0
+42,"male","atypical angina",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6300,40200,20400,0,0
+53,"male","asymptomatic",120,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",2,6360,29520,13920,0,0
+57,"female","typical angina",130,"False","Normal","No",1,"flat","Unknown","Unknown",0,7410,40040,12740,308,0
+47,"male","typical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5170,27390,16500,0,0
+46,"male","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5520,27600,18000,0,0
+42,"male","non-anginal pain",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6720,23520,23360,0,0
+31,"female","atypical angina",100,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,3100,21900,15000,0,0
+56,"male","atypical angina",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7280,23920,13000,0,0
+50,"male","asymptomatic",150,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",0,7500,32250,21000,0,0
+35,"male","atypical angina",120,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,4200,36960,21600,0,0
+35,"male","atypical angina",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,3850,28270,15400,0,0
+28,"male","atypical angina",130,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,3640,17160,24050,0,0
+54,"male","asymptomatic",125,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,6750,27000,17500,0,0
+48,"male","asymptomatic",106,"True","Normal","No",0,"Unknown","Unknown","Unknown",1,5088,27878,11660,0,0
+50,"female","non-anginal pain",140,"False","Normal","Yes",0,"Unknown","Unknown","reversible defect",1,7000,40320,19600,0,0
+56,"male","non-anginal pain",130,"False","Normal","Yes",1,"upsloping","Unknown","fixed defect",0,7280,35880,16640,276,0
+56,"female","non-anginal pain",130,"Unknown","ST-T wave abnormality","No",0,"Unknown","Unknown","reversible defect",0,7280,28470,21320,0,0
+47,"male","asymptomatic",150,"False","Normal","Yes",1.5,"flat","0","reversible defect",1,7050,33900,14700,339,1.5
+30,"female","typical angina",170,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","fixed defect",0,5100,40290,28900,0,0
+39,"male","asymptomatic",110,"False","Normal","No",0,"Unknown","Unknown","fixed defect",2,4290,30800,16500,0,0
+54,"male","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6480,26040,16440,0,0
+55,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","reversible defect",0,7700,27440,21000,0,0
+29,"male","atypical angina",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4060,35118.8191881919,23800,0,0
+46,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",2,5980,28860,14560,0,0
+51,"female","asymptomatic",160,"False","Normal","Yes",1,"flat","Unknown","Unknown",1,8160,48480,24000,303,1
+48,"female","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5760,23400,15000,0,0
+33,"male","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,3960,35760,22200,0,0
+55,"male","atypical angina",120,"True","Normal","No",0,"Unknown","Unknown","reversible defect",0,6600,30720,16440,0,0
+50,"male","asymptomatic",145,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,7250,38280,21750,0,0
+53,"male","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6360,23400,16800,0,0
+38,"male","asymptomatic",92,"False","Normal","Yes",2.5,"flat","Unknown","Unknown",1,3496,10764,12328,292.5,2.5
+41,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4920,35400,20400,0,0
+37,"female","asymptomatic",130,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,4810,22490,23920,0,0
+37,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4810,40950,20540,0,0
+40,"male","non-anginal pain",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5200,36530,21710,0,0
+38,"female","atypical angina",120,"Unknown","Normal","No",0,"Unknown","Unknown","Unknown",0,4560,33000,15480,0,0
+41,"male","asymptomatic",112,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4592,28000,15904,0,0
+54,"female","atypical angina",140,"Unknown","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,7560,43260,19600,0,0
+39,"male","atypical angina",120,"False","Normal","Yes",1,"flat","Unknown","Unknown",0,4680,24000,19200,200,0
+41,"male","asymptomatic",120,"False","Normal","Yes",3,"flat","Unknown","Unknown",4,4920,40320,14160,1008,12
+55,"male","typical angina",140,"False","Unknown","No",0,"Unknown","Unknown","Unknown",3,7700,41300,19040,0,0
+48,"male","asymptomatic",160,"False","Normal","Yes",2,"flat","Unknown","Unknown",2,7680,56800,15840,710,4
+48,"male","asymptomatic",160,"False","Normal","Yes",3,"flat","Unknown","Unknown",2,7680,30880,16320,579,6
+55,"male","atypical angina",145,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,7975,47270,22475,0,0
+54,"male","asymptomatic",200,"False","Normal","Yes",2,"flat","Unknown","Unknown",2,10800,39600,28400,396,4
+55,"male","atypical angina",160,"True","Normal","Yes",2,"flat","Unknown","Unknown",3,8800,46720,22880,584,6
+43,"female","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5160,31920,14160,0,0
+48,"male","asymptomatic",160,"False","Normal","Yes",1,"flat","Unknown","Unknown",1,7680,42880,16480,268,1
+54,"male","typical angina",120,"False","Normal","No",2,"upsloping","Unknown","Unknown",0,6480,20520,16440,342,0
+54,"male","non-anginal pain",120,"False","Normal","Yes",1.5,"Unknown","Unknown","reversible defect",2,6480,28440,18000,355.5,3
+48,"male","asymptomatic",122,"True","ST-T wave abnormality","Yes",2,"downsloping","Unknown","Unknown",2,5856,33550,18300,550,4
+45,"male","asymptomatic",130,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",2,5850,28470,16900,219,2
+49,"male","asymptomatic",130,"False","Normal","Yes",1,"flat","Unknown","Unknown",3,6370,44330,15600,341,3
+44,"male","asymptomatic",135,"False","Normal","No",0,"Unknown","Unknown","Unknown",4,5940,66285,18225,0,0
+48,"male","asymptomatic",120,"False","Normal","No",2,"flat","Unknown","Unknown",1,5760,31200,13800,520,2
+61,"male","asymptomatic",125,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",0,7625,36500,14375,0,0
+62,"male","atypical angina",140,"False","Normal","No",1,"upsloping","Unknown","Unknown",0,8680,37940,21280,271,0
+55,"male","asymptomatic",145,"False","Normal","Yes",2,"flat","Unknown","Unknown",3,7975,35960,13920,496,6
+53,"female","non-anginal pain",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6360,32880,15600,0,0
+55,"female","atypical angina",130,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,7150,51220,19500,0,0
+36,"male","non-anginal pain",150,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5400,24000,25800,0,0
+51,"female","non-anginal pain",150,"False","Normal","No",0.5,"upsloping","Unknown","Unknown",0,7650,30000,18000,100,0
+55,"female","atypical angina",122,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6710,39040,18910,0,0
+46,"male","atypical angina",140,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",0,6440,38500,23100,0,0
+54,"female","atypical angina",120,"False","Normal","No",1,"upsloping","Unknown","Unknown",0,6480,26520,16560,221,0
+46,"male","asymptomatic",120,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",2,5520,27720,13800,0,0
+59,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",3,7670,32610.332103321,16250,0,0
+47,"male","non-anginal pain",140,"False","Normal","Yes",1,"flat","Unknown","Unknown",1,6580,27020,20300,193,1
+54,"male","atypical angina",160,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8640,48800,28000,0,0
+52,"male","asymptomatic",130,"False","Normal","Yes",1,"flat","Unknown","Unknown",3,6760,38740,14300,298,3
+34,"male","atypical angina",98,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,3332,21560,14700,0,0
+54,"male","asymptomatic",130,"False","Normal","Yes",1,"flat","Unknown","Unknown",2,7020,31460,11830,242,2
+47,"female","non-anginal pain",130,"False","Normal","No",2,"flat","Unknown","Unknown",0,6110,32610.332103321,18850,501.69741697417,0
+45,"male","asymptomatic",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5400,27000,16800,0,0
+32,"female","atypical angina",105,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,3360,20790,17325,0,0
+55,"male","asymptomatic",140,"False","Normal","Yes",3,"flat","Unknown","Unknown",1,7700,28140,18200,603,3
+55,"male","non-anginal pain",120,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,6600,26400,16080,0,0
+45,"female","atypical angina",180,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,8100,45152.7675276753,32400,0,0
+59,"male","non-anginal pain",180,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,10620,38340,18000,0,0
+51,"male","non-anginal pain",135,"False","Normal","No",2,"flat","Unknown","Unknown",3,6885,21600,20250,320,6
+52,"male","asymptomatic",170,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",2,8840,42644.2804428044,21420,376.273062730627,3
+57,"female","asymptomatic",180,"False","ST-T wave abnormality","Yes",0.8,"flat","Unknown","Unknown",0,10260,62460,22680,277.6,0
+54,"female","atypical angina",130,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,7020,32890,20150,0,0
+60,"male","non-anginal pain",120,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,7200,29520,16200,0,0
+49,"male","asymptomatic",150,"False","Normal","No",2,"flat","Unknown","Unknown",4,7350,33300,18300,444,8
+51,"female","non-anginal pain",130,"False","Normal","Yes",2,"upsloping","Unknown","Unknown",0,6630,28600,20800,440,0
+55,"female","atypical angina",110,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,6050,37840,17600,0,0
+42,"male","asymptomatic",140,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5880,50120,23800,0,0
+51,"female","non-anginal pain",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,5610,20900,13200,0,0
+59,"male","asymptomatic",140,"False","Normal","No",0,"Unknown","0","Unknown",0,8260,35118.8191881919,19600,0,0
+53,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6360,30101.8450184502,15840,0,0
+48,"female","atypical angina",132.58361774744,"False","ST-T wave abnormality","Unknown",2,"upsloping","Unknown","Unknown",0,6364.01365187712,40835.7542662115,18446.3180118581,616,0
+36,"male","atypical angina",120,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,4320,19920,21600,0,0
+48,"male","non-anginal pain",110,"False","Normal","No",0,"Unknown","Unknown","fixed defect",0,5280,23210,15180,0,0
+47,"female","atypical angina",140,"False","Normal","No",1,"upsloping","Unknown","Unknown",0,6580,35980,18900,257,0
+53,"male","asymptomatic",130,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6890,23660,19240,0,0
+63,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",3,"flat","Unknown","Unknown",2,8820,36400,15680,780,6
+44,"male","asymptomatic",130,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5720,27170,16510,0,0
+60,"male","asymptomatic",132,"False","ST-T wave abnormality","Yes",1.5,"downsloping","Unknown","Unknown",2,7920,28776,18480,327,3
+55,"male","asymptomatic",142,"False","ST-T wave abnormality","Yes",2.5,"upsloping","Unknown","Unknown",1,7810,32376,21158,570,2.5
+66,"male","non-anginal pain",110,"True","Left ventricular hypertrophy","Yes",1.3,"flat","Unknown","Unknown",0,7260,23430,10890,276.9,0
+66,"male","non-anginal pain",120,"False","ST-T wave abnormality","No",-0.5,"upsloping","Unknown",NA,0,7920,0,14400,0,0
+65,"male","asymptomatic",150,"True","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",3,9750,35400,15750,0,0
+60,"male","non-anginal pain",180,"False","ST-T wave abnormality","Yes",1.5,"flat","Unknown","Unknown",0,10800,0,25200,0,0
+60,"male","non-anginal pain",120,"Unknown","Normal","Yes",2,"upsloping","Unknown","Unknown",3,7200,0,16920,0,6
+60,"male","atypical angina",160,"True","ST-T wave abnormality","No",0.5,"flat","Unknown","Unknown",1,9600,42720,25120,133.5,0.5
+56,"male","atypical angina",126,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,7056,20916,17640,0,0
+59,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",1,8260,0,16380,0,1
+62,"male","asymptomatic",110,"False","Normal","Yes",0.5,"flat","Unknown","normal",1,6820,0,13200,0,0.5
+63,"male","non-anginal pain",133.763888888889,"False","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,8427.12500000001,0,16425.6595804989,0,1.32083333333333
+57,"male","asymptomatic",128,"True","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",1,7296,0,18944,0,1
+62,"male","asymptomatic",120,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,7440,26400,10320,0,0
+63,"male","asymptomatic",170,"False","Normal","Yes",2.5,"downsloping","Unknown","Unknown",4,10710,30090,14280,442.5,10
+46,"male","asymptomatic",110,"False","Normal","Yes",2,"flat","Unknown","Unknown",1,5060,25960,13750,472,2
+63,"male","asymptomatic",126,"False","ST-T wave abnormality","No",1.5,"downsloping","Unknown","Unknown",0,7938,0,15120,0,0
+60,"male","asymptomatic",152,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","reversible defect",0,9120,0,17936,0,0
+58,"male","asymptomatic",116,"False","Normal","No",1,"upsloping","Unknown","Unknown",2,6728,0,14384,0,2
+64,"male","asymptomatic",120,"True","ST-T wave abnormality","No",2,"flat","Unknown","Unknown",1,7680,0,12720,0,2
+63,"male","non-anginal pain",130,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",3,8190,0,14430,0,0
+74,"male","non-anginal pain",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,9898.52777777779,0,16425.6595804989,0,0
+52,"male","non-anginal pain",128,"False","ST-T wave abnormality","No",3,"upsloping","Unknown",NA,2,6656,0,23040,0,6
+69,"male","asymptomatic",130,"True","ST-T wave abnormality","No",1,"flat","Unknown","fixed defect",2,8970,0,16770,0,2
+51,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,6821.95833333334,0,16425.6595804989,0,2.64166666666666
+60,"male","asymptomatic",130,"True","ST-T wave abnormality","Yes",0.5,"flat","Unknown",NA,1,7800,24180,18200,93,0.5
+56,"male","asymptomatic",120,"False","Normal","Yes",1.5,"flat","0","reversible defect",1,6720,12000,14400,150,1.5
+55,"male","non-anginal pain",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,7357.0138888889,30498.1666666667,16425.6595804989,301.149999999999,3.96249999999999
+54,"male","asymptomatic",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,7223.25000000001,0,16425.6595804989,0,3.96249999999999
+77,"male","asymptomatic",124,"False","ST-T wave abnormality","Yes",2,"upsloping","Unknown","Unknown",3,9548,21204,13640,342,6
+63,"male","asymptomatic",160,"True","Normal","Yes",1,"flat","Unknown","Unknown",3,10080,36800,16800,230,3
+55,"male","non-anginal pain",0,"False","Normal","No",1.5,"flat","Unknown","Unknown",3,0,0,0,0,4.5
+52,"male","non-anginal pain",122,"False","Normal","Yes",2,"downsloping","Unknown",NA,2,6344,0,13420,0,4
+64,"male","asymptomatic",144,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",3,9216,0,17568,0,3
+60,"male","asymptomatic",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,8025.83333333334,37587.6527777778,16425.6595804989,371.154166666666,2.64166666666666
+60,"male","asymptomatic",120,"False","Normal","Yes",2,"upsloping","Unknown","reversible defect",0,7200,0,15960,0,0
+58,"male","asymptomatic",133.763888888889,"True","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,7758.30555555556,27154.0694444445,16425.6595804989,268.129166666666,1.32083333333333
+59,"male","asymptomatic",154,"False","ST-T wave abnormality","Yes",1.5,"Unknown","0","Unknown",0,9086,0,20174,0,0
+61,"male","non-anginal pain",120,"False","Normal","Yes",0,"flat","Unknown","Unknown",3,7320,0,9600,0,0
+40,"male","asymptomatic",125,"True","Normal","No",0,"Unknown","Unknown","reversible defect",1,5000,0,20625,0,0
+61,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","No",1.5,"flat","Unknown","reversible defect",3,8159.59722222223,0,11503.6944444445,0,4.5
+41,"male","asymptomatic",104,"False","ST-T wave abnormality","No",0,"Unknown","Unknown",NA,0,4264,0,11544,0,0
+57,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",4,7624.54166666667,37052.5972222223,16425.6595804989,365.870833333332,5.28333333333332
+63,"male","asymptomatic",136,"False","Normal","Yes",0,"Unknown","Unknown","reversible defect",2,8568,0,11424,0,0
+59,"male","asymptomatic",122,"False","Normal","Yes",1.3,"downsloping","Unknown","Unknown",1,7198,28426,14274,302.9,1.3
+51,"male","asymptomatic",128,"False","Normal","No",0,"Unknown","Unknown","Unknown",0,6528,0,13696,0,0
+59,"male","non-anginal pain",133.763888888889,"False","Normal","Yes",2,"downsloping","Unknown","Unknown",2,7892.06944444445,0,17121.7777777778,0,4
+42,"male","non-anginal pain",134,"Unknown","Normal","No",0,"Unknown","Unknown","Unknown",0,5628,32160,21440,0,0
+55,"male","non-anginal pain",120,"False","ST-T wave abnormality","Yes",2.5,"flat","Unknown","reversible defect",1,6600,0,15000,0,2.5
+63,"female","atypical angina",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8427.12500000001,0,16425.6595804989,0,0
+62,"male","asymptomatic",152,"False","ST-T wave abnormality","Yes",1.6,"upsloping","Unknown","reversible defect",2,9424,23256,14744,244.8,3.2
+56,"male","atypical angina",124,"True","Normal","No",2,"flat","Unknown","Unknown",0,6944,27776,19964,448,0
+53,"male","asymptomatic",126,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,6678,0,13356,0,0
+68,"male","asymptomatic",138,"False","Normal","Yes",3,"flat","Unknown","Unknown",2,9384,0,17940,0,6
+53,"male","asymptomatic",154,"Unknown","ST-T wave abnormality","Yes",1.5,"flat","Unknown","Unknown",2,8162,0,21560,0,3
+60,"male","non-anginal pain",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,8025.83333333334,42269.3888888889,16425.6595804989,417.383333333332,3.96249999999999
+62,"male","atypical angina",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8293.36111111112,0,16425.6595804989,0,0
+59,"male","asymptomatic",178,"True","Left ventricular hypertrophy","Yes",0,"Unknown","Unknown","reversible defect",1,10502,0,21360,0,0
+51,"male","asymptomatic",133.763888888889,"True","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,6821.95833333334,29160.5277777778,16425.6595804989,287.941666666666,0
+61,"male","asymptomatic",110,"Unknown","Normal","Yes",2,"downsloping","Unknown","Unknown",2,6710,0,11880,0,4
+57,"male","asymptomatic",130,"Unknown","ST-T wave abnormality","Yes",2,"flat","Unknown","Unknown",1,7410,40430,19240,622,2
+56,"male","non-anginal pain",170,"False","Left ventricular hypertrophy","Yes",2.5,"Unknown","Unknown","Unknown",4,9520,0,20910,0,10
+58,"male","atypical angina",126,"True","Normal","Yes",2,"flat","Unknown","Unknown",2,7308,0,13860,0,4
+69,"male","non-anginal pain",140,"Unknown","ST-T wave abnormality","No",2.5,"downsloping","Unknown","Unknown",2,9660,0,16520,0,5
+67,"male","typical angina",142,"True","Normal","No",2.5,"upsloping","Unknown","Unknown",3,9514,38340,17750,675,7.5
+58,"male","asymptomatic",120,"False","Left ventricular hypertrophy","Yes",1.5,"downsloping","Unknown","reversible defect",1,6960,0,12720,0,1.5
+65,"male","asymptomatic",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,8694.65277777778,0,16425.6595804989,0,1.32083333333333
+63,"male","atypical angina",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,8427.12500000001,29026.7638888889,16425.6595804989,286.620833333333,1.32083333333333
+55,"male","atypical angina",110,"True","ST-T wave abnormality","No",1.32083333333333,"Unknown","Unknown","Unknown",0,6050,23540,19800,282.658333333333,0
+57,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",2,"flat","Unknown","fixed defect",2,7980,29960,20160,428,4
+65,"male","typical angina",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8694.65277777778,33708.5,16425.6595804989,332.849999999999,0
+54,"male","asymptomatic",136,"False","Normal","Yes",3,"flat","Unknown","Unknown",3,7344,29920,19040,660,9
+72,"male","non-anginal pain",120,"False","Normal","Yes",1,"flat","Unknown","Unknown",3,8640,25680,12240,214,3
+75,"male","asymptomatic",170,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","reversible defect",1,12750,34510,18360,0,0
+49,"male","typical angina",130,"False","ST-T wave abnormality","No",3,"flat","Unknown","Unknown",2,6370,0,18850,0,6
+51,"male","non-anginal pain",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,6821.95833333334,45345.9583333334,16425.6595804989,447.762499999999,3.96249999999999
+60,"male","asymptomatic",142,"False","Normal","Yes",2.5,"flat","Unknown","Unknown",2,8520,30672,15620,540,5
+64,"female","asymptomatic",142,"False","Normal","Yes",1,"flat","Unknown","reversible defect",1,9088,39192,19880,276,1
+58,"male","asymptomatic",132,"True","Normal","No",1,"downsloping","Unknown","Unknown",0,7656,60456,9108,458,0
+61,"male","asymptomatic",146,"False","Normal","Yes",3,"downsloping","Unknown","Unknown",2,8906,35186,21608,723,6
+67,"male","asymptomatic",160,"True","ST-T wave abnormality","Yes",0,"flat","Unknown","Unknown",2,10720,61440,20800,0,0
+62,"male","asymptomatic",135,"False","Normal","Yes",1,"flat","Unknown","Unknown",2,8370,40095,17550,297,2
+65,"male","asymptomatic",136,"False","Normal","Yes",4,"downsloping","Unknown","Unknown",4,8840,33728,19040,992,16
+63,"male","asymptomatic",130,"False","Normal","Yes",2,"flat","Unknown","Unknown",2,8190,40040,17940,616,4
+69,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",2,"Unknown","Unknown","Unknown",3,9660,29120,19600,416,6
+51,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,6821.95833333334,30364.4027777778,16425.6595804989,299.829166666666,0
+62,"male","asymptomatic",158,"True","Normal","Yes",3,"downsloping","Unknown","Unknown",1,9796,33180,17696,630,3
+55,"male","non-anginal pain",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,7357.0138888889,32772.1527777778,16425.6595804989,323.604166666666,1.32083333333333
+75,"male","asymptomatic",136,"False","Normal","Yes",3,"flat","Unknown","Unknown",3,10200,30600,15232,675,9
+40,"male","non-anginal pain",106,"False","Normal","Yes",0,"Unknown","Unknown","reversible defect",0,4240,25440,8480,0,0
+67,"male","asymptomatic",120,"True","Normal","No",1.5,"downsloping","Unknown","Unknown",3,8040,0,18000,0,4.5
+58,"male","asymptomatic",110,"False","Normal","No",0,"Unknown","Unknown","Unknown",1,6380,21780,12100,0,0
+60,"male","asymptomatic",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8025.83333333334,26083.9583333334,16425.6595804989,257.562499999999,0
+63,"male","asymptomatic",160,"True","ST-T wave abnormality","Yes",2,"Unknown","Unknown","Unknown",3,10080,42720,14080,534,6
+35,"male","non-anginal pain",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,4681.73611111111,21535.9861111111,16425.6595804989,212.654166666666,0
+62,"male","typical angina",112,"False","ST-T wave abnormality","Yes",1.32083333333333,"Unknown","Unknown","Unknown",1,6944,28896,16800,340.774999999999,1.32083333333333
+43,"male","asymptomatic",122,"False","Normal","No",0.5,"upsloping","Unknown","Unknown",1,5246,0,14640,0,0.5
+63,"male","non-anginal pain",130,"True","ST-T wave abnormality","No",3,"flat","Unknown","Unknown",0,8190,0,20800,0,0
+68,"male","non-anginal pain",150,"True","Normal","No",0,NA,"Unknown","fixed defect",1,10200,29250,19800,0,0
+65,"male","asymptomatic",150,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",3,9750,35250,18000,352.5,4.5
+48,"male","non-anginal pain",102,"Unknown","ST-T wave abnormality","Yes",1,"downsloping","Unknown","Unknown",1,4896,0,11220,0,1
+63,"male","asymptomatic",96,"False","ST-T wave abnormality","Yes",1,"upsloping","Unknown","Unknown",1,6048,29280,11616,305,1
+64,"male","asymptomatic",130,"False","ST-T wave abnormality","No",0.5,"flat","Unknown","Unknown",0,8320,28990,16640,111.5,0
+61,"male","asymptomatic",120,"False","ST-T wave abnormality","Yes",4,"downsloping","Unknown","fixed defect",3,7320,33840,16200,1128,12
+50,"male","asymptomatic",144,"False","Left ventricular hypertrophy","Yes",1,"upsloping","Unknown","reversible defect",1,7200,50256,17280,349,1
+59,"male","asymptomatic",124,"False","Normal","Yes",1,"flat","Unknown","Unknown",1,7316,22164.518134715,14508,178.746113989637,1
+55,"male","asymptomatic",150,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,8250,24000,22500,0,0
+45,"male","non-anginal pain",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,6019.375,31568.2777777778,16425.6595804989,311.716666666666,0
+65,"male","asymptomatic",133.763888888889,"False","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,8694.65277777778,41734.3333333334,16425.6595804989,412.099999999999,3.96249999999999
+61,"male","atypical angina",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8159.59722222223,37855.1805555556,16425.6595804989,373.795833333332,0
+49,"male","non-anginal pain",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,6554.43055555556,18994.4722222222,16425.6595804989,187.558333333333,3.96249999999999
+72,"male","asymptomatic",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,9631.00000000001,28224.1805555556,16425.6595804989,278.695833333333,1.32083333333333
+50,"male","asymptomatic",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,6688.19444444445,29160.5277777778,16425.6595804989,287.941666666666,1.32083333333333
+64,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,8560.8888888889,40931.75,16425.6595804989,404.174999999999,3.96249999999999
+55,"male","asymptomatic",116,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",2,6380,21576,11832,0,0
+63,"male","asymptomatic",110,"False","ST-T wave abnormality","Yes",2,"flat","Unknown","Unknown",2,6930,27720,15400,504,4
+59,"male","asymptomatic",125,"False","Normal","Yes",2.5,"downsloping","Unknown","Unknown",3,7375,27750,16875,555,7.5
+56,"male","asymptomatic",133.763888888889,"False","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,7490.77777777778,0,16425.6595804989,0,1.32083333333333
+62,"male","non-anginal pain",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,8293.36111111112,0,16425.6595804989,0,2.64166666666666
+74,"male","asymptomatic",150,"True","ST-T wave abnormality","Yes",4,"downsloping","Unknown","Unknown",3,11100,38700,19500,1032,12
+54,"male","asymptomatic",130,"True","Normal","Yes",2,"flat","Unknown","Unknown",1,7020,26260,14560,404,2
+57,"male","asymptomatic",110,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,6270,21670,11000,0,0
+62,"male","non-anginal pain",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,8293.36111111112,27287.8333333334,16425.6595804989,269.449999999999,1.32083333333333
+76,"male","non-anginal pain",104,"False","Left ventricular hypertrophy","No",3.5,"downsloping","Unknown","Unknown",4,7904,18589.5958549222,12480,625.61139896373,14
+54,"female","asymptomatic",138,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",1,7452,37812,14490,411,1.5
+70,"male","asymptomatic",170,"False","ST-T wave abnormality","Yes",3,"downsloping","Unknown","Unknown",2,11900,32640,21930,576,6
+61,"female","atypical angina",140,"True","Normal","Yes",0,"Unknown","Unknown","reversible defect",0,8540,41720,16800,0,0
+48,"male","asymptomatic",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,6420.66666666667,36383.7777777778,16425.6595804989,359.266666666666,0
+48,"male","non-anginal pain",132,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","fixed defect",1,6336,29040,21384,0,0
+61,"male","typical angina",142,"True","ST-T wave abnormality","No",1.5,"downsloping","Unknown","Unknown",3,8662,28400,14200,300,4.5
+66,"male","asymptomatic",112,"False","Normal","No",1.5,"upsloping","Unknown","Unknown",1,7392,29232,15680,391.5,1.5
+68,"male","typical angina",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown",NA,0,9095.94444444445,24211.2638888889,16425.6595804989,239.070833333333,0
+55,"male","asymptomatic",172,"False","Normal","No",2,"Unknown","Unknown",NA,3,9460,44720,12556,520,6
+62,"male","non-anginal pain",120,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",0,7440,26400,10320,0,0
+71,"male","non-anginal pain",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,9497.23611111112,29561.8194444445,16425.6595804989,291.904166666666,3.96249999999999
+74,"male","typical angina",133.763888888889,"True","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,9898.52777777779,28893,16425.6595804989,285.299999999999,3.96249999999999
+53,"male","non-anginal pain",155,"True","ST-T wave abnormality","No",1.32083333333333,"Unknown","Unknown","fixed defect",0,8215,27125,24800,231.145833333333,0
+58,"male","non-anginal pain",150,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",2,8700,32850,17700,0,0
+75,"male","asymptomatic",160,"True","Normal","Yes",2,"downsloping","Unknown","reversible defect",0,12000,49600,17920,620,0
+56,"male","non-anginal pain",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",4,7490.77777777778,27822.8888888889,16425.6595804989,274.733333333333,5.28333333333332
+58,"male","non-anginal pain",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,7758.30555555556,31033.2222222222,16425.6595804989,306.433333333333,2.64166666666666
+64,"male","asymptomatic",134,"False","Normal","Yes",4,"downsloping","Unknown","Unknown",4,8576,36582,13668,1092,16
+54,"male","non-anginal pain",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,7223.25000000001,27154.0694444445,16425.6595804989,268.129166666666,0
+54,"male","atypical angina",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,7223.25000000001,24345.0277777778,16425.6595804989,240.391666666666,0
+59,"male","asymptomatic",140,"False","Normal","Yes",2,"flat","Unknown","Unknown",0,8260,38360,21560,548,0
+55,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,7357.0138888889,27287.8333333334,16425.6595804989,269.449999999999,1.32083333333333
+57,"male","asymptomatic",144,"True","ST-T wave abnormality","Yes",2,"flat","Unknown","Unknown",3,8208,38880,23040,540,6
+61,"male","asymptomatic",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,8159.59722222223,39059.0555555556,16425.6595804989,385.683333333332,3.96249999999999
+41,"male","asymptomatic",150,"False","Normal","Yes",1.5,"flat","Unknown","Unknown",0,6150,25650,19200,256.5,0
+71,"male","asymptomatic",130,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",3,9230,28730,14950,0,0
+38,"male","asymptomatic",110,"False","Normal","Yes",1.5,"downsloping","Unknown","Unknown",1,4180,31790,11550,433.5,1.5
+55,"male","asymptomatic",158,"False","Normal","Yes",2.5,"flat","Unknown","Unknown",1,8690,34286,17380,542.5,2.5
+56,"male","asymptomatic",128,"False","ST-T wave abnormality","Yes",2,"downsloping","Unknown","Unknown",2,7168,28544,15232,446,4
+69,"male","asymptomatic",133.763888888889,"True","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,9229.70833333334,23909.7753310305,16425.6595804989,236.093825561312,2.64166666666666
+64,"male","asymptomatic",150,"False","ST-T wave abnormality","Yes",0.5,"flat","Unknown","Unknown",2,9600,28950,20250,96.5,1
+72,"male","asymptomatic",160,"True","Left ventricular hypertrophy","No",1.5,"Unknown","Unknown","Unknown",2,11520,28599.3782383419,20800,268.119170984455,3
+69,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,9229.70833333334,28090.4166666667,16425.6595804989,277.374999999999,2.64166666666666
+56,"male","asymptomatic",133.763888888889,"True","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,7490.77777777778,37721.4166666667,16425.6595804989,372.474999999999,1.32083333333333
+62,"male","asymptomatic",133.763888888889,"False","ST-T wave abnormality","Yes",3,"Unknown","Unknown","Unknown",4,8293.36111111112,22739.8611111111,16051.6666666667,510,12
+67,"male","asymptomatic",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,8962.18055555556,49358.875,16425.6595804989,487.387499999999,3.96249999999999
+57,"male","asymptomatic",156,"False","Left ventricular hypertrophy","Yes",3,"downsloping","Unknown","Unknown",3,8892,26988,18564,519,9
+69,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",3,9229.70833333334,38657.7638888889,16425.6595804989,381.720833333332,3.96249999999999
+51,"male","asymptomatic",133.763888888889,"True","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","reversible defect",1,6821.95833333334,23909.7753310305,16425.6595804989,236.093825561312,1.32083333333333
+48,"male","asymptomatic",140,"False","Normal","Yes",1.5,"upsloping","Unknown","Unknown",3,6720,25024.4559585492,22260,268.119170984455,4.5
+69,"male","asymptomatic",122,"True","Left ventricular hypertrophy","Yes",0,"Unknown","Unknown","reversible defect",2,8418,26352,10248,0,0
+69,"male","non-anginal pain",133.763888888889,"False","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,9229.70833333334,36250.0138888889,16425.6595804989,357.945833333332,0
+64,"male","asymptomatic",133.763888888889,"True","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",2,8560.8888888889,32638.3888888889,16425.6595804989,322.283333333333,2.64166666666666
+57,"male","atypical angina",180,"True","ST-T wave abnormality","No",0.8,"Unknown","Unknown","Unknown",1,10260,51300,21600,228,0.8
+53,"male","asymptomatic",124,"False","Normal","Yes",2,"flat","Unknown","reversible defect",1,6572,30132,15128,486,2
+37,"male","non-anginal pain",118,"False","Left ventricular hypertrophy","No",1,"flat","Unknown","normal",0,4366,28320,19470,240,0
+67,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",2,"flat","Unknown","reversible defect",3,9380,30660,17080,438,6
+74,"male","non-anginal pain",140,"True","Normal","No",0,"Unknown","Unknown","Unknown",1,10360,33180,13160,0,0
+63,"male","atypical angina",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8427.12500000001,22071.0416666667,16425.6595804989,217.937499999999,0
+58,"male","asymptomatic",100,"False","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",0,5800,21300,11000,0,0
+61,"male","asymptomatic",190,"True","Left ventricular hypertrophy","Yes",2,"downsloping","Unknown","Unknown",4,11590,54530,28500,574,8
+64,"male","asymptomatic",130,"True","Left ventricular hypertrophy","No",0,"Unknown","Unknown","fixed defect",2,8320,33540,16900,0,0
+58,"male","asymptomatic",160,"True","Left ventricular hypertrophy","Yes",1,"upsloping","Unknown","Unknown",3,9280,40960,18080,256,3
+60,"male","asymptomatic",130,"True","Left ventricular hypertrophy","Yes",0.5,"flat","Unknown","Unknown",1,7800,24180,18200,93,0.5
+57,"male","asymptomatic",122,"False","Left ventricular hypertrophy","No",0,"Unknown","Unknown","Unknown",1,6954,32208,12200,0,0
+55,"male","non-anginal pain",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,7357.0138888889,23909.7753310305,16425.6595804989,236.093825561312,0
+55,"male","asymptomatic",120,"False","Left ventricular hypertrophy","Yes",1.7,"downsloping","Unknown","reversible defect",1,6600,27120,15240,384.2,1.7
+56,"male","asymptomatic",130,"True","Normal","No",1.5,"flat","Unknown","reversible defect",1,7280,26390,12740,304.5,1.5
+57,"male","asymptomatic",130,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","Unknown",0,7410,26910,12480,207,0
+61,"male","non-anginal pain",133.763888888889,"False","Normal","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",1,8159.59722222223,37988.9444444445,16425.6595804989,375.116666666666,1.32083333333333
+61,"male","non-anginal pain",120,"False","Normal","Yes",0,"Unknown","Unknown","Unknown",3,7320,40440,11760,0,0
+58,"male","non-anginal pain",150,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",2,8700,32850,17700,0,0
+74,"male","asymptomatic",155,"False","Normal","Yes",1.5,"downsloping","Unknown","Unknown",2,11470,48050,17360,465,3
+68,"male","non-anginal pain",134,"True","Normal","Yes",0,"Unknown","Unknown","normal",0,9112,34036,20234,0,0
+51,"female","asymptomatic",114,"True","Left ventricular hypertrophy","No",1,"upsloping","Unknown","Unknown",0,5814,29412,10944,258,0
+62,"male","asymptomatic",160,"True","ST-T wave abnormality","Yes",3,"flat","Unknown","Unknown",4,9920,40640,17280,762,12
+53,"male","asymptomatic",144,"True","ST-T wave abnormality","Yes",1.5,"flat","Unknown","Unknown",3,7632,43200,18432,450,4.5
+62,"male","asymptomatic",158,"False","ST-T wave abnormality","Yes",0,"Unknown","Unknown","Unknown",1,9796,26860,21804,0,0
+46,"male","asymptomatic",134,"False","Normal","No",0,"Unknown","Unknown","normal",2,6164,41540,16884,0,0
+54,"female","asymptomatic",127,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","Unknown",1,6858,42291,19558,0,0
+62,"male","typical angina",133.763888888889,"False","ST-T wave abnormality","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,8293.36111111112,18593.1805555556,16425.6595804989,183.595833333333,0
+55,"male","asymptomatic",122,"True","ST-T wave abnormality","No",0,"Unknown","Unknown","fixed defect",2,6710,27206,12200,0,0
+58,"male","asymptomatic",133.763888888889,"True","Left ventricular hypertrophy","Unknown",1.32083333333333,"Unknown","Unknown","Unknown",0,7758.30555555556,51499.0972222223,16425.6595804989,508.520833333332,0
+62,"male","atypical angina",120,"False","Left ventricular hypertrophy","Yes",0,"Unknown","Unknown","Unknown",1,7440,30480,11160,0,0
+65,"male","asymptomatic",115,"False","Normal","Yes",0,"flat","Unknown","reversible defect",1,7475,0,10695,0,0
+32,"male","typical angina",95,"Unknown","Normal","No",0.7,"upsloping","Unknown","Unknown",1,3040,0,12065,0,0.7
+61,"male","asymptomatic",105,"Unknown","Normal","Yes",1.5,"upsloping","Unknown","Unknown",1,6405,0,11550,0,1.5
+50,"male","asymptomatic",145,"Unknown","Normal","Yes",0.7,"flat","Unknown","Unknown",1,7250,0,20155,0,0.7
+57,"male","asymptomatic",110,"Unknown","ST-T wave abnormality","Yes",1.4,"upsloping","1","Unknown",3,6270,0,14410,0,4.2
+51,"male","asymptomatic",110,"Unknown","Normal","No",0,"flat","Unknown","Unknown",4,5610,0,10120,0,0
+47,"male","asymptomatic",110,"Unknown","ST-T wave abnormality","No",2.1,"upsloping","Unknown","Unknown",2,5170,0,16390,0,4.2
+60,"male","asymptomatic",160,"Unknown","Normal","No",0.4,"flat","Unknown","Unknown",1,9600,0,23840,0,0.4
+55,"male","atypical angina",140,"Unknown","ST-T wave abnormality","No",0.2,"upsloping","Unknown","Unknown",0,7700,0,21000,0,0
+53,"male","asymptomatic",125,"Unknown","Normal","No",1.5,"upsloping","Unknown","Unknown",4,6625,0,15000,0,6
+62,"female","asymptomatic",120,"Unknown","ST-T wave abnormality","Yes",1.7,"downsloping","Unknown","Unknown",1,7440,0,14760,0,1.7
+51,"male","asymptomatic",95,"Unknown","Normal","No",2.2,"flat","Unknown","Unknown",2,4845,0,11970,0,4.4
+51,"female","asymptomatic",120,"Unknown","Normal","Yes",1.5,"upsloping","Unknown","Unknown",2,6120,0,15240,0,3
+55,"male","asymptomatic",115,"Unknown","Normal","No",0.1,"flat","Unknown","Unknown",1,6325,0,17825,0,0.1
+53,"male","atypical angina",130,"Unknown","ST-T wave abnormality","No",0.7,"downsloping","Unknown","Unknown",0,6890,0,15600,0,0
+58,"male","asymptomatic",115,"Unknown","Normal","No",0.5,"upsloping","Unknown","Unknown",1,6670,0,15870,0,0.5
+57,"male","asymptomatic",95,"Unknown","Normal","No",0.7,"downsloping","Unknown","Unknown",1,5415,0,17290,0,0.7
+65,"male","asymptomatic",155,"Unknown","Normal","No",1,"upsloping","Unknown","Unknown",0,10075,0,23870,0,0
+60,"male","asymptomatic",125,"Unknown","Normal","No",0.1,"upsloping","2","Unknown",3,7500,0,13750,0,0.3
+41,"male","asymptomatic",125,"Unknown","Normal","No",1.6,"upsloping","Unknown","Unknown",2,5125,0,22000,0,3.2
+34,"male","asymptomatic",115,"Unknown","Unknown","No",0.2,"upsloping","Unknown","Unknown",1,3910,0,17710,0,0.2
+53,"male","asymptomatic",80,"Unknown","Normal","Yes",2,"downsloping","Unknown","Unknown",0,4240,0,11280,0,0
+74,"male","atypical angina",145,"Unknown","ST-T wave abnormality","No",1.3,"upsloping","Unknown","Unknown",1,10730,0,17835,0,1.3
+57,"male","non-anginal pain",105,"Unknown","Normal","No",0.3,"flat","Unknown","Unknown",1,5985,0,15540,0,0.3
+56,"male","asymptomatic",140,"Unknown","Normal","Yes",1.8,"upsloping","Unknown","Unknown",1,7840,0,16940,0,1.8
+61,"male","asymptomatic",130,"Unknown","Normal","No",2.5,"flat","Unknown","Unknown",3,7930,0,10010,0,7.5
+68,"male","asymptomatic",145,"Unknown","Normal","No",1.8,"upsloping","Unknown","Unknown",1,9860,0,19720,0,1.8
+59,"male","non-anginal pain",125,"Unknown","Normal","No",2.6,"flat","Unknown","Unknown",1,7375,0,21875,0,2.6
+63,"male","asymptomatic",100,"Unknown","Normal","No",-0.9,"flat","Unknown","Unknown",1,6300,0,10900,0,-0.9
+38,"female","asymptomatic",105,"Unknown","Normal","No",2.8,"upsloping","Unknown","Unknown",2,3990,0,17430,0,5.6
+62,"male","asymptomatic",115,"Unknown","Normal","Yes",2.5,"downsloping","Unknown","Unknown",2,7130,0,14720,0,5
+46,"male","asymptomatic",100,"Unknown","ST-T wave abnormality","No",-2.6,"flat","Unknown","Unknown",1,4600,0,13300,0,-2.6
+42,"male","asymptomatic",105,"Unknown","Normal","Yes",-1.5,"downsloping","Unknown","Unknown",1,4410,0,13440,0,-1.5
+45,"male","non-anginal pain",110,"Unknown","Normal","No",-0.1,"upsloping","Unknown","Unknown",0,4950,0,15180,0,0
+59,"male","asymptomatic",125,"Unknown","Normal","Yes",0.9,"upsloping","Unknown","Unknown",1,7375,0,14875,0,0.9
+52,"male","asymptomatic",95,"Unknown","Normal","Yes",0.653846153846154,"Unknown","Unknown","Unknown",2,4940,0,7790,0,1.30769230769231
+60,"male","asymptomatic",130,"Unknown","ST-T wave abnormality","Yes",1.1,"downsloping","1","Unknown",1,7800,0,16900,0,1.1
+60,"male","non-anginal pain",115,"Unknown","Normal","No",2.4,"upsloping","Unknown","Unknown",1,6900,0,16445,0,2.4
+56,"male","asymptomatic",115,"Unknown","ST-T wave abnormality","No",-1,"upsloping","Unknown","Unknown",1,6440,0,9430,0,-1
+38,"male","non-anginal pain",100,"Unknown","Normal","No",-1.1,"upsloping","Unknown","Unknown",0,3800,0,17900,0,0
+40,"male","asymptomatic",95,"Unknown","ST-T wave abnormality","No",0,"upsloping","Unknown","Unknown",2,3800,0,13680,0,0
+51,"male","asymptomatic",130,"Unknown","Normal","No",-0.7,"upsloping","Unknown","Unknown",2,6630,0,22100,0,-1.4
+62,"male","typical angina",120,"Unknown","Left ventricular hypertrophy","No",-0.8,"flat","2","Unknown",1,7440,0,16080,0,-0.8
+72,"male","non-anginal pain",160,"Unknown","Left ventricular hypertrophy","No",1.6,"flat","2","Unknown",0,11520,0,18240,0,0
+63,"male","asymptomatic",150,"Unknown","ST-T wave abnormality","No",3.7,"upsloping","Unknown","Unknown",3,9450,0,23100,0,11.1
+63,"male","asymptomatic",140,"Unknown","Left ventricular hypertrophy","No",2,"upsloping","Unknown","Unknown",2,8820,0,20860,0,4
+64,"female","asymptomatic",95,"Unknown","Normal","No",1.1,"downsloping","Unknown","Unknown",1,6080,0,13775,0,1.1
+43,"male","asymptomatic",100,"Unknown","Normal","No",1.5,"downsloping","Unknown","Unknown",3,4300,0,12200,0,4.5
+64,"male","asymptomatic",110,"Unknown","Normal","Yes",1.3,"downsloping","Unknown","Unknown",1,7040,0,12540,0,1.3
+61,"male","asymptomatic",110,"Unknown","Normal","No",1.4,"flat","Unknown","Unknown",1,6710,0,12430,0,1.4
+52,"male","asymptomatic",130,"Unknown","Normal","No",0,"flat","Unknown","reversible defect",2,6760,0,15600,0,0
+51,"male","asymptomatic",120,"True","Normal","No",0,"flat","Unknown","normal",3,6120,0,12480,0,0
+69,"male","asymptomatic",135,"False","Normal","No",0,"flat","Unknown","fixed defect",1,9315,0,17550,0,0
+59,"male","asymptomatic",120,"False","Normal","No",0,"flat","Unknown","normal",2,7080,0,13800,0,0
+48,"male","asymptomatic",115,"Unknown","Normal","No",0,"flat","Unknown","fixed defect",2,5520,0,14720,0,0
+69,"male","asymptomatic",130.206611570248,"False","ST-T wave abnormality","Unknown",0.653846153846154,"Unknown","Unknown","reversible defect",3,8984.25619834711,0,15827.5741769408,0,1.96153846153846
+36,"male","asymptomatic",110,"Unknown","Normal","Yes",1,"flat","Unknown","fixed defect",1,3960,0,13750,0,1
+53,"male","asymptomatic",120,"Unknown","Normal","No",0,"flat","Unknown","reversible defect",1,6360,0,14400,0,0
+43,"male","asymptomatic",140,"False","ST-T wave abnormality","Yes",0.5,"upsloping","Unknown","reversible defect",2,6020,0,19600,0,1
+56,"male","asymptomatic",120,"False","ST-T wave abnormality","Yes",-1,"downsloping","Unknown","reversible defect",2,6720,0,12000,0,-2
+58,"male","asymptomatic",130,"False","ST-T wave abnormality","Yes",1,"flat","Unknown","fixed defect",4,7540,0,13000,0,4
+55,"male","asymptomatic",120,"False","ST-T wave abnormality","No",0.3,"upsloping","Unknown","reversible defect",4,6600,0,11040,0,1.2
+67,"male","typical angina",145,"False","Left ventricular hypertrophy","No",0,"flat","Unknown","normal",2,9715,0,18125,0,0
+46,"male","asymptomatic",115,"False","Normal","Yes",1.5,"flat","Unknown","reversible defect",1,5290,0,12995,0,1.5
+53,"male","atypical angina",120,"False","Normal","No",0,"flat","Unknown","normal",3,6360,0,11400,0,0
+38,"male","non-anginal pain",115,"False","Normal","Yes",0,"flat","Unknown","reversible defect",1,4370,0,14720,0,0
+53,"male","non-anginal pain",105,"False","Normal","No",0,"flat","Unknown","reversible defect",1,5565,0,12075,0,0
+62,"male","non-anginal pain",160,"False","Normal","Yes",0,"flat","Unknown","normal",3,9920,0,11520,0,0
+47,"male","asymptomatic",160,"False","Normal","Yes",0,"flat","Unknown","reversible defect",1,7520,0,19840,0,0
+56,"male","non-anginal pain",155,"False","ST-T wave abnormality","No",0,"flat","Unknown","normal",2,8680,0,15345,0,0
+56,"male","asymptomatic",120,"False","ST-T wave abnormality","No",0,"flat","Unknown",NA,2,6720,0,17760,0,0
+56,"male","non-anginal pain",120,"False","Normal","No",0,"flat","Unknown","reversible defect",0,6720,0,11640,0,0
+64,"female","asymptomatic",200,"False","Normal","Yes",1,"flat","Unknown","normal",3,12800,0,28000,0,3
+61,"male","asymptomatic",150,"False","Normal","Yes",2,"flat","Unknown","reversible defect",2,9150,0,17550,0,4
+68,"male","asymptomatic",135,"False","ST-T wave abnormality","Yes",0,"upsloping","Unknown","reversible defect",3,9180,0,16200,0,0
+57,"male","asymptomatic",140,"False","Normal","Yes",2,"flat","Unknown","fixed defect",2,7980,0,16800,0,4
+63,"male","asymptomatic",150,"False","Normal","Yes",2,"flat","Unknown",NA,3,9450,0,12900,0,6
+60,"male","asymptomatic",135,"False","Normal","Yes",0.5,"upsloping","Unknown","reversible defect",3,8100,0,8505,0,1.5
+66,"male","asymptomatic",150,"False","Normal","Yes",2,"flat","Unknown","reversible defect",3,9900,0,16200,0,6
+63,"male","asymptomatic",185,"False","Normal","Yes",0,"upsloping","Unknown","reversible defect",1,11655,0,18130,0,0
+59,"male","asymptomatic",135,"False","Normal","Yes",1,"flat","Unknown","reversible defect",1,7965,0,15525,0,1
+61,"male","asymptomatic",125,"False","Normal","Yes",0,"downsloping","Unknown","reversible defect",3,7625,0,13125,0,0
+73,"female","non-anginal pain",160,"False","ST-T wave abnormality","No",0,"upsloping","Unknown","normal",1,11680,0,19360,0,0
+47,"male","non-anginal pain",155,"False","Normal","Yes",1,"flat","Unknown","normal",3,7285,0,18290,0,3
+65,"male","asymptomatic",160,"True","ST-T wave abnormality","No",0.653846153846154,"Unknown","Unknown","reversible defect",3,10400,0,19520,0,1.96153846153846
+70,"male","asymptomatic",140,"True","Normal","Yes",2,"flat","Unknown","reversible defect",3,9800,0,21980,0,6
+50,"male","asymptomatic",120,"False","ST-T wave abnormality","Yes",0,"upsloping","Unknown","fixed defect",3,6000,0,18720,0,0
+60,"male","asymptomatic",160,"False","ST-T wave abnormality","Yes",0.5,"flat","Unknown","reversible defect",3,9600,0,15840,0,1.5
+50,"male","asymptomatic",115,"False","Normal","Yes",0.5,"flat","Unknown","fixed defect",3,5750,0,13800,0,1.5
+43,"male","asymptomatic",115,"False","Normal","Yes",2,"flat","Unknown","reversible defect",4,4945,0,16675,0,8
+38,"female","asymptomatic",110,"False","Normal","No",0,"flat","Unknown","normal",1,4180,0,17160,0,0
+54,"male","asymptomatic",120,"False","Normal","No",0,"flat","Unknown","reversible defect",2,6480,0,18600,0,0
+61,"male","asymptomatic",150,"False","Normal","Yes",0,"flat","Unknown","reversible defect",1,9150,0,15750,0,0
+42,"male","asymptomatic",145,"False","Normal","Yes",0,"flat","Unknown","Unknown",2,6090,0,14355,0,0
+53,"male","asymptomatic",130,"False","Left ventricular hypertrophy","Yes",1,"flat","Unknown","reversible defect",2,6890,0,17550,0,2
+55,"male","asymptomatic",140,"False","Normal","No",0,"flat","Unknown","reversible defect",2,7700,0,11620,0,0
+61,"male","asymptomatic",160,"True","ST-T wave abnormality","No",1,"flat","Unknown","reversible defect",2,9760,0,23200,0,2
+51,"male","asymptomatic",140,"False","Normal","No",0,"flat","Unknown","normal",2,7140,0,8400,0,0
+70,"male","asymptomatic",115,"False","ST-T wave abnormality","Yes",0,"flat","Unknown","reversible defect",1,8050,0,10580,0,0
+61,"male","asymptomatic",130,"False","Left ventricular hypertrophy","No",0,"flat","Unknown","reversible defect",3,7930,0,14950,0,0
+38,"male","asymptomatic",150,"Unknown","Normal","Yes",0.653846153846154,"Unknown","Unknown","normal",1,5700,0,18000,0,0.653846153846154
+57,"male","asymptomatic",160,"Unknown","Normal","Yes",2,"flat","Unknown","reversible defect",2,9120,0,15680,0,4
+38,"male","asymptomatic",135,"Unknown","Normal","No",0,"Unknown","Unknown","normal",2,5130,0,20250,0,0
+62,"female","typical angina",140,"Unknown","Normal","No",0,"Unknown","Unknown","normal",2,8680,0,20020,0,0
+58,"male","asymptomatic",170,"Unknown","ST-T wave abnormality","Yes",0,"Unknown","Unknown","normal",1,9860,0,17850,0,0
+52,"male","asymptomatic",165,"Unknown","Normal","Yes",1,"upsloping","Unknown","reversible defect",2,8580,0,20130,0,2
+61,"male","non-anginal pain",200,"Unknown","ST-T wave abnormality","No",0,"Unknown","Unknown","normal",3,12200,0,14000,0,0
+50,"female","asymptomatic",160,"Unknown","Normal","No",0,"Unknown","Unknown","normal",1,8000,0,17600,0,0
+51,"male","asymptomatic",130,"Unknown","ST-T wave abnormality","No",0,"Unknown","Unknown","reversible defect",1,6630,0,21190,0,0
+65,"male","asymptomatic",145,"Unknown","ST-T wave abnormality","No",0.653846153846154,"Unknown","Unknown","fixed defect",3,9425,0,9715,0,1.96153846153846
+52,"male","asymptomatic",135,"Unknown","Normal","Yes",2,"flat","Unknown","reversible defect",2,7020,0,17280,0,4
+47,"male","non-anginal pain",110,"Unknown","Normal","Yes",0,"Unknown","Unknown","normal",1,5170,0,13200,0,0
+35,"male","asymptomatic",130.206611570248,"Unknown","Normal","Yes",0.653846153846154,"Unknown","Unknown","reversible defect",3,4557.23140495868,0,16926.8595041322,0,1.96153846153846
+57,"male","asymptomatic",140,"Unknown","Normal","Yes",0,"Unknown","Unknown","fixed defect",3,7980,0,14000,0,0
+62,"male","asymptomatic",115,"Unknown","Normal","Yes",-0.5,"flat","Unknown","normal",1,7130,0,8280,0,-0.5
+59,"male","asymptomatic",110,"Unknown","Normal","No",0,"Unknown","Unknown","fixed defect",3,6490,0,10340,0,0
+53,"male","non-anginal pain",160,"Unknown","Left ventricular hypertrophy","Yes",0,"Unknown","Unknown","reversible defect",1,8480,0,19520,0,0
+62,"male","asymptomatic",150,"Unknown","ST-T wave abnormality","No",2,"flat","Unknown","reversible defect",3,9300,0,11700,0,6
+54,"male","asymptomatic",180,"Unknown","Normal","No",1.5,"flat","Unknown","reversible defect",1,9720,0,27000,0,1.5
+56,"male","asymptomatic",125,"True","Normal","Yes",1,"flat","Unknown","reversible defect",3,7000,0,12875,0,3
+56,"male","non-anginal pain",125,"Unknown","Normal","No",-2,"flat","Unknown","reversible defect",2,7000,0,12250,0,-4
+54,"male","asymptomatic",130,"Unknown","Normal","Yes",3,"flat","Unknown","reversible defect",3,7020,0,14300,0,9
+66,"female","asymptomatic",155,"Unknown","Normal","No",0,"Unknown","Unknown","reversible defect",1,10230,0,13950,0,0

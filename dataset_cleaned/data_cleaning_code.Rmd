@@ -1,0 +1,114 @@
+---
+title: "data_cleaning"
+author: "yana xu"
+date: "2024-11-05"
+output: html_document
+---
+```{r}
+# Define the function to clean and extract heart disease data
+process_heart_disease_data <- function(file_path, max_lines = NULL) {
+  # Read the data from the file
+  if (is.null(max_lines)) {
+    lines <- readLines(file_path)
+  } else {
+    lines <- readLines(file_path, n = max_lines)
+  }
+  
+  # Find indices where each patient's data ends (lines ending with 'name')
+  patient_end_indices <- grep("name$", lines)
+  
+  # Number of patients in the dataset
+  num_patients <- length(patient_end_indices)
+  
+  # Initialize a list to store data for each patient
+  data_list <- list()
+  
+  # Loop over each patient to extract their data
+  for (i in 1:num_patients) {
+    if (i == 1) {
+      start_idx <- 1
+    } else {
+      start_idx <- patient_end_indices[i - 1] + 1
+    }
+    end_idx <- patient_end_indices[i]
+    
+    # Extract lines corresponding to the current patient
+    patient_lines <- lines[start_idx:end_idx]
+    
+    # Split the lines into individual numbers
+    patient_numbers <- unlist(strsplit(patient_lines, "\\s+"))
+    
+    # Remove empty strings and 'name' entries
+    patient_numbers <- patient_numbers[patient_numbers != "" & patient_numbers != "name"]
+    
+    # Convert to numeric values, suppressing warnings for non-numeric entries
+    suppressWarnings(patient_numbers_numeric <- as.numeric(patient_numbers))
+    
+    # Remove any NAs resulting from non-numeric entries
+    patient_numbers_numeric <- patient_numbers_numeric[!is.na(patient_numbers_numeric)]
+    
+    # Store the numeric data for the patient
+    data_list[[i]] <- patient_numbers_numeric
+  }
+  
+  # Determine the maximum number of attributes across all patients
+  max_length <- max(sapply(data_list, length))
+  
+  # Pad each patient's data to have the same length
+  data_matrix <- t(sapply(data_list, function(x) {
+    c(x, rep(NA, max_length - length(x)))
+  }))
+  
+  # Specify the indices of the required attributes
+  selected_columns <- c(3, 4, 9, 10, 12, 16, 19, 32, 38, 40, 41, 44, 51, 58)
+  
+  # Check if selected columns are within the bounds of data_matrix
+  selected_columns <- selected_columns[selected_columns <= ncol(data_matrix)]
+  
+  # Extract the required attributes
+  data_selected <- data_matrix[, selected_columns, drop = FALSE]
+  
+  # Convert to a data frame
+  data_selected_df <- as.data.frame(data_selected)
+  
+  # Assign appropriate column names
+  colnames(data_selected_df) <- c("age", "sex", "cp", "trestbps", "chol", "fbs",
+                                  "restecg", "thalach", "exang", "oldpeak",
+                                  "slope", "ca", "thal", "num")[1:ncol(data_selected_df)]
+  
+  # Replace missing values (-9 or -9.0) with NA
+  data_selected_df[data_selected_df == -9 | data_selected_df == -9.0] <- NA
+  
+  # Return the cleaned data frame
+  return(data_selected_df)
+}
+
+# Define the file paths for each dataset
+cleveland_path <- "~/Desktop/625_Final/Heart+Disease/cleveland.data"
+hungarian_path <- "~/Desktop/625_Final/Heart+Disease/hungarian.data"
+switzerland_path <- "~/Desktop/625_Final/Heart+Disease/switzerland.data"
+long_beach_va_path <- "~/Desktop/625_Final/Heart+Disease/long-beach-va.data"
+
+# Process the Cleveland dataset, excluding lines 284 and over
+# Since line numbers start from 1, we read up to line 283
+cleveland_data <- process_heart_disease_data(cleveland_path, max_lines = 283)
+cleveland_data$source <- "Cleveland"
+
+# Process the other datasets normally
+hungarian_data <- process_heart_disease_data(hungarian_path)
+hungarian_data$source <- "Hungarian"
+
+switzerland_data <- process_heart_disease_data(switzerland_path)
+switzerland_data$source <- "Switzerland"
+
+long_beach_va_data <- process_heart_disease_data(long_beach_va_path)
+long_beach_va_data$source <- "LongBeachVA"
+
+# Combine all datasets into one
+heart_disease_dataset <- rbind(cleveland_data, hungarian_data, switzerland_data, long_beach_va_data)
+
+# Save the combined dataset to a CSV file
+output_path <- "~/Desktop/625_Final/Heart+Disease/heart_disease_dataset.csv"
+write.csv(heart_disease_dataset, output_path, row.names = FALSE)
+```
+
