@@ -1,0 +1,125 @@
+---
+title: "Logistic Regression"
+author: "Yulin Shao"
+date: "2024-10-30"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(mice)
+library(tidyverse)
+```
+
+```{r data processing}
+# Load the dataset
+heart_data = read.csv("~/Desktop/UMICH/FALL 2024/BIostat 625/625_Final/dataset_cleaned/heart_disease_dataset.csv")
+
+# Inspect the first few rows of the dataset
+head(heart_data)
+
+# Convert relevant columns to factors
+heart_data = heart_data %>%
+  mutate(
+    chol = if_else(chol == 0, NA_real_, chol),
+    num = as.factor(ifelse(num > 0, 1, 0))  # 1 for disease, 0 for no disease
+  )
+
+# Calculate proportion of NAs for each column
+na_proportions <- heart_data %>%
+  summarise(across(everything(),
+                  ~round(mean(is.na(.)) * 100, 2),
+                  .names = "{.col}_NA_percent")) %>%
+  pivot_longer(everything(),
+               names_to = "variable",
+               values_to = "na_percent") %>%
+  arrange(desc(na_percent))
+
+# Print results
+print(na_proportions, n = nrow(na_proportions))
+
+# Clean the dataset
+heart_data = heart_data %>%
+  # Remove specified columns
+  select(-slope, -ca, -thal)
+
+chol_median = heart_data %>%
+  pull(chol) %>%        # extract cholesterol values
+  median(na.rm = TRUE)  # calculate median
+
+fbs_median = heart_data %>%
+  pull(fbs) %>%        # extract cholesterol values
+  median(na.rm = TRUE)  # calculate median
+
+# Replace NA with median
+heart_data = heart_data %>%
+  mutate(chol = if_else(is.na(chol), 
+                        chol_median, 
+                        chol),
+         fbs = if_else(is.na(fbs), 
+                        fbs_median, 
+                        fbs))
+
+heart_data = heart_data %>%
+  # Remove any rows with NA values
+  drop_na()
+
+# Check missing data pattern
+md.pattern(heart_data)
+```
+
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Split the data into training (80%) and testing (20%) sets
+sample_index = sample(seq_len(nrow(heart_data)), size = 0.8 * nrow(heart_data))
+train_data = heart_data[sample_index, ]
+test_data = heart_data[-sample_index, ]
+
+
+# Now you can fit your GLM directly
+model <- glm(num ~ age + sex + cp + trestbps + chol + fbs + 
+             restecg + thalach + exang + oldpeak,
+             family = binomial,
+             data = heart_data)
+
+
+# Summary of the model
+summary(model)
+```
+
+```{r}
+# Predict probabilities on the test set
+predicted_probs = predict(model, newdata = test_data, type = "response")
+
+# Convert probabilities to binary predictions with a threshold of 0.5
+predicted_classes = ifelse(predicted_probs > 0.5, 1, 0)
+
+
+# Create confusion matrix
+confusion_matrix = table(Predicted = predicted_classes, Actual = test_data$num)
+
+# Extract values from confusion matrix
+TP = confusion_matrix[2, 2]  # True Positives
+TN = confusion_matrix[1, 1]  # True Negatives
+FP = confusion_matrix[2, 1]  # False Positives
+FN = confusion_matrix[1, 2]  # False Negatives
+
+# Calculate metrics
+accuracy = (TP + TN) / (TP + TN + FP + FN)
+precision = TP / (TP + FP)
+recall = TP / (TP + FN)  # Sensitivity
+specificity = TN / (TN + FP)
+f1_score = 2 * (precision * recall) / (precision + recall)
+
+# Print results
+cat("Accuracy:", round(accuracy * 100, 2), "%\n")
+cat("Precision:", round(precision, 2), "\n")
+cat("Recall:", round(recall, 2), "\n")
+cat("Specificity:", round(specificity, 2), "\n")
+cat("F1 Score:", round(f1_score, 2), "\n")
+
+```
