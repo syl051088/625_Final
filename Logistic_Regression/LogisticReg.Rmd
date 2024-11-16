@@ -105,7 +105,8 @@ auc_value = auc(roc_curve)
 cat("AUC:", auc_value, "\n")
 
 # Plot ROC Curve
+png("results/ROC_Curve_Logistic_Regression_Model.png")
 plot(roc_curve, main = "ROC Curve", col = "blue")
-png("ROC_Curve_Logistic_Regression_Model.png")
+
 dev.off()
 ```
