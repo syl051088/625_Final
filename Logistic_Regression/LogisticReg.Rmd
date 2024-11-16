@@ -10,6 +10,8 @@ output: pdf_document
 library(dplyr)
 library(mice)
 library(tidyverse)
+library(pROC)
+library(caret)
 ```
 
 ```{r data processing}
@@ -27,7 +29,7 @@ heart_data = heart_data %>%
   )
 
 # Calculate proportion of NAs for each column
-na_proportions <- heart_data %>%
+na_proportions = heart_data %>%
   summarise(across(everything(),
                   ~round(mean(is.na(.)) * 100, 2),
                   .names = "{.col}_NA_percent")) %>%
@@ -44,82 +46,66 @@ heart_data = heart_data %>%
   # Remove specified columns
   select(-slope, -ca, -thal)
 
-chol_median = heart_data %>%
-  pull(chol) %>%        # extract cholesterol values
-  median(na.rm = TRUE)  # calculate median
-
-fbs_median = heart_data %>%
-  pull(fbs) %>%        # extract cholesterol values
-  median(na.rm = TRUE)  # calculate median
-
-# Replace NA with median
-heart_data = heart_data %>%
-  mutate(chol = if_else(is.na(chol), 
-                        chol_median, 
-                        chol),
-         fbs = if_else(is.na(fbs), 
-                        fbs_median, 
-                        fbs))
-
-heart_data = heart_data %>%
-  # Remove any rows with NA values
-  drop_na()
-
 # Check missing data pattern
 md.pattern(heart_data)
 ```
 
-
-```{r}
+```{r imputation and model training}
 # Set seed for reproducibility
 set.seed(123)
 
-# Split the data into training (80%) and testing (20%) sets
-sample_index = sample(seq_len(nrow(heart_data)), size = 0.8 * nrow(heart_data))
-train_data = heart_data[sample_index, ]
-test_data = heart_data[-sample_index, ]
+# Perform multiple imputation
+imputed_data = mice(heart_data, m = 5, method = 'pmm')
+summary(imputed_data)
 
+sample_index = sample(seq_len(nrow(completed_data)), size = 0.8 * nrow(completed_data))
+predicted_probs = matrix(NA, nrow = 5, ncol=nrow(heart_data)-length(sample_index))
+# # Loop over all imputed datasets
+for (i in 1:5) {
+  completed_data = complete(imputed_data, action = i)
+  train_data = completed_data[sample_index, ]
+  test_data = completed_data[-sample_index, ]
 
-# Now you can fit your GLM directly
-model <- glm(num ~ age + sex + cp + trestbps + chol + fbs + 
+  # Fit and evaluate models here for each imputed dataset
+  model = with(train_data, glm(num ~ age + sex + cp + trestbps + chol + fbs +
              restecg + thalach + exang + oldpeak,
-             family = binomial,
-             data = heart_data)
-
-
-# Summary of the model
-summary(model)
+             family = binomial))
+  
+  # Predict probabilities on the test set
+  predicted_probs[i,] = predict(model, newdata = test_data, type = "response")
+}
 ```
 
-```{r}
-# Predict probabilities on the test set
-predicted_probs = predict(model, newdata = test_data, type = "response")
-
+```{r results}
+predicted = colMeans(predicted_probs)
 # Convert probabilities to binary predictions with a threshold of 0.5
-predicted_classes = ifelse(predicted_probs > 0.5, 1, 0)
+predictions = ifelse(predicted > 0.5, 1, 0)
+true_lable = factor(test_data$num)
+# Create confusion matrix and derive metrics
+conf_matrix = confusionMatrix(factor(predictions), true_lable, positive="1")
 
+# Print key metrics
+# Extract metrics
+accuracy = conf_matrix$overall["Accuracy"]
+sensitivity = conf_matrix$byClass["Sensitivity"]
+specificity = conf_matrix$byClass["Specificity"]
+precision = conf_matrix$byClass["Pos Pred Value"]
+f1_score = 2 * (precision * sensitivity) / (precision + sensitivity)
 
-# Create confusion matrix
-confusion_matrix = table(Predicted = predicted_classes, Actual = test_data$num)
+cat("Accuracy:", accuracy, "\n")
+cat("Sensitivity (Recall):", sensitivity, "\n")
+cat("Specificity:", specificity, "\n")
+cat("Precision:", precision, "\n")
+cat("F1 Score:", f1_score, "\n")
 
-# Extract values from confusion matrix
-TP = confusion_matrix[2, 2]  # True Positives
-TN = confusion_matrix[1, 1]  # True Negatives
-FP = confusion_matrix[2, 1]  # False Positives
-FN = confusion_matrix[1, 2]  # False Negatives
+# Compute ROC and AUC
+roc_curve = roc(true_lable, predicted)
+auc_value = auc(roc_curve)
 
-# Calculate metrics
-accuracy = (TP + TN) / (TP + TN + FP + FN)
-precision = TP / (TP + FP)
-recall = TP / (TP + FN)  # Sensitivity
-specificity = TN / (TN + FP)
-f1_score = 2 * (precision * recall) / (precision + recall)
+cat("AUC:", auc_value, "\n")
 
-# Print results
-cat("Accuracy:", round(accuracy * 100, 2), "%\n")
-cat("Precision:", round(precision, 2), "\n")
-cat("Recall:", round(recall, 2), "\n")
-cat("Specificity:", round(specificity, 2), "\n")
-cat("F1 Score:", round(f1_score, 2), "\n")
-
+# Plot ROC Curve
+plot(roc_curve, main = "ROC Curve", col = "blue")
+png("ROC_Curve_Logistic_Regression_Model.png")
+dev.off()
 ```
