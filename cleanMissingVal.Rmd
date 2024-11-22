@@ -11,32 +11,15 @@ heart_data = heart_data %>%
     num = as.factor(ifelse(num > 0, 1, 0))  # 1 for disease, 0 for no disease
   )
 
-# Calculate proportion of NAs for each column
-na_proportions = heart_data %>%
-  summarise(across(everything(),
-                  ~round(mean(is.na(.)) * 100, 2),
-                  .names = "{.col}_NA_percent")) %>%
-  pivot_longer(everything(),
-               names_to = "variable",
-               values_to = "na_percent") %>%
-  arrange(desc(na_percent))
-
-# Print results
-print(na_proportions, n = nrow(na_proportions))
-
 # Clean the dataset
 heart_data = heart_data %>%
   # Remove specified columns
   select(-slope, -ca, -thal)
-
-# Check missing data pattern
-md.pattern(heart_data)
 
 # Set seed for reproducibility
 set.seed(123)
 
 # Perform multiple imputation
 imputed_data = mice(heart_data, m = 5, method = 'pmm')
-summary(imputed_data)
 ```
 
