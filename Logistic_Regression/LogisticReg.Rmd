@@ -16,7 +16,7 @@ library(caret)
 
 ```{r data processing}
 # Load the dataset
-heart_data = read.csv("~/Desktop/UMICH/FALL 2024/BIostat 625/625_Final/dataset_cleaned/heart_disease_dataset.csv")
+heart_data = read.csv("C:/Users/syl05/OneDrive/Desktop/UMICH/FALL 2024/BIostat 625/625_Final/625_Final/dataset_cleaned/heart_disease_dataset.csv")
 
 # Inspect the first few rows of the dataset
 head(heart_data)
@@ -58,7 +58,7 @@ set.seed(123)
 imputed_data = mice(heart_data, m = 5, method = 'pmm')
 summary(imputed_data)
 
-sample_index = sample(seq_len(nrow(completed_data)), size = 0.8 * nrow(completed_data))
+sample_index = sample(seq_len(nrow(complete(imputed_data, action = 1))), size = 0.8 * nrow(complete(imputed_data, action = 1)))
 predicted_probs = matrix(NA, nrow = 5, ncol=nrow(heart_data)-length(sample_index))
 # # Loop over all imputed datasets
 for (i in 1:5) {
