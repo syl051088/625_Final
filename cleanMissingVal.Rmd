@@ -1,0 +1,42 @@
+```{r}
+heart_data = read.csv("C:/Users/syl05/OneDrive/Desktop/UMICH/FALL 2024/BIostat 625/625_Final/625_Final/dataset_cleaned/heart_disease_dataset.csv")
+
+# Inspect the first few rows of the dataset
+head(heart_data)
+
+# Convert relevant columns to factors
+heart_data = heart_data %>%
+  mutate(
+    chol = if_else(chol == 0, NA_real_, chol),
+    num = as.factor(ifelse(num > 0, 1, 0))  # 1 for disease, 0 for no disease
+  )
+
+# Calculate proportion of NAs for each column
+na_proportions = heart_data %>%
+  summarise(across(everything(),
+                  ~round(mean(is.na(.)) * 100, 2),
+                  .names = "{.col}_NA_percent")) %>%
+  pivot_longer(everything(),
+               names_to = "variable",
+               values_to = "na_percent") %>%
+  arrange(desc(na_percent))
+
+# Print results
+print(na_proportions, n = nrow(na_proportions))
+
+# Clean the dataset
+heart_data = heart_data %>%
+  # Remove specified columns
+  select(-slope, -ca, -thal)
+
+# Check missing data pattern
+md.pattern(heart_data)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Perform multiple imputation
+imputed_data = mice(heart_data, m = 5, method = 'pmm')
+summary(imputed_data)
+```
+
