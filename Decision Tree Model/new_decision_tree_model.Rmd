@@ -1,0 +1,251 @@
+---
+title: "new_decision_tree_model"
+author: "yana xu"
+date: "2024-11-24"
+output: html_document
+---
+## 1. Loading Libraries and Dataset
+```{r setup}
+# Load necessary libraries
+library(mice)        # For multiple imputation
+library(dplyr)       # For data manipulation
+library(ggplot2)     # For data visualization
+library(caret)       # For model training and evaluation
+library(rpart)       # For building decision trees
+library(rpart.plot)  # For plotting decision trees
+library(pROC)        # For ROC curve analysis
+library(ggcorrplot)  # For plotting correlation matrices
+
+# Read the dataset
+heart_data <- read.csv("~/Desktop/625_Final/dataset_cleaned/heart_disease_dataset.csv")
+
+# Inspect the structure of the dataset
+str(heart_data)
+
+# View the first few rows
+head(heart_data)
+
+# Summary statistics
+summary(heart_data)
+
+# Check for missing values
+colSums(is.na(heart_data))
+
+```
+
+## Data Preprocessing
+
+```{r data process}
+# Convert appropriate columns to factors
+heart_data <- heart_data %>%
+  mutate(
+    sex = as.factor(sex),
+    cp = as.factor(cp),
+    fbs = as.factor(fbs),
+    restecg = as.factor(restecg),
+    exang = as.factor(exang),
+    num = as.factor(ifelse(num > 0, 1, 0))  # 1 for disease, 0 for no disease
+  )
+
+# Replace invalid '0' values in 'chol' and 'trestbps' with NA
+heart_data$chol[heart_data$chol == 0] <- NA
+heart_data$trestbps[heart_data$trestbps == 0] <- NA
+
+# Remove unnecessary columns
+heart_data <- heart_data %>%
+  select(-slope, -ca, -thal)
+
+# Check missing values after preprocessing
+colSums(is.na(heart_data))
+
+```
+
+## 4. Exploratory Data Analysis (EDA)
+
+### 4.1 Age Distribution
+```{r}
+# Histogram of age
+age_plot <- ggplot(heart_data, aes(x = age)) +
+  geom_histogram(binwidth = 5, fill = 'blue', color = 'black') +
+  theme_minimal() +
+  labs(title = 'Age Distribution', x = 'Age', y = 'Frequency')
+
+# Save the plot
+ggsave(filename = "~/Desktop/625_Final/Decision Tree Model/result/age_distribution.png", plot = age_plot, width = 8, height = 6)
+```
+
+### 4.2 Distribution of Heart Disease
+```{r}
+# Bar plot of target variable
+heart_disease_plot <- ggplot(heart_data, aes(x = num)) +
+  geom_bar(fill = 'orange') +
+  theme_minimal() +
+  labs(title = 'Distribution of Heart Disease', x = 'Heart Disease (0 = No, 1 = Yes)', y = 'Count')
+
+# Save the plot
+ggsave(filename = "~/Desktop/625_Final/Decision Tree Model/result/heart_disease_distribution.png", plot = heart_disease_plot, width = 8, height = 6)
+
+```
+
+### 4.3 Correlation Matrix
+```{r}
+# Correlation matrix for numeric variables
+numeric_vars <- heart_data %>% select_if(is.numeric)
+corr_matrix <- cor(numeric_vars, use = 'complete.obs')
+
+# Plot the correlation matrix
+corr_plot <- ggcorrplot(corr_matrix, lab = TRUE, title = "Correlation Matrix")
+# Save the plot
+ggsave(filename = "~/Desktop/625_Final/Decision Tree Model/result/correlation_matrix.png", plot = corr_plot, width = 8, height = 6)
+```
+
+## 5. Handle Missing Data with Multiple Imputation
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Impute missing values using mice
+imputed_data <- mice(heart_data, m = 5, method = 'pmm', seed = 123)
+
+# Check the imputation methods used
+imputed_data$method
+
+# Density plots before and after imputation for 'chol'
+densityplot(imputed_data, ~chol)
+
+# Extract the first imputed dataset
+complete_data <- complete(imputed_data, 1)
+
+# Verify that there are no missing values
+colSums(is.na(complete_data))
+
+```
+
+## 6. Split the Data into Training and Testing Sets
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Create training (80%) and testing (20%) datasets
+train_index <- createDataPartition(complete_data$num, p = 0.8, list = FALSE)
+train_data <- complete_data[train_index, ]
+test_data  <- complete_data[-train_index, ]
+
+# Verify the proportion of target variable in both sets
+prop.table(table(train_data$num))
+prop.table(table(test_data$num))
+```
+
+## 7. Model Training with Cross-Validation and Hyperparameter Tuning
+
+```{r}
+# Define cross-validation method
+train_control <- trainControl(method = "cv", number = 10)
+
+# Define a grid of complexity parameters for tuning
+cp_grid <- expand.grid(cp = seq(0.001, 0.05, by = 0.001))
+
+# Train the decision tree model
+set.seed(123)
+model <- train(
+  num ~ .,
+  data = train_data,
+  method = "rpart",
+  trControl = train_control,
+  tuneGrid = cp_grid,
+  metric = "Accuracy"
+)
+
+# View the best tuning parameter
+print(model$bestTune)
+
+# Plot model performance vs. complexity parameter
+model_performance_plot <- plot(model)
+# Save the plot
+png(filename = "~/Desktop/625_Final/Decision Tree Model/result/model_performance_plot.png", width = 800, height = 600)
+plot(model)
+dev.off()
+```
+
+## 8. Visualize the Final Decision Tree
+
+```{r}
+# Plot the final decision tree
+png(filename = "~/Desktop/625_Final/Decision Tree Model/result/decision_tree.png", width = 800, height = 600)
+rpart.plot(
+  model$finalModel,
+  type = 2,
+  extra = 104,
+  fallen.leaves = TRUE,
+  main = "Decision Tree for Heart Disease Prediction"
+)
+dev.off()
+```
+
+## 9. Evaluate Model Performance on Test Data
+```{r}
+# Make predictions on the test set
+predictions <- predict(model, test_data)
+
+# Confusion matrix
+conf_mat <- confusionMatrix(predictions, test_data$num)
+print(conf_mat)
+```
+
+### Evaluation Metrics
+```{r}
+# Extract evaluation metrics
+accuracy <- conf_mat$overall['Accuracy']
+precision <- conf_mat$byClass['Pos Pred Value']
+recall <- conf_mat$byClass['Sensitivity']
+f1_score <- 2 * (precision * recall) / (precision + recall)
+
+# Print evaluation metrics
+cat("Accuracy: ", round(accuracy, 4), "\n")
+cat("Precision: ", round(precision, 4), "\n")
+cat("Recall: ", round(recall, 4), "\n")
+cat("F1 Score: ", round(f1_score, 4), "\n")
+```
+
+## 10. ROC Curve and AUC
+```{r}
+# Convert factors to numeric for ROC analysis
+roc_predictions <- as.numeric(as.character(predictions))
+roc_test_labels <- as.numeric(as.character(test_data$num))
+
+# Compute ROC curve
+roc_obj <- roc(roc_test_labels, roc_predictions)
+
+# Plot ROC curve
+png(filename = "~/Desktop/625_Final/Decision Tree Model/result/roc_curve.png", width = 800, height = 600)
+plot(roc_obj, col = "blue", main = "ROC Curve for Decision Tree Model")
+abline(a = 0, b = 1, lty = 2, col = "red")
+dev.off()
+
+# Calculate AUC
+auc_value <- auc(roc_obj)
+cat("AUC: ", round(auc_value, 4), "\n")
+```
+
+## 11. Variable Importance
+```{r}
+# Assess variable importance
+importance <- varImp(model, scale = FALSE)
+print(importance)
+
+# Plot variable importance
+importance_plot <- plot(importance, main = "Variable Importance")
+
+# Save the plot
+png(filename = "~/Desktop/625_Final/Decision Tree Model/result/variable_importance.png", width = 800, height = 600)
+plot(importance, main = "Variable Importance")
+dev.off()
+```
+
+## 12. Save the Model
+```{r}
+# Save the model to an RDS file
+saveRDS(model, file = "~/Desktop/625_Final/Decision Tree Model/result/decision_tree_model.rds")
+```
