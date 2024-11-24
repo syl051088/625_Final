@@ -1,0 +1,100 @@
+---
+title: "Random Forest Model"
+author: "Yichen Zhao"
+date: "2024-11-01"
+output: html_document
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(mice)
+library(caret)
+library(pROC)
+```
+
+```{r}
+# Load the dataset
+heart_data = read.csv("/Users/yichen/Desktop/BIOS\ 625/625\ final\ project/random\ forest/heart_disease_dataset.csv")
+
+# Convert relevant columns
+heart_data = heart_data %>%
+  mutate(
+    chol = if_else(chol == 0, NA_real_, chol),  
+    num = factor(ifelse(num > 0, 1, 0), levels = c(0, 1), labels = c("NoDisease", "Disease"))  
+  )
+
+# Clean the dataset
+heart_data = heart_data %>%
+  select(-slope, -ca, -thal)
+```
+
+```{r, warning=FALSE}
+# Set seed for reproducibility
+set.seed(123)
+
+# Perform multiple imputation using MICE
+imputed_data = mice(heart_data, m = 5, method = 'pmm', seed = 123, printFlag = FALSE)
+
+# Initialize storage for true labels and test probabilities across imputations
+all_test_labels = c()
+all_test_probs = c()
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Perform multiple imputation using MICE
+imputed_data = mice(heart_data, m = 5, method = 'pmm', seed = 123, printFlag = FALSE)
+
+# Initialize storage for true labels and test probabilities across imputations
+all_test_labels = c()
+all_test_probs = c()
+
+# Loop over all imputed datasets
+for (i in 1:5) {
+  # Extract the ith completed dataset
+  completed_data = complete(imputed_data, i)
+  
+  # Split the dataset into training (80%) and testing (20%) sets
+  set.seed(123)
+  trainIndex = createDataPartition(completed_data$num, p = 0.8, list = FALSE)
+  trainData = completed_data[trainIndex, ]
+  testData = completed_data[-trainIndex, ]
+  
+  # Drop unused factor levels in the target variable
+  trainData$num = droplevels(trainData$num)
+  testData$num = droplevels(testData$num)
+  
+  # Train the Random Forest model
+  set.seed(123)
+  rf_model = train(
+    num ~ ., 
+    data = trainData, 
+    method = "rf", 
+    trControl = trainControl(method = "cv", number = 5, classProbs = TRUE),  # Enable class probabilities
+    tuneGrid = expand.grid(mtry = 3),  # Fixed mtry for simplicity
+    ntree = 500
+  )
+  
+  # Predict probabilities for the test data (positive class "Disease")
+  test_probs = predict(rf_model, newdata = testData, type = "prob")[, "Disease"]
+  
+  # Append the true labels and predicted probabilities for the test set
+  all_test_labels = c(all_test_labels, testData$num)
+  all_test_probs = c(all_test_probs, test_probs)
+}
+```
+
+```{r}
+# Compute the ROC curve using combined test set probabilities and labels
+roc_curve = roc(all_test_labels, all_test_probs)
+
+# Calculate AUC
+auc_value = auc(roc_curve)
+print(paste("AUC for Averaged Random Forest Model: ", auc_value))
+
+# Plot the ROC curve
+png("Random_Forest_Model.png")
+plot(roc_curve, main = "ROC Curve for Random Forest", lwd = 2)
+dev.off()
+```
+
