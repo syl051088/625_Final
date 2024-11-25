@@ -38,16 +38,7 @@ imputed_data = mice(heart_data, m = 5, method = 'pmm', seed = 123, printFlag = F
 # Initialize storage for true labels and test probabilities across imputations
 all_test_labels = c()
 all_test_probs = c()
-
-# Set seed for reproducibility
-set.seed(123)
-
-# Perform multiple imputation using MICE
-imputed_data = mice(heart_data, m = 5, method = 'pmm', seed = 123, printFlag = FALSE)
-
-# Initialize storage for true labels and test probabilities across imputations
-all_test_labels = c()
-all_test_probs = c()
+all_test_preds = c()
 
 # Loop over all imputed datasets
 for (i in 1:5) {
@@ -77,10 +68,12 @@ for (i in 1:5) {
   
   # Predict probabilities for the test data (positive class "Disease")
   test_probs = predict(rf_model, newdata = testData, type = "prob")[, "Disease"]
+  test_preds = predict(rf_model, newdata = testData)
   
   # Append the true labels and predicted probabilities for the test set
   all_test_labels = c(all_test_labels, testData$num)
   all_test_probs = c(all_test_probs, test_probs)
+  all_test_preds = c(all_test_preds, test_preds)
 }
 ```
 
@@ -92,9 +85,13 @@ roc_curve = roc(all_test_labels, all_test_probs)
 auc_value = auc(roc_curve)
 print(paste("AUC for Averaged Random Forest Model: ", auc_value))
 
+# Calculate Accuracy
+accuracy = mean(all_test_preds == all_test_labels)
+print(paste("Accuracy for Averaged Random Forest Model: ", accuracy))
+
 # Plot the ROC curve
 png("Random_Forest_Model.png")
-plot(roc_curve, main = "ROC Curve for Random Forest", lwd = 2)
+plot(roc_curve, main = "ROC Curve for Random Forest", col = 'blue', lwd = 2)
 dev.off()
 ```
 
