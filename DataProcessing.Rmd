@@ -1,7 +1,7 @@
 ```{r }
 set.seed(123)  # Set seed for reproducibility
 # read data
-df = read.csv("data/diabetes_binary_health_indicators_BRFSS2015.csv")
+df = read.csv("data/diabetes_binary_5050split_health_indicators_BRFSS2015.csv")
 
 train_ratio <- 0.8
 train_indices <- sample(1:nrow(df), size = floor(train_ratio * nrow(df)))

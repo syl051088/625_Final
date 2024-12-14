@@ -1,0 +1,79 @@
+---
+title: "Logistic Regression"
+author: "Yulin Shao"
+date: "2024-10-30"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(mice)
+library(tidyverse)
+library(pROC)
+library(caret)
+```
+
+```{r data processing}
+# Load the dataset
+data = read.csv("../data/train_data.csv")
+
+head(data)
+```
+
+
+```{r run the model}
+set.seed(123)  # Set seed for reproducibility
+
+# Split the data into training and testing sets
+train_ratio <- 0.8
+train_indices <- sample(1:nrow(data), size = floor(train_ratio * nrow(data)))
+
+train_data <- data[train_indices, ]  # Training dataset
+test_data <- data[-train_indices, ]  # Testing dataset
+
+# Fit a logistic regression model using glm
+# model <- glm(Diabetes_binary ~ HighBP + HighChol + CholCheck + BMI + Smoker + 
+#              Stroke + HeartDiseaseorAttack + PhysActivity + Sex + Age, 
+#              data = data, 
+#              family = binomial())
+
+model <- glm(Diabetes_binary ~ . - Diabetes_binary, 
+             data = data, 
+             family = binomial())
+
+# Make predictions on the test dataset
+predicted <- predict(model, newdata = test_data, type = "response")
+
+# Convert probabilities into binary predictions (0 or 1) with a threshold of 0.5
+predictions = ifelse(predicted > 0.5, 1, 0)
+```
+
+```{r results}
+true_lable = factor(test_data$Diabetes_binary)
+# Create confusion matrix and derive metrics
+conf_matrix = confusionMatrix(factor(predictions), true_lable, positive="1")
+
+# Print key metrics
+# Extract metrics
+accuracy = conf_matrix$overall["Accuracy"]
+sensitivity = conf_matrix$byClass["Sensitivity"]
+specificity = conf_matrix$byClass["Specificity"]
+precision = conf_matrix$byClass["Pos Pred Value"]
+f1_score = 2 * (precision * sensitivity) / (precision + sensitivity)
+
+cat("Accuracy:", accuracy, "\n")
+cat("Sensitivity (Recall):", sensitivity, "\n")
+cat("Specificity:", specificity, "\n")
+cat("Precision:", precision, "\n")
+cat("F1 Score:", f1_score, "\n")
+
+# Compute ROC and AUC
+roc_curve = roc(true_lable, predicted)
+auc_value = auc(roc_curve)
+
+cat("AUC:", auc_value, "\n")
+plot(roc_curve, main = "ROC Curve", col = "blue")
+
+```
+
