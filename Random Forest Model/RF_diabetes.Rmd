@@ -1,0 +1,55 @@
+```{r, message=FALSE}
+# Load the library
+library(tidyverse)
+library(randomForest)
+library(caret)
+library(pROC)
+```
+
+```{r}
+# Load the training (80%) and testing (20%) sets
+testData2 = read.csv("~/Desktop/625_Final/data/test_data.csv")
+trainData2 = read.csv("~/Desktop/625_Final/data/train_data.csv")
+```
+
+```{r}
+# Turn outcome variable into factor
+trainData2$Diabetes_binary <- as.factor(trainData2$Diabetes_binary)
+testData2$Diabetes_binary <- as.factor(testData2$Diabetes_binary)
+levels(trainData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
+levels(testData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
+
+# Train the Random Forest model
+set.seed(123)
+rf_model2 = train(
+  Diabetes_binary ~ ., 
+  data = trainData2, 
+  method = "rf", 
+  trControl = trainControl(method = "cv", number = 8, classProbs = TRUE), 
+  tuneGrid = expand.grid(mtry = 3), 
+  ntree = 500
+)
+  
+# Predict probabilities for the test data (positive class "Diabetes")
+test_probs2 = predict(rf_model2, newdata = testData2, type = "prob")[, "Diabetes"]
+test_preds2 = predict(rf_model2, newdata = testData2)
+```
+
+```{r, warning=FALSE}
+# Compute the ROC curve using combined test set probabilities and labels
+roc_curve2 = roc(testData2$Diabetes_binary, test_probs2)
+
+# Calculate AUC
+auc_value2 = auc(roc_curve2)
+print(paste("AUC for Averaged Random Forest Model: ", auc_value2))
+
+# Calculate Accuracy
+accuracy2 = mean(test_preds2 == testData2$Diabetes_binary)
+print(paste("Accuracy for Averaged Random Forest Model: ", accuracy2))
+
+# Plot the ROC curve
+png("Random_Forest_Model_Diabetes.png")
+plot(roc_curve2, main = "ROC Curve for Random Forest", col = 'blue', lwd = 2)
+dev.off()
+```
+
