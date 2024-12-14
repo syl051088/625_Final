@@ -61,7 +61,7 @@ for (i in 1:5) {
     num ~ ., 
     data = trainData, 
     method = "rf", 
-    trControl = trainControl(method = "cv", number = 5, classProbs = TRUE),  # Enable class probabilities
+    trControl = trainControl(method = "cv", number = 5, classProbs = TRUE), 
     tuneGrid = expand.grid(mtry = 3),  # Fixed mtry for simplicity
     ntree = 500
   )
