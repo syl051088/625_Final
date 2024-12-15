@@ -1,0 +1,88 @@
+---
+title: "Logistic Regression"
+author: "Yulin Shao"
+date: "2024-10-30"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(tidyverse)
+library(pROC)
+library(caret)
+library(ggplot2)
+library(doParallel)
+library(bench)
+library(xgboost)
+```
+
+```{r data processing}
+# Load the dataset
+train_data = read.csv("../data/train_data.csv")
+train_matrix <- as.matrix(train_data[, -which(names(train_data) == "Diabetes_binary")])
+train_labels <- train_data$Diabetes_binary
+
+test_data = read.csv("../data/test_data.csv")
+test_matrix <- as.matrix(test_data[, -which(names(test_data) == "Diabetes_binary")])
+test_labels <- test_data$Diabetes_binary
+```
+
+```{r}
+# Cross-validation for hyperparameter tuning
+cv_results <- xgb.cv(
+  data = train_matrix,
+  label = train_labels,
+  nrounds = 100,  # Total number of boosting rounds
+  nfold = 5,  # 5-fold cross-validation
+  objective = "binary:logistic",  # Binary classification
+  eval_metric = "auc",  # Use AUC for evaluation
+  max_depth = 6,  # Maximum depth of a tree
+  eta = 0.3,  # Learning rate
+  subsample = 0.8,  # Subsample ratio of the training data
+  colsample_bytree = 0.8,  # Subsample ratio of columns
+  verbose = TRUE,
+  early_stopping_rounds = 10  # Stop early if no improvement
+)
+
+# Extract the best number of boosting rounds
+best_nrounds <- cv_results$best_iteration
+cat("Best number of rounds:", best_nrounds, "\n")
+
+# Train the final XGBoost model using the best number of rounds
+xgb_model <- xgboost(
+  data = train_matrix,
+  label = train_labels,
+  nrounds = best_nrounds,
+  objective = "binary:logistic",
+  eval_metric = "auc",
+  max_depth = 6,
+  eta = 0.3,
+  subsample = 0.8,
+  colsample_bytree = 0.8,
+  verbose = FALSE
+)
+
+# Make predictions on the test dataset
+pred_probs <- predict(xgb_model, newdata = test_matrix)
+pred_classes <- ifelse(pred_probs > 0.5, 1, 0)
+
+# Evaluate the model on the test set
+# Confusion Matrix
+confusion <- confusionMatrix(
+  factor(pred_classes, levels = c(0, 1)), 
+  factor(test_labels, levels = c(0, 1))
+)
+
+# Print evaluation metrics
+print(confusion)
+
+# ROC Curve and AUC
+roc_curve <- roc(test_labels, pred_probs)
+auc_value <- auc(roc_curve)
+
+# Plot ROC Curve
+plot(roc_curve, col = "blue", main = "ROC Curve for XGBoost Model")
+cat("AUC:", auc_value, "\n")
+```
+
