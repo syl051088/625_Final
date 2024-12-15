@@ -26,12 +26,12 @@ data$Diabetes_binary <- factor(data$Diabetes_binary,
                                levels = c("0", "1"), # original levels
                                labels = c("No", "Yes")) # new valid factor names
 
-# List of variables to convert to factors (excluding BMI)
-factor_vars <- c("Diabetes_binary", "HighBP", "HighChol", "CholCheck",
-                 "Smoker", "Stroke", "HeartDiseaseorAttack", "PhysActivity", "Sex")
+# Identify all columns except BMI
+factor_vars <- setdiff(names(data), c("BMI", "MentHlth", "PhysHlth"))
 
-# Convert variables to factors
+# Convert these columns to factors
 data[factor_vars] <- lapply(data[factor_vars], factor)
+
 
 head(data)
 
@@ -43,12 +43,12 @@ test_data$Diabetes_binary <- factor(test_data$Diabetes_binary,
                                levels = c("0", "1"), # original levels
                                labels = c("No", "Yes")) # new valid factor names
 
-# List of variables to convert to factors (excluding BMI)
-factor_vars <- c("Diabetes_binary", "HighBP", "HighChol", "CholCheck",
-                 "Smoker", "Stroke", "HeartDiseaseorAttack", "PhysActivity", "Sex")
+# Identify all columns except BMI
+factor_vars <- setdiff(names(test_data), c("BMI", "MentHlth", "PhysHlth"))
 
-# Convert variables to factors
+# Convert these columns to factors
 test_data[factor_vars] <- lapply(test_data[factor_vars], factor)
+
 ```
 
 ```{r modeling traning and prediction}
@@ -77,8 +77,6 @@ registerDoParallel(cl)
 benchmark_results <- bench::mark(
   Normal_Logistic = {
     model_normal <- train(
-      # Diabetes_binary ~ HighBP + HighChol + CholCheck + BMI + Smoker +
-      #   Stroke + HeartDiseaseorAttack + PhysActivity + Sex + Age,
       Diabetes_binary ~ .-Diabetes_binary,
       data = data,
       method = "glmnet",
@@ -91,8 +89,6 @@ benchmark_results <- bench::mark(
   
   Parallel_Logistic = {
     model_parallel <- train(
-      # Diabetes_binary ~ HighBP + HighChol + CholCheck + BMI + Smoker +
-      #   Stroke + HeartDiseaseorAttack + PhysActivity + Sex + Age,
       Diabetes_binary ~ .-Diabetes_binary,
       data = data,
       method = "glmnet",
