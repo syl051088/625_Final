@@ -1,0 +1,53 @@
+---
+title: "RF_diabetes"
+author: "Yichen Zhao"
+date: "2024-12-15"
+output: html_document
+---
+
+```{r}
+# Load the training (80%) and testing (20%) sets
+testData2 = read.csv("~/Desktop/625_Final/data/test_data.csv")
+trainData2 = read.csv("~/Desktop/625_Final/data/train_data.csv")
+```
+
+```{r}
+# Turn outcome variable into factor
+trainData2$Diabetes_binary <- as.factor(trainData2$Diabetes_binary)
+testData2$Diabetes_binary <- as.factor(testData2$Diabetes_binary)
+levels(trainData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
+levels(testData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
+```
+
+```{r}
+# Measure time for train
+time_train <- system.time({
+  rf_model2 <- train(
+    Diabetes_binary ~ ., 
+    data = trainData2, 
+    method = "rf", 
+    trControl = trainControl(method = "cv", number = 8, classProbs = TRUE), 
+    tuneGrid = expand.grid(mtry = 3), 
+    ntree = 500
+  )
+})
+
+# Measure time for ranger
+time_ranger <- system.time({
+  rf_model <- ranger(
+    Diabetes_binary ~ ., 
+    data = trainData2,
+    num.trees = 500,         
+    mtry = 3,                 
+    probability = TRUE,       
+    num.threads = detectCores() - 1  
+  )
+})
+
+# Compare the timing results
+print("Time for the original random forest model")
+print(time_train)
+
+print("Time for model using ranger")
+print(time_ranger)
+```
