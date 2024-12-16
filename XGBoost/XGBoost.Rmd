@@ -15,6 +15,7 @@ library(ggplot2)
 library(doParallel)
 library(bench)
 library(xgboost)
+library(Matrix)
 ```
 
 ```{r data processing}
@@ -26,6 +27,10 @@ train_labels <- train_data$Diabetes_binary
 test_data = read.csv("../data/test_data.csv")
 test_matrix <- as.matrix(test_data[, -which(names(test_data) == "Diabetes_binary")])
 test_labels <- test_data$Diabetes_binary
+
+# Convert the training and test data into sparse matrices
+train_matrix <- as(train_matrix, "dgCMatrix")
+test_matrix <- as(test_matrix, "dgCMatrix")
 ```
 
 ```{r}
@@ -41,7 +46,7 @@ cv_results <- xgb.cv(
   eta = 0.3,  # Learning rate
   subsample = 0.8,  # Subsample ratio of the training data
   colsample_bytree = 0.8,  # Subsample ratio of columns
-  verbose = TRUE,
+  verbose = F,
   early_stopping_rounds = 10  # Stop early if no improvement
 )
 
@@ -65,6 +70,92 @@ xgb_model <- xgboost(
 
 # Make predictions on the test dataset
 pred_probs <- predict(xgb_model, newdata = test_matrix)
+pred_classes <- ifelse(pred_probs > 0.5, 1, 0)
+
+# Evaluate the model on the test set
+# Confusion Matrix
+confusion <- confusionMatrix(
+  factor(pred_classes, levels = c(0, 1)), 
+  factor(test_labels, levels = c(0, 1))
+)
+
+# Print evaluation metrics
+print(confusion)
+
+# ROC Curve and AUC
+roc_curve <- roc(test_labels, pred_probs)
+auc_value <- auc(roc_curve)
+
+# Plot ROC Curve
+plot(roc_curve, col = "blue", main = "ROC Curve for XGBoost Model")
+cat("AUC:", auc_value, "\n")
+```
+```{r}
+# Create DMatrix objects
+dtrain <- xgb.DMatrix(data = train_matrix, label = train_labels)
+dtest <- xgb.DMatrix(data = test_matrix, label = test_labels)
+
+# Hyperparameter grid
+param_grid <- expand.grid(
+  eta = c(0.01, 0.1, 0.3),         # Learning rates
+  lambda = c(0, 1, 10),            # L2 regularization
+  alpha = c(0, 0.1, 1)             # L1 regularization
+)
+
+# Initialize variables to store best parameters and best AUC
+best_params <- list()
+best_auc <- 0
+best_nrounds <- 0
+
+# Grid search for hyperparameter tuning
+for (i in 1:nrow(param_grid)) {
+  params <- list(
+    booster = "gbtree",
+    objective = "binary:logistic",
+    eval_metric = "auc",
+    eta = param_grid$eta[i],
+    lambda = param_grid$lambda[i],
+    alpha = param_grid$alpha[i]
+  )
+  
+  # Perform cross-validation
+  cv_results <- xgb.cv(
+    params = params,
+    data = dtrain,
+    nrounds = 100,
+    nfold = 5,
+    early_stopping_rounds = 10,
+    verbose = FALSE
+  )
+  
+  # Extract the best AUC and number of rounds
+  mean_auc <- max(cv_results$evaluation_log$test_auc_mean)
+  nrounds <- cv_results$best_iteration
+  
+  # Update best parameters if current AUC is better
+  if (mean_auc > best_auc) {
+    best_auc <- mean_auc
+    best_params <- params
+    best_nrounds <- nrounds
+  }
+}
+
+# Print best parameters and AUC
+cat("Best Parameters:\n")
+print(best_params)
+cat("Best AUC:", best_auc, "\n")
+cat("Best Number of Rounds:", best_nrounds, "\n")
+
+# Train the final model with the best parameters
+final_model <- xgb.train(
+  params = best_params,
+  data = dtrain,
+  nrounds = best_nrounds,
+  verbose = TRUE
+)
+
+# Make predictions on the test dataset
+pred_probs <- predict(final_model, newdata = dtest)
 pred_classes <- ifelse(pred_probs > 0.5, 1, 0)
 
 # Evaluate the model on the test set
