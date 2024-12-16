@@ -1,0 +1,112 @@
+---
+title: "decision tree on diabetes"
+author: "yana xu"
+date: "2024-12-16"
+output: html_document
+---
+## Load Library
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(pROC)
+library(doParallel)
+
+# For reproducible results
+set.seed(123)
+```
+
+## Dataset
+```{r load data}
+# Adjust file paths as needed
+train_data <- read.csv("~/Desktop/625_Final/data/train_data.csv")
+test_data  <- read.csv("~/Desktop/625_Final/data/test_data.csv")
+
+# Convert numeric Diabetes_binary to factor: 0 = No, 1 = Yes
+train_data$Diabetes_binary <- factor(train_data$Diabetes_binary, levels = c("0", "1"), labels = c("No", "Yes"))
+test_data$Diabetes_binary  <- factor(test_data$Diabetes_binary,  levels = c("0", "1"), labels = c("No", "Yes"))
+
+# Check class distribution
+table(train_data$Diabetes_binary)
+table(test_data$Diabetes_binary)
+
+```
+
+## Set Up Parallel Processing
+
+```{r parallel}
+num_cores <- parallel::detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+cat("Parallel backend registered with", num_cores, "cores.\n")
+```
+## Cross-Validation & Grid 
+```{r}
+train_control <- trainControl(
+  method = "cv",
+  number = 5,
+  classProbs = TRUE,        
+  summaryFunction = twoClassSummary,
+  allowParallel = TRUE
+)
+
+# Grid for complexity parameter tuning
+cp_grid <- expand.grid(cp = seq(0.0005, 0.02, by = 0.0005))
+```
+
+## Train Decision Tree Model
+```{r}
+dt_model <- train(
+  Diabetes_binary ~ .,
+  data      = train_data,
+  method    = "rpart",
+  metric    = "ROC",
+  trControl = train_control,
+  tuneGrid  = cp_grid
+)
+
+cat("Best CP found:", dt_model$bestTune$cp, "\n")
+```
+
+## Predict & Evaluate
+```{r evaluate}
+dt_preds <- predict(dt_model, newdata = test_data)
+dt_probs <- predict(dt_model, newdata = test_data, type = "prob")[, "Yes"]
+
+dt_conf_mat <- confusionMatrix(dt_preds, test_data$Diabetes_binary, positive = "Yes")
+print(dt_conf_mat)
+accuracy    <- dt_conf_mat$overall["Accuracy"]
+sensitivity <- dt_conf_mat$byClass["Sensitivity"]
+specificity <- dt_conf_mat$byClass["Specificity"]
+precision   <- dt_conf_mat$byClass["Pos Pred Value"]
+f1_score    <- 2 * (precision * sensitivity) / (precision + sensitivity)
+
+cat("Accuracy:",    round(accuracy, 4), "\n")
+cat("Sensitivity:", round(sensitivity, 4), "\n")
+cat("Specificity:", round(specificity, 4), "\n")
+cat("Precision:",   round(precision, 4), "\n")
+cat("F1 Score:",    round(f1_score, 4), "\n")
+
+# ROC and AUC
+roc_obj <- roc(test_data$Diabetes_binary, dt_probs)
+cat("AUC:", round(auc(roc_obj), 4), "\n")
+```
+
+## Plot Decision Tree
+```{r plot decision tree}
+rpart.plot(
+  dt_model$finalModel,
+  type = 2,
+  extra = 104,
+  fallen.leaves = TRUE,
+  main = "Decision Tree for Diabetes Prediction"
+)
+```
+## Stop Parallel Processing
+
+```{r stop cluster}
+stopCluster(cl)
+registerDoSEQ()
+```

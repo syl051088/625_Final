@@ -1,0 +1,187 @@
+---
+title: "Logistic Regression"
+author: "Yulin Shao"
+date: "2024-10-30"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(tidyverse)
+library(pROC)
+library(caret)
+library(ggplot2)
+library(glmnet)
+library(doParallel)
+library(bench)
+```
+
+```{r data processing}
+# Load the dataset
+data = read.csv("../data/train_data.csv")
+
+# Ensure Diabetes_binary is a factor with meaningful labels
+data$Diabetes_binary <- factor(data$Diabetes_binary,
+                               levels = c("0", "1"), # original levels
+                               labels = c("No", "Yes")) # new valid factor names
+
+# Identify all columns except BMI
+factor_vars <- setdiff(names(data), c("BMI", "MentHlth", "PhysHlth"))
+
+# Convert these columns to factors
+data[factor_vars] <- lapply(data[factor_vars], factor)
+
+
+head(data)
+
+# Test sets
+test_data = read.csv("../data/test_data.csv")
+
+# Ensure Diabetes_binary is a factor with meaningful labels
+test_data$Diabetes_binary <- factor(test_data$Diabetes_binary,
+                               levels = c("0", "1"), # original levels
+                               labels = c("No", "Yes")) # new valid factor names
+
+# Identify all columns except BMI
+factor_vars <- setdiff(names(test_data), c("BMI", "MentHlth", "PhysHlth"))
+
+# Convert these columns to factors
+test_data[factor_vars] <- lapply(test_data[factor_vars], factor)
+
+```
+
+```{r modeling traning and prediction}
+# Cross-validation control for both methods
+control_normal <- trainControl(
+  method = "cv", 
+  number = 5, 
+  summaryFunction = twoClassSummary, 
+  classProbs = TRUE,
+  allowParallel = FALSE
+)
+
+control_parallel <- trainControl(
+  method = "cv", 
+  number = 5, 
+  summaryFunction = twoClassSummary, 
+  classProbs = TRUE, 
+  allowParallel = TRUE
+)
+
+# Create parallel cluster
+cl <- makeCluster(detectCores() - 1)  # Use all but one core
+registerDoParallel(cl)
+
+# Benchmark the training time for normal and parallel logistic regression
+benchmark_results <- bench::mark(
+  Normal_Logistic = {
+    model_normal <- train(
+      Diabetes_binary ~ .-Diabetes_binary,
+      data = data,
+      method = "glmnet",
+      family = "binomial",
+      trControl = control_normal,
+      tuneGrid = expand.grid(alpha = 0.5, lambda = seq(0.001, 0.1, by = 0.01)),
+      metric = "ROC"
+    )
+  },
+  
+  Parallel_Logistic = {
+    model_parallel <- train(
+      Diabetes_binary ~ .-Diabetes_binary,
+      data = data,
+      method = "glmnet",
+      family = "binomial",
+      trControl = control_parallel,
+      tuneGrid = expand.grid(alpha = 0.5, lambda = seq(0.001, 0.1, by = 0.01)),
+      metric = "ROC"
+    )
+  },
+  check = F,
+  iterations = 3  # Run each model training 3 times
+)
+
+stopCluster(cl)
+registerDoSEQ()  # Reset parallel backend
+
+plot(benchmark_results)
+print(benchmark_results)
+
+# Extract predictions and metrics for Normal Logistic
+predictions_normal <- predict(model_normal, newdata = test_data)
+pred_probs_normal <- predict(model_normal, newdata = test_data, type = "prob")[, "Yes"]
+cm_normal <- confusionMatrix(predictions_normal, test_data$Diabetes_binary, positive = "Yes")
+roc_normal <- roc(test_data$Diabetes_binary, pred_probs_normal)
+auc_normal <- auc(roc_normal)
+
+# Extract predictions and metrics for Parallel Logistic
+predictions_parallel <- predict(model_parallel, newdata = test_data)
+pred_probs_parallel <- predict(model_parallel, newdata = test_data, type = "prob")[, "Yes"]
+cm_parallel <- confusionMatrix(predictions_parallel, test_data$Diabetes_binary, positive = "Yes")
+roc_parallel <- roc(test_data$Diabetes_binary, pred_probs_parallel)
+auc_parallel <- auc(roc_parallel)
+```
+
+
+```{r resulsts and ploting}
+# Use the correct expression names and median column
+normal_median_time <- as.numeric(benchmark_results[1,3])
+parallel_median_time <- as.numeric(benchmark_results[2,3])
+
+results <- data.frame(
+  Model = c("Normal Logistic", "Parallel Logistic"),
+  Accuracy = c(
+    cm_normal$overall["Accuracy"],
+    cm_parallel$overall["Accuracy"]
+  ),
+  Sensitivity = c(
+    cm_normal$byClass["Sensitivity"],
+    cm_parallel$byClass["Sensitivity"]
+  ),
+  Specificity = c(
+    cm_normal$byClass["Specificity"],
+    cm_parallel$byClass["Specificity"]
+  ),
+  Precision = c(
+    cm_normal$byClass["Precision"],
+    cm_parallel$byClass["Precision"]
+  ),
+  F1 = c(
+    cm_normal$byClass["F1"],
+    cm_parallel$byClass["F1"]
+  ),
+  AUC = c(auc_normal, auc_parallel),
+  Training_Time_Median = c(normal_median_time, parallel_median_time)
+)
+
+# Print the results
+print(results)
+
+# Visualize AUC and Training Time Comparison
+ggplot(results, aes(x = Model, y = AUC, fill = Model)) +
+  geom_bar(stat = "identity", width = 0.6) +
+  labs(title = "AUC Comparison: Normal vs Parallel Logistic Regression", x = "Model", y = "AUC") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(results, aes(x = Model, y = Training_Time_Median, fill = Model)) +
+  geom_bar(stat = "identity", width = 0.6) +
+  labs(title = "Training Time Comparison: Normal vs Parallel Logistic Regression", 
+       x = "Model", y = "Training Time (seconds)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot both ROC curves using pROC's ggroc
+# ggroc can take a list of ROC objects to plot them together
+roc_list <- list(Normal = roc_normal, Parallel = roc_parallel)
+ggroc(roc_list, aes = c("color")) +
+  geom_abline(linetype = "dashed", color = "grey") +
+  ggtitle("ROC Curve Comparison: Normal vs Parallel Logistic Regression") +
+  xlab("1 - Specificity") +
+  ylab("Sensitivity") +
+  theme_minimal() +
+  scale_color_manual(values = c("Normal" = "blue", "Parallel" = "red")) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+

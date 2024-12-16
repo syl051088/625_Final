@@ -1,0 +1,26 @@
+```{r }
+set.seed(123)  # Set seed for reproducibility
+
+# Read data
+df <- read.csv("data/diabetes_binary_5050split_health_indicators_BRFSS2015.csv")
+
+# Remove Education and Income columns
+df <- df[, !(names(df) %in% c("Education", "Income"))]
+
+# Define the train-test split ratio
+train_ratio <- 0.8
+train_indices <- sample(1:nrow(df), size = floor(train_ratio * nrow(df)))
+
+# Split the data into training and testing datasets
+train_data <- df[train_indices, ]  # Training dataset
+test_data <- df[-train_indices, ]  # Testing dataset
+
+# Save the training and testing datasets into separate CSV files
+write.csv(train_data, "data/train_data.csv", row.names = FALSE)
+write.csv(test_data, "data/test_data.csv", row.names = FALSE)
+
+# Confirm the removal of Education and Income columns
+print(colnames(train_data))  # Check column names in the training data
+print(colnames(test_data))   # Check column names in the testing data
+```
+
