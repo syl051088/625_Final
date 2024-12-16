@@ -1,9 +1,16 @@
+---
+title: "RF_diabetes"
+author: "Yichen Zhao"
+date: "2024-12-13"
+output: html_document
+---
+
 ```{r, message=FALSE}
 # Load the library
-library(tidyverse)
-library(randomForest)
 library(caret)
 library(pROC)
+library(ranger)
+library(parallel)
 ```
 
 ```{r}
@@ -19,37 +26,35 @@ testData2$Diabetes_binary <- as.factor(testData2$Diabetes_binary)
 levels(trainData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
 levels(testData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
 
-# Train the Random Forest model
+# Train the Random Forest model with parallel processing
 set.seed(123)
-rf_model2 = train(
+rf_model_ranger = ranger(
   Diabetes_binary ~ ., 
-  data = trainData2, 
-  method = "rf", 
-  trControl = trainControl(method = "cv", number = 8, classProbs = TRUE), 
-  tuneGrid = expand.grid(mtry = 3), 
-  ntree = 500
+  data = trainData2,
+  num.trees = 500,         
+  mtry = 3,                 
+  probability = TRUE,       
+  num.threads = detectCores() - 1  
 )
-  
-# Predict probabilities for the test data (positive class "Diabetes")
-test_probs2 = predict(rf_model2, newdata = testData2, type = "prob")[, "Diabetes"]
-test_preds2 = predict(rf_model2, newdata = testData2)
+
+# Predict probabilities for the test data
+test_probs2 = predict(rf_model_ranger, data = testData2)$predictions[, "Diabetes"]
+test_preds2 = ifelse(test_probs2 > 0.5, "Diabetes", "NoDiabetes")
 ```
 
-```{r, warning=FALSE}
-# Compute the ROC curve using combined test set probabilities and labels
+```{r}
+# Compute ROC Curve and AUC
 roc_curve2 = roc(testData2$Diabetes_binary, test_probs2)
-
-# Calculate AUC
 auc_value2 = auc(roc_curve2)
-print(paste("AUC for Averaged Random Forest Model: ", auc_value2))
+print(paste("AUC for Random Forest Model: ", round(auc_value2, 4)))
 
-# Calculate Accuracy
+# Compute Accuracy
 accuracy2 = mean(test_preds2 == testData2$Diabetes_binary)
-print(paste("Accuracy for Averaged Random Forest Model: ", accuracy2))
+print(paste("Accuracy for Ranger Random Forest Model: ", round(accuracy2, 4)))
 
-# Plot the ROC curve
-png("Random_Forest_Model_Diabetes.png")
-plot(roc_curve2, main = "ROC Curve for Random Forest", col = 'blue', lwd = 2)
+# Plot the ROC Curve
+png("RF_Diabetes.png")
+plot(roc_curve2, main = "ROC Curve for Random Forest Model", col = 'blue', lwd = 2)
 dev.off()
 ```
 
