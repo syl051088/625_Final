@@ -20,7 +20,7 @@ trainData2 = read.csv("~/Desktop/625_Final/data/train_data.csv")
 ```
 
 ```{r}
-# Turn outcome variable into factor
+# Turn outcome variable into factor variable
 trainData2$Diabetes_binary <- as.factor(trainData2$Diabetes_binary)
 testData2$Diabetes_binary <- as.factor(testData2$Diabetes_binary)
 levels(trainData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
