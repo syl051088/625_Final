@@ -2,7 +2,7 @@
 set.seed(123)  # Set seed for reproducibility
 
 # Read data
-df <- read.csv("data/diabetes_binary_5050split_health_indicators_BRFSS2015.csv")
+df <- read.csv("data/raw/diabetes_binary_5050split_health_indicators_BRFSS2015.csv")
 
 # Remove Education and Income columns
 df <- df[, !(names(df) %in% c("Education", "Income"))]
