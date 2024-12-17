@@ -1,8 +1,8 @@
 ---
-title: "decision tree on diabetes"
+title: "Decision Tree Model"
 author: "yana xu"
 date: "2024-12-16"
-output: html_document
+output: pdf_document
 ---
 ## Load Library
 ```{r setup, include=FALSE}
