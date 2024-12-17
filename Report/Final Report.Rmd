@@ -8,9 +8,9 @@ abstract: |
 ---
 
 ## **Introduction**
-Diabetes is a significant public health concern, affecting millions of individuals worldwide and leading to high healthcare costs. Early detection is critical for improving patient outcomes and reducing complications, which makes accurate and computationally efficient predictive models highly relevant. The goal of this project was to build and optimize machine learning models that can predict diabetes using demographic and health-related indicators.  
+Diabetes is a significant public health concern, affecting millions of individuals worldwide and leading to high healthcare costs **[1]**. Early detection is critical for improving patient outcomes and reducing complications, which makes accurate and computationally efficient predictive models highly relevant. The goal of this project was to build and optimize machine learning models that can predict diabetes using demographic and health-related indicators.  
 
-We began with a smaller Heart Disease dataset (around 900 entries) to design our initial pipelines. However, the dataset’s small size did not expose the computational challenges encountered in large-scale machine learning. To better reflect real-world conditions, we switched to the **CDC Diabetes Health Indicators dataset**, which contains over **250,000 records**. Handling such a large dataset required us to implement **parallel computing**, memory-efficient strategies, and algorithm-specific optimizations. This report describes the methods we used, the optimizations implemented, and their effects on training time and accuracy.
+We began with a smaller Heart Disease dataset (around 900 entries) to design our initial pipelines. However, the dataset’s small size did not expose the computational challenges encountered in large-scale machine learning. To better reflect real-world conditions, we switched to the **CDC Diabetes Health Indicators dataset** **[2]**, which contains over **250,000 records**. Handling such a large dataset required us to implement **parallel computing**, memory-efficient strategies, and algorithm-specific optimizations. This report describes the methods we used, the optimizations implemented, and their effects on training time and accuracy.
 
 ## **Data**
 We started with the CDC Diabetes Health Indicators dataset, which contains more than 250,000 records. However, we discovered that the data was quite imbalanced, with far more non-diabetic (label 0) cases than diabetic (label 1). Imbalanced datasets can make it tougher for machine learning models to learn minority-class patterns effectively.
@@ -23,7 +23,9 @@ We then split this balanced subset into 80% training and 20% testing. All the mo
 
 ### **K-Nearest Neighbors**
 K-Nearest Neighbors (KNN) is a simple, non-parametric algorithm but can become very slow with large datasets due to the need to calculate distances to all training points. To accelerate this process, we first reduced the feature dimensionality using **PCA** for numeric features and **MCA** for binary features, cutting the original **20** features down to **9**.
+
 Next, we optimized the distance calculation by rewriting the function in C++. By using **RCPP**, we executed the computationally intensive operations in C++ while leveraging R to manage scheduling and organize the workflow. We used Euclidean distance for the calculation, and to further optimize this process, and we **precomputed the squared feature values** for the test samples. This precomputation eliminates redundant calculations and speeds up the distance computation. Rather than sorting all distances, we employed **partial sorting** with the nth_element function, allowing us to efficiently retrieve only the top k-nearest neighbors.
+
 To further enhance performance, we implemented **parallel processing** with parLapply. By dividing the test dataset into smaller chunks of 1,000 samples, each chunk was processed concurrently, resulting in significant speedup for the predictions. These optimizations enabled KNN to run much faster on the dataset compared to a manual implementation of the KNN model.
 
 ### **Logistic Regression**
@@ -141,7 +143,7 @@ ggplot(model_accuracy, aes(x = Model, y = Accuracy, fill = Model)) +
 
 From the chart and Table \ref{tab:benchmark_results}, XGBoost comes out on top with 75% accuracy (AUC around 0.82), closely followed by Random Forest at 74.8% (AUC ~0.82). Logistic Regression also performed well, achieving 74.5% accuracy, which is higher than we initially expected. This boost is thanks to parallelizing the cross-validation process, making it about 3x faster than the sequential version.
 
-Our Decision Tree reached 73.8% accuracy and was about 20% faster due to the parallel grid search for the complexity parameter. This speedup made training the Decision Tree much more efficient without sacrificing too much accuracy. Finally, KNN achieved 72% accuracy after significant optimizations like dimensionality reduction, rewriting distance calculations in C++, and parallelizing predictions. These changes reduced KNN’s runtime by approximately 62% compared to the naive approach.
+Our Decision Tree reached 73.8% accuracy and was about 20% faster due to the parallel grid search for the complexity parameter. This speedup made training the Decision Tree much more efficient without sacrificing too much accuracy. Finally, KNN achieved 72% accuracy after significant optimizations like dimensionality reduction, rewriting distance calculations in C++, and parallelizing predictions. These changes reduced KNN’s runtime by approximately 62% compared to a manual implementation of the KNN model.
 
 Overall, while XGBoost and Random Forest led in both accuracy and efficiency, Logistic Regression proved to be a strong contender with its balanced performance and speed. The Decision Tree also showed competitive accuracy with improved training times, making it a viable option for interpretable models. KNN, despite being the least accurate, became much more feasible with the applied optimizations.
 
@@ -157,8 +159,9 @@ While KNN had the lowest accuracy at 72%, the extensive optimizations we impleme
 Going forward, we plan to delve deeper into benchmarking runtime and memory usage for each model and explore additional ensemble or sampling techniques to further enhance diabetes prediction. These efforts aim to improve model reliability and speed, ultimately contributing to better early detection and intervention strategies in real-world healthcare environments.
 
 ## **Team Contributions**
-Each member contributed to different parts of the project: Yulin Shao worked on Logistic Regression and XGBoost, Liu Tong focused on optimizing the K-Nearest Neighbors (KNN) model, Yichen Zhao implemented Random Forest, and Yana Xu developed the Decision Tree. Together, we optimized and benchmarked these models to improve efficiency and accuracy for early diabetes detection.
+Each member contributed to different parts of the project: **Yulin Shao** worked on Logistic Regression and XGBoost, **Liu Tong** focused on optimizing the KNN model, **Yichen Zhao** implemented Random Forest, and **Yana Xu** developed the Decision Tree. Together, we optimized and benchmarked these models to improve efficiency and accuracy for early diabetes detection.
 
 ## **References**
-- Rios Burrows, N., Hora, I., Geiss, L. S., Gregg, E. W., & Albright, A. (2017). Incidence of End-Stage Renal Disease Attributed to Diabetes Among Persons with Diagnosed Diabetes—United States and Puerto Rico, 2000–2014. Morbidity and Mortality Weekly Report, 66(43), 1165–1170.
-- Detrano, R., Jánosi, A., Steinbrunn, W., Pfisterer, M., Schmid, J., Sandhu, S., Guppy, K., Lee, S., & Froelicher, V. (1989). International application of a new probability algorithm for the diagnosis of coronary artery disease. American Journal of Cardiology.
+[1] Rios Burrows, N., Hora, I., Geiss, L. S., Gregg, E. W., & Albright, A. (2017). Incidence of End-Stage Renal Disease Attributed to Diabetes Among Persons with Diagnosed Diabetes—United States and Puerto Rico, 2000–2014. Morbidity and Mortality Weekly Report, 66(43), 1165–1170.
+
+[2] UCI Machine Learning Repository. (2024). **CDC Diabetes Health Indicators Dataset**. Retrieved from [https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators)
