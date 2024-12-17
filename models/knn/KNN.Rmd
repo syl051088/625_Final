@@ -7,13 +7,13 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 # Load necessary libraries
-library(caret)        # Data preprocessing and stratified sampling
-library(FactoMineR)   # Feature extraction and dimensionality reduction
-library(class)        # Basic implementation of the KNN algorithm
-library(Rcpp)         # High-performance computing and C++ integration
-library(parallel)     # Parallel computing and multicore acceleration
-library(pROC)         # Model performance evaluation.
-library(microbenchmark) # Used for Benchmark
+library(caret)        
+library(FactoMineR)   
+library(class)        
+library(Rcpp)         
+library(parallel)     
+library(pROC)         
+library(microbenchmark)
 ```
 
 ```{r Data Import}
