@@ -26,9 +26,19 @@ testData2$Diabetes_binary <- as.factor(testData2$Diabetes_binary)
 levels(trainData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
 levels(testData2$Diabetes_binary) <- c("NoDiabetes", "Diabetes")
 
+# Train the Random Forest model
+rf_model2 <- train(
+    Diabetes_binary ~ ., 
+    data = trainData2, 
+    method = "rf", 
+    trControl = trainControl(method = "cv", number = 8, classProbs = TRUE), 
+    tuneGrid = expand.grid(mtry = 3), 
+    ntree = 500
+  )
+
 # Train the Random Forest model with parallel processing
 set.seed(123)
-rf_model_ranger = ranger(
+rf_model_ranger <- ranger(
   Diabetes_binary ~ ., 
   data = trainData2,
   num.trees = 500,         
@@ -36,6 +46,36 @@ rf_model_ranger = ranger(
   probability = TRUE,       
   num.threads = detectCores() - 1  
 )
+
+# Measure time for train
+time_train <- system.time({
+  rf_model2 <- train(
+    Diabetes_binary ~ ., 
+    data = trainData2, 
+    method = "rf", 
+    trControl = trainControl(method = "cv", number = 8, classProbs = TRUE), 
+    tuneGrid = expand.grid(mtry = 3), 
+    ntree = 500
+  )
+})
+
+# Measure time for ranger
+time_ranger <- system.time({
+  rf_model_ranger <- ranger(
+    Diabetes_binary ~ ., 
+    data = trainData2,
+    num.trees = 500,         
+    mtry = 3,                 
+    probability = TRUE,       
+    num.threads = detectCores() - 1  
+  )
+})
+
+# Compare the timing results
+print("Time for the original random forest model")
+print(time_train)
+print("Time for model using ranger")
+print(time_ranger)
 
 # Predict probabilities for the test data
 test_probs2 = predict(rf_model_ranger, data = testData2)$predictions[, "Diabetes"]
