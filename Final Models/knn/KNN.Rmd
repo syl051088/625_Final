@@ -285,7 +285,6 @@ box_plot = ggplot(benchmark_df, aes(x = expr, y = time)) +
   ) +
   theme_minimal()
 box_plot
-library(ggplot2)
 
 # Calculate the average time
 avg_times <- aggregate(time ~ expr, data = as.data.frame(benchmark_df), mean)
