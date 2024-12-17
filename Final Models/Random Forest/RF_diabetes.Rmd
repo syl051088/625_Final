@@ -15,8 +15,8 @@ library(parallel)
 
 ```{r}
 # Load the training (80%) and testing (20%) sets
-testData2 = read.csv("~/Desktop/625_Final/data/test_data.csv")
-trainData2 = read.csv("~/Desktop/625_Final/data/train_data.csv")
+testData2 <- read.csv("~/Desktop/625_Final/data/test_data.csv")
+trainData2 <- read.csv("~/Desktop/625_Final/data/train_data.csv")
 ```
 
 ```{r}
@@ -78,18 +78,18 @@ print("Time for model using ranger")
 print(time_ranger)
 
 # Predict probabilities for the test data
-test_probs2 = predict(rf_model_ranger, data = testData2)$predictions[, "Diabetes"]
-test_preds2 = ifelse(test_probs2 > 0.5, "Diabetes", "NoDiabetes")
+test_probs2 <- predict(rf_model_ranger, data = testData2)$predictions[, "Diabetes"]
+test_preds2 <- ifelse(test_probs2 > 0.5, "Diabetes", "NoDiabetes")
 ```
 
 ```{r}
 # Compute ROC Curve and AUC
-roc_curve2 = roc(testData2$Diabetes_binary, test_probs2)
-auc_value2 = auc(roc_curve2)
+roc_curve2 <- roc(testData2$Diabetes_binary, test_probs2)
+auc_value2 <- auc(roc_curve2)
 print(paste("AUC for Random Forest Model: ", round(auc_value2, 4)))
 
 # Compute Accuracy
-accuracy2 = mean(test_preds2 == testData2$Diabetes_binary)
+accuracy2 <- mean(test_preds2 == testData2$Diabetes_binary)
 print(paste("Accuracy for Ranger Random Forest Model: ", round(accuracy2, 4)))
 
 # Plot the ROC Curve
