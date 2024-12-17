@@ -25,7 +25,7 @@ IntegerVector knn_euclidean_optimized(NumericMatrix train_data,
         // Store the distances between the current test sample and all training samples
         NumericVector distances(n_train);  
 
-        // Compute the squared sum of the current test sample (for optimized distance calculation)
+        // Compute the squared sum of the current test sample 
         double test_sq = 0.0;
         for (int d = 0; d < n_features; d++) {
             test_sq += std::pow(test_data(i, d), 2);
