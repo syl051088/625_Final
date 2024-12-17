@@ -6,49 +6,61 @@ output:
   pdf_document: default
 ---
 
-## Introduction
-Diabetes is a widespread health condition, impacting millions of people around the globe. Early detection can significantly improve patient outcomes and reduce medical costs over time. Our group set out to build strong and efficient machine learning models to predict diabetes using demographic and health-related information. Initially, we tested our pipeline on a smaller Heart Disease dataset (roughly 900 entries), but its modest size didn’t fully expose the computational and memory challenges that accompany much larger datasets. Consequently, we transitioned to the **CDC Diabetes Health Indicators dataset**, comprising over 250,000 records. Handling so many observations led us to use parallel computing, sparse data structures, and other optimizations to keep training times feasible while aiming for high predictive accuracy.
+## **Introduction**
 
-## Methods
+Diabetes is a significant public health concern, affecting millions of individuals worldwide and leading to high healthcare costs. Early detection is critical for improving patient outcomes and reducing complications, which makes accurate and computationally efficient predictive models highly relevant. The goal of this project was to build and optimize machine learning models that can predict diabetes using demographic and health-related indicators.  
+
+We began with a smaller Heart Disease dataset (around 900 entries) to design our initial pipelines. However, the dataset’s small size did not expose the computational challenges encountered in large-scale machine learning. To better reflect real-world conditions, we switched to the **CDC Diabetes Health Indicators dataset**, which contains over **250,000 records**. Handling such a large dataset required us to implement **parallel computing**, memory-efficient strategies, and algorithm-specific optimizations. This report describes the methods we used, the optimizations implemented, and their effects on training time and accuracy.
+
+## **Methods**
 
 ### K-Nearest Neighbors
-We initially picked K-Nearest Neighbors (KNN) for its simplicity, but it quickly became obvious that naive distance computations across hundreds of thousands of rows took a lot of time and memory. We decided to reduce dimensionality by applying PCA for numeric features and MCA for binary ones, dropping from 20 to 9 dimensions. Then, we rewrote the distance function in C++ and used partial sorting (nth_element) so we only sorted the top k neighbors instead of sorting all distances. We also parallelized the test set predictions through parLapply by processing 1,000 test samples per chunk. These changes brought runtime down from 85 seconds to 32 seconds (a ~62% speedup). KNN ended up at about **72% accuracy** once we optimized it heavily.
+
+K-Nearest Neighbors (KNN) is simple and non-parametric, but it can be very slow with huge datasets because it calculates distances to all training points. To speed things up, we applied **PCA** for numeric features and **MCA** for binary ones, cutting the dimensionality from 20 down to 9. We then rewrote the distance function in **C++** and used nth_element for **partial sorting** instead of sorting every distance. Lastly, we **parallelized** the predictions with parLapply by splitting the test data into chunks of 1,000 records each. These steps made KNN run much faster on the 250k-row dataset.
+
+Next, we optimized distance calculations by rewriting the distance function in **C++**. Instead of sorting all distances, we used **partial sorting** with the `nth_element` function to retrieve only the top k-nearest neighbors. Finally, we implemented **parallel processing** with `parLapply` to divide the test set into smaller chunks of 1,000 samples each, which were processed concurrently.
 
 ### Logistic Regression
-Logistic Regression is more interpretable, mapping features to a probability of having diabetes:
-\begin{equation}
+
+Logistic Regression is widely used for binary classification tasks due to its simplicity and interpretability. The model maps the input features to the probability of having diabetes using the logistic function:
+
+\[
 P(Y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \sum_{i=1}^p \beta_i X_i)}}
-\end{equation}
-Because the dataset was massive, we applied elastic net regularization:
-\begin{equation}
+\]
+
+Given the large dataset, we incorporated **elastic net regularization** to handle multicollinearity and prevent overfitting:
+
+\[
 \min_{\beta_0, \beta} \left[-\sum_{i=1}^n \log(P(y_i|x_i)) + \lambda(\alpha||\beta||_1 + \frac{1-\alpha}{2}||\beta||_2^2)\right]
-\end{equation}
-Cross-validation of this model was still expensive. We addressed it by parallelizing the folds (doParallel), greatly reducing training time. In the end, Logistic Regression scored **~70%** accuracy. Although less accurate than ensembles, it was relatively straightforward to interpret and faster than KNN once parallelization was introduced.
+\]
+
+Cross-validation was computationally expensive due to repeated model training. To address this, we parallelized the cross-validation process using the **doParallel** package, which enabled the division of folds across CPU cores, reducing training time significantly.
 
 ### Decision Tree
-A single Decision Tree offered a simpler approach. Trees split the data by greedily selecting features that maximize information gain at each node. Although naive trees can underperform compared to ensembles, they are easy to train and interpret—key for many real-world health applications. We did a grid search over complexity parameter (cp) from 0.0005 to 0.02, speeding up 5-fold cross-validation with parallel processing. Our final model had **73.76%** accuracy, AUC ~0.7929, sensitivity 0.7636, and specificity 0.7116. While short of the accuracy seen with ensembles, this single-tree approach remained computationally light and transparent.
+A single Decision Tree (rpart) was our baseline model. Decision trees split the data on the best features at each node and are known for being easy to interpret. We performed a **grid search** over the complexity parameter (cp) in the range [0.0005, 0.02], and used parallel backends to speed up the 5-fold cross-validation. Despite being straightforward, the Decision Tree offered decent performance with minimal computation cost.
+
 ```{r decision tree, echo=FALSE}
 knitr::include_graphics("~/Desktop/625_Final/Figures/decision_tree.png")
 ```
 
 ### Random Forest
-Random Forest merges multiple bootstrapped trees into a robust ensemble. Initially, we tried the basic randomForest package, but it performed slowly for 250k rows. Switching to ranger made a big difference: we harnessed multi-threading, cutting training time from 362 seconds to ~3.42 seconds. The final accuracy reached **74.81%** (AUC ~0.8263). This demonstrates that carefully chosen libraries and parallelization can make ensemble methods viable even for big data.
+Random Forest improves upon single Decision Trees by combining multiple bootstrapped trees to form a robust ensemble. Initially, we used the standard `randomForest` package but encountered significant runtime issues on such a large dataset. Switching to the **ranger** package, which supports **multi-threading**, dramatically improved efficiency. Ranger reduced the training time from **362 seconds to 3.42 seconds** while maintaining strong predictive performance.  
 
 ### XGBoost
-XGBoost is a boosted tree framework that includes parallel tree-building and strong regularization to help control overfitting:
-\begin{equation}
-\mathcal{L} = \sum_{i=1}^n l(y_i, \hat{y}i) + \sum{k=1}^K \Omega(f_k)
-\end{equation}
-We compared dense vs. sparse matrix representations, as well as sequential vs. parallel implementations. Sparse matrices skip zero values—handy if you have a lot of one-hot features—improving memory usage and training time. We tuned the learning ${0.01, 0.1, 0.3}$ and used early stopping (10 rounds) to prevent overfitting. Ultimately, XGBoost reached **75%** accuracy and ~0.82 AUC, comparable to Random Forest.
+XGBoost is a gradient-boosted tree algorithm that includes parallel training and regularization. The objective function penalizes model complexity:
+\[
+\mathcal{L} = \sum_{i=1}^n l(y_i, \hat{y}_i) + \sum_{k=1}^K \Omega(f_k)
+\]  
+To optimize XGBoost, we tested both **dense** and **sparse matrix** formats. Sparse matrices provided significant memory savings by ignoring zero entries, which is particularly useful when dealing with categorical features. We further utilized **parallel tree building** through XGBoost’s built-in multi-threading capabilities. Hyperparameter tuning was conducted over learning rates (\(\eta = 0.01, 0.1, 0.3\)) and tree depths, with **early stopping** at 10 rounds to prevent overfitting.  
 
 ## Results
-Below is some R code comparing the final accuracies of our models in a single plot:
+Below is a bar chart comparing accuracy across all the methods we tried:
 ```{r comparison-plot, echo=FALSE, fig.align='center', out.width="70%"}
 library(ggplot2)
 
 model_accuracy <- data.frame(
   Model    = c("Logistic Regression", "KNN", "Decision Tree", "Random Forest", "XGBoost"),
-  Accuracy = c(0.70, 0.72, 0.7376, 0.7481, 0.75)
+  Accuracy = c(0.745, 0.72, 0.738, 0.748, 0.75)
 )
 
 model_accuracy$Model <- factor(
@@ -81,12 +93,12 @@ ggplot(model_accuracy, aes(x = Model, y = Accuracy, fill = Model)) +
   )
 
 ```
-The chart shows XGBoost and Random Forest at the top with around 75% accuracy (AUC near 0.82), a single Decision Tree at ~73.76%, KNN at 72%, and Logistic Regression at 70%. While decision trees are the simplest approach and KNN required significant optimization, the ensemble methods maintained both high accuracy and efficient training via parallelization.
+XGBoost ended up on top at **75% accuracy** (AUC around 0.82), followed by Random Forest at **74.81%** (AUC ~0.82 as well). Both ensemble methods were quite efficient after parallelization. The single Decision Tree gave us 73.76% accuracy, which was surprisingly high given how simple the model is. KNN reached **72%** accuracy after we did dimensionality reduction, rewrote distance calculations in C++, and parallelized predictions. That process cut KNN’s runtime by about **62%** compared to a naive approach. Meanwhile, Logistic Regression ended up at **74.5%** accuracy and benefitted from parallel cross-validation, making it about **3x faster** to train than the naive version. Although Logistic Regression was the least accurate, it was the quickest model overall, showing that sometimes there’s a trade-off between interpretability/speed and top-tier accuracy.
 
 ## Conclusion
-All of these models, from single Decision Trees to complex ensembles, are designed with the hope of early diabetes detection. In public health contexts, an accurate yet efficient model could help identify high-risk individuals sooner, potentially lowering complications and long-term costs. Our primary objective was to balance predictive accuracy with computational feasibility, ensuring the approach could handle 250k+ rows. Each technique—KNN, Logistic Regression, Decision Tree, Random Forest, and XGBoost—used specialized parallel or memory-saving strategies (e.g., chunk-based predictions, sparse matrices, multi-threading) to cope with the dataset’s size.
+Our project highlights the importance of optimizing machine learning models for large-scale datasets, especially in critical applications like diabetes prediction. By implementing strategies such as dimensionality reduction, sparse representations, parallel computing, and algorithm-specific optimizations, we achieved significant improvements in runtime while maintaining strong predictive accuracy. Even classic algorithms, like KNN or Logistic Regression, can work efficiently if you add dimensionality reduction, parallel computing, and specialized C++ routines. Random Forest (via ranger) and XGBoost, each near 75% accuracy and AUC ~0.82, gave the strongest performances across the board. The Decision Tree was simpler, but still got about 73.76%, which was pretty competitive given how easy it is to interpret.
 
-Our project demonstrated that advanced optimization strategies—like parallel cross-validation, sparse representations, chunk-based processing, and partial sorting—are crucial for handling large-scale diabetes data efficiently. Even classic models (like KNN or Logistic Regression) can be sped up drastically if we use the right libraries and parallelization. Random Forest and XGBoost performed the best, each reaching ~75% accuracy with AUC around 0.82, and training in a fraction of the time needed by naive implementations. Meanwhile, the single Decision Tree maintained decent interpretability but now shows improved accuracy (~73.76%) compared to our initial estimate. Future healthcare applications may want to systematically benchmark these methods under different parallel and sparse settings, balancing speed, memory usage, and accuracy to facilitate early diabetes detection on massive datasets.
+Going forward, we’d like to compare runtime and memory usage in more detail, and maybe try further optimizations or ensemble methods for KNN or Logistic Regression. We believe these approaches can help identify people at high risk for diabetes sooner, potentially reducing medical costs and improving patient outcomes in real-world healthcare environments.
 
 ## References
 - Rios Burrows, N., Hora, I., Geiss, L. S., Gregg, E. W., & Albright, A. (2017). Incidence of End-Stage Renal Disease Attributed to Diabetes Among Persons with Diagnosed Diabetes—United States and Puerto Rico, 2000–2014. Morbidity and Mortality Weekly Report, 66(43), 1165–1170.
