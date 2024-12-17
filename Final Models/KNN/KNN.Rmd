@@ -1,0 +1,306 @@
+---
+title: "KNN Model"
+author: "Tong Liu"
+date: "2024-11-7"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Load necessary libraries
+library(caret)        
+library(FactoMineR)   
+library(class)        
+library(Rcpp)         
+library(parallel)     
+library(pROC)         
+library(microbenchmark)
+```
+
+```{r Data Import}
+data_train <- read.csv("C:\\Users\\柳童\\Desktop\\24FALL\\BIOS 625\\FINAL Pro\\train_data.csv")
+data_test <- read.csv("C:\\Users\\柳童\\Desktop\\24FALL\\BIOS 625\\FINAL Pro\\test_data.csv")
+```
+
+```{r Data Type Preprocessing}
+#Extract binary variables and numeric variables separately for subsequent processing.
+num_var <- c("BMI", "MentHlth", "PhysHlth","Age")
+binary_vars <- c("HighBP", "HighChol", "CholCheck", "Smoker", "Stroke", 
+                 "HeartDiseaseorAttack", "PhysActivity", "Fruits", "Veggies", 
+                 "HvyAlcoholConsump", "AnyHealthcare", "NoDocbcCost", "DiffWalk", "Sex")
+#Convert binary variables to factor type
+data_train[binary_vars] <- lapply(data_train[binary_vars], as.factor)  
+data_test[binary_vars] <- lapply(data_test[binary_vars], as.factor)
+
+```
+
+```{r PCA and MCA Processing - Dimensionality Reduction for Numeric and Binary Categorical Data}
+# 1. PCA for Numeric Variables
+# Create a PCA model based solely on the training set
+pca_model <- preProcess(data_train[, num_var], method = "pca", pcaComp = 5)
+
+# Transform the training and test sets into the PCA principal component space
+train_pca_scores <- predict(pca_model, data_train)
+test_pca_scores <- predict(pca_model, data_test)
+
+# Extract PCA principal component columns
+train_pca_scores <- train_pca_scores[, grep("^PC", colnames(train_pca_scores))]
+test_pca_scores <- test_pca_scores[, grep("^PC", colnames(test_pca_scores))]
+
+# 2. MCA for Categorical Variables
+# Extract Categorical Variables
+cat_vars_train <- data_train[, binary_vars]
+cat_vars_test <- data_test[, binary_vars]
+# Ensure variables are factors.
+cat_vars_train <- lapply(cat_vars_train, as.factor)
+cat_vars_test <- lapply(cat_vars_test, as.factor)
+cat_vars_train <- as.data.frame(cat_vars_train)
+cat_vars_test <- as.data.frame(cat_vars_test)
+# Combine the training and test sets
+cat_vars_combined <- rbind(cat_vars_train, cat_vars_test)
+
+# Create an MCA model
+mca_result_combined <- MCA(cat_vars_combined, graph = FALSE)
+
+# Separate the principal component scores for the training and test sets
+train_mca_scores <- as.data.frame(mca_result_combined$ind$coord[1:nrow(cat_vars_train), ])
+test_mca_scores <- as.data.frame(mca_result_combined$ind$coord[(nrow(cat_vars_train) + 1):nrow(cat_vars_combined), ])
+
+# 3. Combine PCA and MCA principal components
+train_final <- cbind(train_pca_scores, train_mca_scores)
+test_final <- cbind(test_pca_scores, test_mca_scores)
+rm(list = setdiff(ls(), c("data_train","data_test","train_final", "test_final")))
+```
+
+
+```{r Determine the optimal K value}
+# Extract training set labels
+train_labels <- data_train$Diabetes_binary
+
+# 1. Randomly sample 5000 instances
+set.seed(123) 
+subset_indices <- sample(1:nrow(train_final), size = 5000)  
+train_subset <- train_final[subset_indices, ]
+train_labels_subset <- train_labels[subset_indices]
+
+# Retain the full test set for validation
+test_labels <- data_test$Diabetes_binary  
+
+# 2. Define the range of K values
+k_values <- seq(50, 500, by = 20)
+
+# 3. Initialize a vector to store the results.
+accuracy_results <- numeric(length(k_values))
+
+# 4. Iterate through each K value
+for (i in seq_along(k_values)) {
+  k <- k_values[i]
+  predictions <- knn(
+    train = train_subset, 
+    test = test_final, 
+    cl = train_labels_subset, 
+    k = k
+  )
+  accuracy_results[i] <- mean(predictions == test_labels)
+  cat(sprintf("K = %d, Accuracy = %.4f\n", k, accuracy_results[i]))
+}
+
+best_k <- k_values[which.max(accuracy_results)]
+cat(sprintf("Best K = %d, Accuracy = %.4f\n", best_k, max(accuracy_results)))
+
+# 5. Visualize the relationship between K values and accuracy
+plot(k_values, accuracy_results, type = "b", pch = 19, col = "blue",
+     xlab = "K Value", ylab = "Accuracy", main = "Accuracy vs. K Value")
+abline(v = best_k, col = "red", lty = 2) 
+```
+
+
+```{r Implement parallelized chunk-based prediction}
+# Load the Rcpp file
+sourceCpp("knn.cpp")
+
+# knn_parallel_rcpp function for parallelizing KNN classification
+knn_parallel_rcpp <- function(train_data, train_labels, test_data, train_sq, k = 250, block_size = 1000) {
+  n_test <- nrow(test_data)
+  train_matrix <- as.matrix(train_data)
+  test_matrix <- as.matrix(test_data)
+  
+  # Convert training labels to integer type (compatible with the C++ function)
+  train_labels <- as.integer(train_labels)   
+  
+  # Get the number of available cores and reserve one core for other operations
+  num_cores <- detectCores() - 1             
+  cl <- makeCluster(num_cores)
+  
+  # Load the Rcpp function within each child process to ensure the C++ function is accessible in every       parallel process.
+  clusterEvalQ(cl, {
+    library(Rcpp)
+    sourceCpp("knn.cpp")
+  })
+  
+  # Ensure data and parameters are loaded into each child process
+  clusterExport(cl, varlist = c("train_matrix", "train_sq", "train_labels", "k"), envir = environment())
+  
+  # Chunk Indexing
+  split_indices <- split(1:n_test, ceiling(seq_along(1:n_test) / block_size))
+  
+  # Parallel Computation
+  predictions <- parLapply(cl, seq_along(split_indices), function(i) {
+    block_start <- Sys.time()
+    # Attempt to make predictions for the current chunk
+    result <- tryCatch({
+      # Retrieve the test data for the current chunk
+      indices <- split_indices[[i]]
+      test_block <- test_matrix[indices, , drop = FALSE]
+      # Call the C++ implementation of `knn_euclidean_optimized`
+      predictions <- knn_euclidean_optimized(train_matrix, train_sq, train_labels, test_block, k)
+      
+      block_end <- Sys.time()
+      block_time <- as.numeric(block_end - block_start, units = "secs")
+      
+      # Return the results and log information
+      list(predictions = predictions, 
+           log = sprintf("Block %d [%d - %d] completed in %.2f seconds.\n", 
+                         i, min(indices), max(indices), block_time))
+    }, error = function(e) {
+      # Catch errors and return logs
+      list(predictions = NULL, 
+           log = sprintf("Error in block %d. Message: %s\n", i, e$message))
+    })
+    
+    return(result)
+  })
+  
+  # Output logs and combine prediction results
+  logs <- sapply(predictions, function(res) res$log)
+  cat(paste(logs, collapse = ""))
+  
+  # Extract the prediction results from each chunk and merge them into a complete result vector
+  predictions <- unlist(lapply(predictions, function(res) res$predictions))
+  
+}
+```
+
+
+```{r Call the parallel-optimized KNN function}
+# Call the parallel-optimized KNN function
+train_matrix <- as.matrix(train_final)
+train_labels <- as.integer(data_train$Diabetes_binary)
+
+# Precompute the sum of squares of the feature vectors- 
+# -for each training sample to optimize the calculation of Euclidean distance.
+train_sq <- rowSums(train_matrix^2)
+
+test_matrix <- as.matrix(test_final)
+
+test_predictions <- knn_parallel_rcpp( train_data = train_matrix,
+                                       train_labels = train_labels,
+                                       test_data = test_matrix,
+                                       train_sq = train_sq,
+                                       k = best_k,
+                                       block_size = 1000)   
+
+```
+
+
+```{r Performance presentation and visualization of prediction results}
+accuracy <- mean(test_predictions == as.factor(data_test$Diabetes_binary))
+cat("Accuracy:", accuracy, "\n")
+
+# Generate a confusion matrix
+confusion <- confusionMatrix(data = as.factor(test_predictions), 
+                             reference = as.factor(data_test$Diabetes_binary))
+print(confusion)
+# Calculate prediction probabilities
+roc_obj <- roc(as.numeric(data_test$Diabetes_binary), as.numeric(test_predictions))
+output_path <- "roc_curve.png"  
+png(output_path, width = 800, height = 600)  
+plot(roc_obj, col = "blue", main = "ROC Curve")  
+auc(roc_obj)  
+
+```
+
+
+```{r Comparison between the manual KNN algorithm and the optimized algorithm}
+# Realizing KNN algorithm manually
+knn_baseline_manual <- function(train, test, cl, k) {
+  n_test <- nrow(test)
+  n_train <- nrow(train)
+  predictions <- vector("integer", n_test)  
+  for (i in 1:n_test) {
+    # The calculation of the Euclidean distance from test sample \(i\) to all training samples
+    distances <- sqrt(rowSums((train - matrix(test[i, ], n_train, ncol(train), byrow = TRUE))^2))
+    # Get the indices of the nearest k neighbors
+    nearest_indices <- order(distances)[1:k]
+    nearest_labels <- cl[nearest_indices]
+    # Vote to determine the label
+    predictions[i] <- names(sort(table(nearest_labels), decreasing = TRUE))[1]
+  }
+  return(as.factor(predictions))  
+}
+
+# Set the data and parameters for comparison
+test_subset <- test_final[1:10000, ]    
+train_labels <- data_train$Diabetes_binary  
+
+knn_baseline <- function() {
+  knn_baseline_manual(
+    train = as.matrix(train_final),
+    test = as.matrix(test_subset),
+    cl = as.integer(train_labels),
+    k = best_k
+  )
+}
+knn_optimized <- function() {
+  knn_parallel_rcpp(
+    train_data = as.matrix(train_final),
+    train_labels = as.integer(train_labels),
+    test_data = as.matrix(test_subset),
+    train_sq = rowSums(as.matrix(train_final)^2),
+    k = best_k,
+    block_size = 1000
+  )
+}
+# Benchmarking
+benchmark_results <- microbenchmark(
+  baseline = knn_baseline(),
+  optimized = knn_optimized(),
+  times = 5
+)
+
+print(benchmark_results)
+```
+
+
+```{r Visualizing the results of comparison}
+benchmark_df <- as.data.frame(benchmark_results)
+benchmark_df$time <- benchmark_df$time / 1e9  # Convert nanoseconds to seconds
+
+# Draw a box plot
+box_plot = ggplot(benchmark_df, aes(x = expr, y = time)) +
+  geom_boxplot(fill = c("skyblue", "orange")) +
+  labs(
+    title = "Comparison of KNN Methods",
+    x = "Method",
+    y = "Execution Time (seconds)"
+  ) +
+  theme_minimal()
+box_plot
+
+# Calculate the average time
+avg_times <- aggregate(time ~ expr, data = as.data.frame(benchmark_df), mean)
+
+# Draw a bar plot
+bar_plot = ggplot(avg_times, aes(x = expr, y = time, fill = expr)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Average Execution Time Comparison",
+    x = "Method",
+    y = "Execution Time (seconds)"
+  ) +
+  theme_minimal()
+bar_plot
+
+# save the plots
+ggsave("bar_plot.png", plot = bar_plot, width = 8, height = 6, dpi = 300)
+ggsave("box_plot.png", plot = box_plot, width = 8, height = 6, dpi = 300)
+```
