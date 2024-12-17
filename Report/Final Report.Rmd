@@ -7,17 +7,12 @@ abstract: |
   This project focuses on developing and optimizing machine learning models for early diabetes detection using the CDC Diabetes Health Indicators dataset, which includes over 250,000 records. We explored and enhanced several models including K-Nearest Neighbors (KNN), Logistic Regression, Decision Tree, Random Forest, and XGBoost. To manage the dataset's size and complexity, we implemented optimization techniques such as dimensionality reduction, parallel computing, and algorithm-specific enhancements. Our optimized models demonstrated significant improvements in both runtime and accuracy, showcasing the effectiveness of these strategies. These results can help in early diabetes prediction, potentially improving patient outcomes and reducing healthcare costs. For more details and code, visit our GitHub repository: [https://github.com/yanax726/625_Final](https://github.com/yanax726/625_Final).
 ---
 
-## **Abstract**
-
-
 ## **Introduction**
-
 Diabetes is a significant public health concern, affecting millions of individuals worldwide and leading to high healthcare costs. Early detection is critical for improving patient outcomes and reducing complications, which makes accurate and computationally efficient predictive models highly relevant. The goal of this project was to build and optimize machine learning models that can predict diabetes using demographic and health-related indicators.  
 
 We began with a smaller Heart Disease dataset (around 900 entries) to design our initial pipelines. However, the dataset’s small size did not expose the computational challenges encountered in large-scale machine learning. To better reflect real-world conditions, we switched to the **CDC Diabetes Health Indicators dataset**, which contains over **250,000 records**. Handling such a large dataset required us to implement **parallel computing**, memory-efficient strategies, and algorithm-specific optimizations. This report describes the methods we used, the optimizations implemented, and their effects on training time and accuracy.
 
 ## **Data**
-
 We started with the CDC Diabetes Health Indicators dataset, which contains more than 250,000 records. However, we discovered that the data was quite imbalanced, with far more non-diabetic (label 0) cases than diabetic (label 1). Imbalanced datasets can make it tougher for machine learning models to learn minority-class patterns effectively.
 
 To address this, we rebalanced by using a 70,000-row subset where the classes are roughly equal in size. We felt that training on a more balanced dataset could help models detect diabetic cases more accurately.
@@ -27,11 +22,11 @@ We then split this balanced subset into 80% training and 20% testing. All the mo
 ## **Methods**
 
 ### **K-Nearest Neighbors**
-
-K-Nearest Neighbors (KNN) is a straightforward algorithm often recommended for classification or regression, but it becomes slow on large datasets because it calculates distances from every test sample to the entire training set. To deal with our massive dataset, we made several key adjustments. First, we reduced dimensionality by running **PCA** on numeric variables and **MCA** on binary variables, cutting down from 20 features to fewer components. We then rewrote the distance function in **C++**, using `nth_element` to partially sort only the top *k* distances, instead of sorting them all. We also precomputed each training sample’s sum of squares to skip that calculation for every query. Finally, we parallelized KNN by splitting the test data into chunks of about 1,000 rows each and applying `parLapply`. Altogether, these optimizations slashed computational time and kept the original KNN logic intact.
+K-Nearest Neighbors (KNN) is a simple, non-parametric algorithm but can become very slow with large datasets due to the need to calculate distances to all training points. To accelerate this process, we first reduced the feature dimensionality using **PCA** for numeric features and **MCA** for binary features, cutting the original **20** features down to **9**.
+Next, we optimized the distance calculation by rewriting the function in C++. By using **RCPP**, we executed the computationally intensive operations in C++ while leveraging R to manage scheduling and organize the workflow. We used Euclidean distance for the calculation, and to further optimize this process, and we **precomputed the squared feature values** for the test samples. This precomputation eliminates redundant calculations and speeds up the distance computation. Rather than sorting all distances, we employed **partial sorting** with the nth_element function, allowing us to efficiently retrieve only the top k-nearest neighbors.
+To further enhance performance, we implemented **parallel processing** with parLapply. By dividing the test dataset into smaller chunks of 1,000 samples, each chunk was processed concurrently, resulting in significant speedup for the predictions. These optimizations enabled KNN to run much faster on the dataset compared to a manual implementation of the KNN model.
 
 ### **Logistic Regression**
-
 Logistic Regression was our interpretable baseline model, mapping features to diabetes risk with the logistic function:
 \[
 P(Y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \sum_{i=1}^p \beta_i X_i)}}
@@ -43,7 +38,6 @@ Because of our high-dimensional dataset, we added **elastic net** regularization
 Cross-validation was also time-consuming, so we created **two versions** of logistic regression. The standard version processed cross-validation folds sequentially, while our parallel version used `doParallel` to distribute fold computations across CPU cores. Both versions kept identical model parameters (\(\alpha=0.5, \lambda \in [0.001, 0.1]\)), but the parallel approach significantly reduced training time.
 
 ### **Decision Tree**
-
 A single **Decision Tree** (using `rpart`) served as a foundational model in our project. A decision tree splits the dataset into smaller subsets by repeatedly choosing the best feature and threshold to isolate more homogenous groups. Each node in the tree poses a simple question (e.g., “Is BMI > 30?”), and the data branches accordingly.
 
 We tuned the **complexity parameter** (\(cp\)) in the range \([0.0005, 0.02]\), which controls how aggressively the tree prunes its branches. Smaller \(cp\) values allow deeper, more complex trees, while larger \(cp\) values prune more aggressively to avoid overfitting. To select the optimal \(cp\), we performed a grid search combined with **5-fold cross-validation**, using **parallel backends** so each fold could be processed simultaneously. This parallelization sped up our training significantly, especially with tens of thousands of records.
@@ -57,7 +51,6 @@ knitr::include_graphics("~/Desktop/625_Final/Figures/decision_tree.png")
 ```
 
 ### **Random Forest**
-
 **Random Forest** is like having a whole team of decision trees vote on an answer. Each tree in the forest is built on a random subset of the data and uses a random subset of features at each split. This randomness helps the ensemble avoid the overfitting that often plagues a single decision tree.
 
 To train the forest, we experimented with parameters like the number of trees and the number of features randomly chosen at each split. Since our dataset was quite large, the standard `randomForest` package struggled with runtime. We switched to **ranger**, which supports multi-threading and handles big data more efficiently. During training, each tree grows independently, which is where parallelization really helps. 
@@ -66,7 +59,6 @@ After the forest is built, it makes predictions by combining (“voting”) the 
 
 
 ### **XGBoost**
-
 XGBoost (eXtreme Gradient Boosting) extends traditional gradient boosting by applying a more regularized model framework to avoid overfitting while preserving strong predictive accuracy. In each iteration, XGBoost builds a new tree to correct the residual errors from the previous round. The algorithm’s objective function is given by:
 
 \[
@@ -163,6 +155,9 @@ The Decision Tree was surprisingly competitive, reaching 73.8% accuracy while be
 While KNN had the lowest accuracy at 72%, the extensive optimizations we implemented—such as PCA/MCA for dimensionality reduction, C++ for distance calculations, and parallel processing—made it a practical option by reducing runtime by ~62%.
 
 Going forward, we plan to delve deeper into benchmarking runtime and memory usage for each model and explore additional ensemble or sampling techniques to further enhance diabetes prediction. These efforts aim to improve model reliability and speed, ultimately contributing to better early detection and intervention strategies in real-world healthcare environments.
+
+## **Team Contributions**
+Each member contributed to different parts of the project: Yulin Shao worked on Logistic Regression and XGBoost, Liu Tong focused on optimizing the K-Nearest Neighbors (KNN) model, Yichen Zhao implemented Random Forest, and Yana Xu developed the Decision Tree. Together, we optimized and benchmarked these models to improve efficiency and accuracy for early diabetes detection.
 
 ## **References**
 - Rios Burrows, N., Hora, I., Geiss, L. S., Gregg, E. W., & Albright, A. (2017). Incidence of End-Stage Renal Disease Attributed to Diabetes Among Persons with Diagnosed Diabetes—United States and Puerto Rico, 2000–2014. Morbidity and Mortality Weekly Report, 66(43), 1165–1170.
