@@ -114,98 +114,86 @@ xggTree <- function(dtrain, dtest, parallel = FALSE, eta_grid = c(0.01, 0.1, 0.3
 ```{r}
 library(microbenchmark)
 
-results <- microbenchmark(
-  dense_no_parallel = xggTree(dense_dtrain, dense_dtest, parallel = FALSE),
-  dense_parallel = xggTree(dense_dtrain, dense_dtest, parallel = TRUE),
-  sparse_no_parallel = xggTree(sparse_dtrain, sparse_dtest, parallel = FALSE),
-  sparse_parallel = xggTree(sparse_dtrain, sparse_dtest, parallel = TRUE),
-   times = 3
+# Initialize a list to store model results
+model_results <- list()
+
+# Benchmark and collect results
+benchmark_results <- microbenchmark(
+  dense_no_parallel = { model_results$dense_no_parallel <- xggTree(dense_dtrain, dense_dtest, parallel = FALSE) },
+  dense_parallel = { model_results$dense_parallel <- xggTree(dense_dtrain, dense_dtest, parallel = TRUE) },
+  sparse_no_parallel = { model_results$sparse_no_parallel <- xggTree(sparse_dtrain, sparse_dtest, parallel = FALSE) },
+  sparse_parallel = { model_results$sparse_parallel <- xggTree(sparse_dtrain, sparse_dtest, parallel = TRUE) },
+  times = 1
 )
 
-print(results)
+# Print time results
+print(benchmark_results)
 ```
 
+```{r ploting}
+# Extract timing results from microbenchmark
+time_data <- summary(benchmark_results)[, c("expr", "mean")]
+colnames(time_data) <- c("Model", "Time_s")
+time_data$Time_s <- time_data$Time_s  # Convert to milliseconds
 
+# Extract AUC results from model outputs
+auc_data <- data.frame(
+  Model = names(model_results),
+  AUC = sapply(model_results, function(res) res$best_auc)
+)
 
-```{r}
-# Create DMatrix objects
-dtrain <- xgb.DMatrix(data = train_matrix, label = train_labels)
-dtest <- xgb.DMatrix(data = test_matrix, label = test_labels)
+# Merge time and AUC results for comparison
+results_data <- merge(time_data, auc_data, by = "Model")
+print(results_data)
 
-# Hyperparameter grid for learning rate tuning
-eta_grid <- c(0.01, 0.05, 0.1, 0.2, 0.3)  # Define learning rate values
+ggplot(results_data, aes(x = Model, y = Time_s, fill = Model)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(
+    title = "Training Time by Model",
+    x = "Model",
+    y = "Time (ms)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set2")
 
-# Initialize variables to store best parameters and best AUC
-best_params <- list()
-best_auc <- 0
-best_nrounds <- 0
+ggplot(results_data, aes(x = Model, y = AUC, fill = Model)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(
+    title = "AUC by Model",
+    x = "Model",
+    y = "AUC"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set3")
 
-# Grid search for learning rate tuning
-for (eta_value in eta_grid) {
-  params <- list(
-    booster = "gbtree",              # Using tree-based booster
-    objective = "binary:logistic",   # Binary classification
-    eval_metric = "auc",             # Use AUC for evaluation
-    eta = eta_value,                 # Varying learning rate
-    lambda = 1,                      # Fixed L2 regularization
-    alpha = 0                        # Fixed L1 regularization
+# Generate ROC curves for all models
+roc_list <- lapply(model_results, function(res) {
+  roc(test_labels, res$predictions)
+})
+
+# Combine ROC data into a single data frame
+roc_data <- data.frame()
+for (model_name in names(roc_list)) {
+  roc_curve <- roc_list[[model_name]]
+  roc_points <- data.frame(
+    FPR = 1 - roc_curve$specificities,
+    TPR = roc_curve$sensitivities,
+    Model = model_name
   )
-  
-  # Perform cross-validation
-  cv_results <- xgb.cv(
-    params = params,
-    data = dtrain,
-    nrounds = 100,                   # Maximum number of boosting rounds
-    nfold = 5,                       # 5-fold cross-validation
-    early_stopping_rounds = 10,      # Stop if no improvement
-    verbose = FALSE                  # Suppress output
-  )
-  
-  # Extract the best AUC and number of rounds
-  mean_auc <- max(cv_results$evaluation_log$test_auc_mean)
-  nrounds <- cv_results$best_iteration
-  
-  # Update best parameters if current AUC is better
-  if (mean_auc > best_auc) {
-    best_auc <- mean_auc
-    best_params <- params
-    best_nrounds <- nrounds
-  }
+  roc_data <- rbind(roc_data, roc_points)
 }
 
-# Print best learning rate, AUC, and number of rounds
-cat("Best Learning Rate (eta):", best_params$eta, "\n")
-cat("Best AUC:", best_auc, "\n")
-cat("Best Number of Rounds:", best_nrounds, "\n")
-
-# Train the final model with the best learning rate
-final_model <- xgb.train(
-  params = best_params,
-  data = dtrain,
-  nrounds = best_nrounds,
-  verbose = TRUE
-)
-
-# Make predictions on the test dataset
-pred_probs <- predict(final_model, newdata = dtest)
-pred_classes <- ifelse(pred_probs > 0.5, 1, 0)
-
-# Evaluate the model on the test set
-# Confusion Matrix
-confusion <- confusionMatrix(
-  factor(pred_classes, levels = c(0, 1)), 
-  factor(test_labels, levels = c(0, 1))
-)
-
-# Print evaluation metrics
-print(confusion)
-
-# ROC Curve and AUC
-roc_curve <- roc(test_labels, pred_probs)
-auc_value <- auc(roc_curve)
-
-# Plot ROC Curve
-plot(roc_curve, col = "blue", main = "ROC Curve for XGBoost Model")
-cat("AUC:", auc_value, "\n")
+ggplot(roc_data, aes(x = FPR, y = TPR, color = Model)) +
+  geom_line(size = 1) +
+  theme_minimal() +
+  labs(
+    title = "ROC Curve Comparison",
+    x = "False Positive Rate",
+    y = "True Positive Rate"
+  ) +
+  scale_color_brewer(palette = "Dark2")
 ```
+
 
