@@ -1,5 +1,5 @@
 ---
-title: "KNN"
+title: "KNN Model"
 author: "Tong Liu"
 date: "2024-11-7"
 output: pdf_document
@@ -16,10 +16,9 @@ library(pROC)         # Model performance evaluation.
 library(microbenchmark) # Used for Benchmark
 ```
 
-
 ```{r Data Import}
-data_train = read.csv("C:\\Users\\柳童\\Desktop\\24FALL\\BIOS 625\\FINAL Pro\\train_data.csv")
-data_test = read.csv("C:\\Users\\柳童\\Desktop\\24FALL\\BIOS 625\\FINAL Pro\\test_data.csv")
+data_train <- read.csv("C:\\Users\\柳童\\Desktop\\24FALL\\BIOS 625\\FINAL Pro\\train_data.csv")
+data_test <- read.csv("C:\\Users\\柳童\\Desktop\\24FALL\\BIOS 625\\FINAL Pro\\test_data.csv")
 ```
 
 ```{r Data Type Preprocessing}
@@ -33,7 +32,6 @@ data_train[binary_vars] <- lapply(data_train[binary_vars], as.factor)
 data_test[binary_vars] <- lapply(data_test[binary_vars], as.factor)
 
 ```
-
 
 ```{r PCA and MCA Processing - Dimensionality Reduction for Numeric and Binary Categorical Data}
 # 1. PCA for Numeric Variables
@@ -59,8 +57,10 @@ cat_vars_train <- as.data.frame(cat_vars_train)
 cat_vars_test <- as.data.frame(cat_vars_test)
 # Combine the training and test sets
 cat_vars_combined <- rbind(cat_vars_train, cat_vars_test)
+
 # Create an MCA model
 mca_result_combined <- MCA(cat_vars_combined, graph = FALSE)
+
 # Separate the principal component scores for the training and test sets
 train_mca_scores <- as.data.frame(mca_result_combined$ind$coord[1:nrow(cat_vars_train), ])
 test_mca_scores <- as.data.frame(mca_result_combined$ind$coord[(nrow(cat_vars_train) + 1):nrow(cat_vars_combined), ])
@@ -112,6 +112,7 @@ plot(k_values, accuracy_results, type = "b", pch = 19, col = "blue",
      xlab = "K Value", ylab = "Accuracy", main = "Accuracy vs. K Value")
 abline(v = best_k, col = "red", lty = 2) 
 ```
+
 
 ```{r Implement parallelized chunk-based prediction}
 # Load the Rcpp file
@@ -184,7 +185,11 @@ knn_parallel_rcpp <- function(train_data, train_labels, test_data, train_sq, k =
 # Call the parallel-optimized KNN function
 train_matrix <- as.matrix(train_final)
 train_labels <- as.integer(data_train$Diabetes_binary)
+
+# Precompute the sum of squares of the feature vectors- 
+# -for each training sample to optimize the calculation of Euclidean distance.
 train_sq <- rowSums(train_matrix^2)
+
 test_matrix <- as.matrix(test_final)
 
 test_predictions <- knn_parallel_rcpp( train_data = train_matrix,
@@ -192,7 +197,7 @@ test_predictions <- knn_parallel_rcpp( train_data = train_matrix,
                                        test_data = test_matrix,
                                        train_sq = train_sq,
                                        k = best_k,
-                                       block_size = 1000)
+                                       block_size = 1000)   
 
 ```
 
@@ -214,7 +219,8 @@ auc(roc_obj)
 
 ```
 
-```{r Comparison}
+
+```{r Comparison between the manual KNN algorithm and the optimized algorithm}
 # Realizing KNN algorithm manually
 knn_baseline_manual <- function(train, test, cl, k) {
   n_test <- nrow(test)
