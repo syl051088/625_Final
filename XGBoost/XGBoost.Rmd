@@ -1,5 +1,5 @@
 ---
-title: "Logistic Regression"
+title: "XGBoost Model"
 author: "Yulin Shao"
 date: "2024-10-30"
 output: pdf_document
@@ -98,12 +98,21 @@ xggTree <- function(dtrain, dtest, parallel = FALSE, eta_grid = c(0.01, 0.1, 0.3
   # Make predictions on the test dataset
   pred_probs <- predict(final_model, newdata = dtest)
   
-  # Return results
+  # Define a threshold to classify predictions
+  threshold <- 0.5
+  binary_preds <- ifelse(pred_probs > threshold, 1, 0)
+  
+  # Calculate accuracy
+  true_labels <- getinfo(dtest, "label")  # Extract true labels from the test data
+  accuracy <- sum(binary_preds == true_labels) / length(true_labels)
+  
+  # Return accuracy as part of the results
   list(
     best_eta = best_eta,
     best_auc = best_auc,
     best_nrounds = best_nrounds,
     predictions = pred_probs,
+    accuracy = accuracy,
     model = final_model
   )
 }
@@ -111,7 +120,7 @@ xggTree <- function(dtrain, dtest, parallel = FALSE, eta_grid = c(0.01, 0.1, 0.3
 
 ```
 
-```{r}
+```{r benchmark results}
 library(microbenchmark)
 
 # Initialize a list to store model results
@@ -134,18 +143,20 @@ print(benchmark_results)
 # Extract timing results from microbenchmark
 time_data <- summary(benchmark_results)[, c("expr", "mean")]
 colnames(time_data) <- c("Model", "Time_s")
-time_data$Time_s <- time_data$Time_s  # Convert to milliseconds
+time_data$Time_s <- time_data$Time_s
 
-# Extract AUC results from model outputs
+# Extract AUC and accuracy results from model outputs
 auc_data <- data.frame(
   Model = names(model_results),
-  AUC = sapply(model_results, function(res) res$best_auc)
+  AUC = sapply(model_results, function(res) res$best_auc),
+  Accuracy = sapply(model_results, function(res) res$accuracy)  # Add accuracy
 )
 
-# Merge time and AUC results for comparison
+# Merge time, AUC, and Accuracy results for comparison
 results_data <- merge(time_data, auc_data, by = "Model")
 print(results_data)
 
+# Plot Training Time
 ggplot(results_data, aes(x = Model, y = Time_s, fill = Model)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
@@ -157,6 +168,7 @@ ggplot(results_data, aes(x = Model, y = Time_s, fill = Model)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_brewer(palette = "Set2")
 
+# Plot AUC
 ggplot(results_data, aes(x = Model, y = AUC, fill = Model)) +
   geom_bar(stat = "identity") +
   theme_minimal() +
@@ -167,6 +179,18 @@ ggplot(results_data, aes(x = Model, y = AUC, fill = Model)) +
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_brewer(palette = "Set3")
+
+# Plot Accuracy
+ggplot(results_data, aes(x = Model, y = Accuracy, fill = Model)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(
+    title = "Accuracy by Model",
+    x = "Model",
+    y = "Accuracy"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Pastel1")
 
 # Generate ROC curves for all models
 roc_list <- lapply(model_results, function(res) {
@@ -185,6 +209,7 @@ for (model_name in names(roc_list)) {
   roc_data <- rbind(roc_data, roc_points)
 }
 
+# Plot ROC Curve
 ggplot(roc_data, aes(x = FPR, y = TPR, color = Model)) +
   geom_line(size = 1) +
   theme_minimal() +
@@ -194,6 +219,7 @@ ggplot(roc_data, aes(x = FPR, y = TPR, color = Model)) +
     y = "True Positive Rate"
   ) +
   scale_color_brewer(palette = "Dark2")
+
 ```
 
 
