@@ -1,16 +1,19 @@
-## **Welcome to the Healthcare Machine Learning repository！**  
+## **Optimizing Machine Learning Models for Early Diabetes Detection Using a Large-Scale CDC Dataset**  
 
-In this project collection, we leverage machine learning algorithms and data science techniques to develop accurate predictive models for various diabetes datasets, while also optimizing the efficiency of these machine learning methods.
+Welcome to the Healthcare Machine Learning repository！In this project collection, we leverage machine learning algorithms and data science techniques to develop accurate predictive models for various diabetes datasets, while also optimizing the efficiency of these machine learning methods.
 
 ---
 
 ## **Dataset Overview**  
 
-The data for this project comes from the UC Irvine Machine Learning Repository.  
+The dataset used in this project is sourced from the CDC Diabetes Health Indicators dataset, accessible through the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators).
+
+The dataset initially showed a significant imbalance between the diabetic (label 1) and non-diabetic (label 0) cases, prompting a rebalance to ensure equal representation of both classes. The rebalanced subset used for model construction contains approximately 70,000 samples.
+
 - **Data Splitting**: The data is split into 80% for training and 20% for testing.  
 - **sample size**:    
-   - The training set: 56,553 samples  
-   - The testing set: 14,139 samples  
+   - The training set: 56,000 samples (approximately)  
+   - The testing set:  14,000 samples (approximately)  
 - **features**: 20 clinical features
 
 ---
@@ -84,5 +87,13 @@ Effective data visualization helps convey complex healthcare data and visually d
 - **Optimization of Algorithm Efficiency**: Achieving performance optimization through parallel computation, RCPP, and dimensionality reduction techniques. 
 - **Visualization**: Provide intuitive visual results to facilitate the demonstration of model performance. 
 - **Practical Significance**: Dedicated to assisting the healthcare sector by providing data-driven insights to predict the risk of diabetes. 
+
+---
+
+## License
+
+This project is licensed under the [GNU General Public License Version 3 (GPL-3.0)](LICENSE).
+
+By using, modifying, or distributing this software, you agree to the terms and conditions of the GPL-3.0. For more details, see the [full license text](https://www.gnu.org/licenses/gpl-3.0.html).
 
 ---
