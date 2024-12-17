@@ -1,10 +1,14 @@
 ---
-title: "Biostats625_Final_Report"
+title: "Optimizing Machine Learning Models for Early Diabetes Detection Using a Large-Scale CDC Dataset"
 author: "**Team:**\n- Yulin Shao\n- Tong Liu\n- Yichen Zhao\n- Yana Xu\n"
-date: "2024-12-17"
 output:
   pdf_document: default
+abstract: |
+  This project focuses on developing and optimizing machine learning models for early diabetes detection using the CDC Diabetes Health Indicators dataset, which includes over 250,000 records. We explored and enhanced several models including K-Nearest Neighbors (KNN), Logistic Regression, Decision Tree, Random Forest, and XGBoost. To manage the dataset's size and complexity, we implemented optimization techniques such as dimensionality reduction, parallel computing, and algorithm-specific enhancements. Our optimized models demonstrated significant improvements in both runtime and accuracy, showcasing the effectiveness of these strategies. These results can help in early diabetes prediction, potentially improving patient outcomes and reducing healthcare costs. For more details and code, visit our GitHub repository: [https://github.com/yanax726/625_Final](https://github.com/yanax726/625_Final).
 ---
+
+## **Abstract**
+
 
 ## **Introduction**
 
@@ -12,49 +16,99 @@ Diabetes is a significant public health concern, affecting millions of individua
 
 We began with a smaller Heart Disease dataset (around 900 entries) to design our initial pipelines. However, the dataset’s small size did not expose the computational challenges encountered in large-scale machine learning. To better reflect real-world conditions, we switched to the **CDC Diabetes Health Indicators dataset**, which contains over **250,000 records**. Handling such a large dataset required us to implement **parallel computing**, memory-efficient strategies, and algorithm-specific optimizations. This report describes the methods we used, the optimizations implemented, and their effects on training time and accuracy.
 
+## **Data**
+
+We started with the CDC Diabetes Health Indicators dataset, which contains more than 250,000 records. However, we discovered that the data was quite imbalanced, with far more non-diabetic (label 0) cases than diabetic (label 1). Imbalanced datasets can make it tougher for machine learning models to learn minority-class patterns effectively.
+
+To address this, we rebalanced by using a 70,000-row subset where the classes are roughly equal in size. We felt that training on a more balanced dataset could help models detect diabetic cases more accurately.
+
+We then split this balanced subset into 80% training and 20% testing. All the models in our study used exactly the same training and test splits to keep the comparisons consistent. The training split was used for hyperparameter tuning, cross-validation, and model fitting, while the test split served as a final check for accuracy and runtime benchmarks across all methods. This approach ensured an apples-to-apples comparison among KNN, Logistic Regression, Decision Tree, Random Forest, and XGBoost.
+
 ## **Methods**
 
-### K-Nearest Neighbors
+### **K-Nearest Neighbors**
 
-K-Nearest Neighbors (KNN) is simple and non-parametric, but it can be very slow with huge datasets because it calculates distances to all training points. To speed things up, we applied **PCA** for numeric features and **MCA** for binary ones, cutting the dimensionality from 20 down to 9. We then rewrote the distance function in **C++** and used nth_element for **partial sorting** instead of sorting every distance. Lastly, we **parallelized** the predictions with parLapply by splitting the test data into chunks of 1,000 records each. These steps made KNN run much faster on the 250k-row dataset.
+K-Nearest Neighbors (KNN) is a straightforward algorithm often recommended for classification or regression, but it becomes slow on large datasets because it calculates distances from every test sample to the entire training set. To deal with our massive dataset, we made several key adjustments. First, we reduced dimensionality by running **PCA** on numeric variables and **MCA** on binary variables, cutting down from 20 features to fewer components. We then rewrote the distance function in **C++**, using `nth_element` to partially sort only the top *k* distances, instead of sorting them all. We also precomputed each training sample’s sum of squares to skip that calculation for every query. Finally, we parallelized KNN by splitting the test data into chunks of about 1,000 rows each and applying `parLapply`. Altogether, these optimizations slashed computational time and kept the original KNN logic intact.
 
-Next, we optimized distance calculations by rewriting the distance function in **C++**. Instead of sorting all distances, we used **partial sorting** with the `nth_element` function to retrieve only the top k-nearest neighbors. Finally, we implemented **parallel processing** with `parLapply` to divide the test set into smaller chunks of 1,000 samples each, which were processed concurrently.
+### **Logistic Regression**
 
-### Logistic Regression
-
-Logistic Regression is widely used for binary classification tasks due to its simplicity and interpretability. The model maps the input features to the probability of having diabetes using the logistic function:
-
+Logistic Regression was our interpretable baseline model, mapping features to diabetes risk with the logistic function:
 \[
 P(Y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \sum_{i=1}^p \beta_i X_i)}}
 \]
-
-Given the large dataset, we incorporated **elastic net regularization** to handle multicollinearity and prevent overfitting:
-
+Because of our high-dimensional dataset, we added **elastic net** regularization:
 \[
-\min_{\beta_0, \beta} \left[-\sum_{i=1}^n \log(P(y_i|x_i)) + \lambda(\alpha||\beta||_1 + \frac{1-\alpha}{2}||\beta||_2^2)\right]
+\min_{\beta_0, \beta} \Bigl[-\sum_{i=1}^n \log\bigl(P(y_i \mid x_i)\bigr) + \lambda\bigl(\alpha\|\beta\|_1 + \frac{1-\alpha}{2}\|\beta\|_2^2\bigr)\Bigr].
 \]
+Cross-validation was also time-consuming, so we created **two versions** of logistic regression. The standard version processed cross-validation folds sequentially, while our parallel version used `doParallel` to distribute fold computations across CPU cores. Both versions kept identical model parameters (\(\alpha=0.5, \lambda \in [0.001, 0.1]\)), but the parallel approach significantly reduced training time.
 
-Cross-validation was computationally expensive due to repeated model training. To address this, we parallelized the cross-validation process using the **doParallel** package, which enabled the division of folds across CPU cores, reducing training time significantly.
+### **Decision Tree**
 
-### Decision Tree
-A single Decision Tree (rpart) was our baseline model. Decision trees split the data on the best features at each node and are known for being easy to interpret. We performed a **grid search** over the complexity parameter (cp) in the range [0.0005, 0.02], and used parallel backends to speed up the 5-fold cross-validation. Despite being straightforward, the Decision Tree offered decent performance with minimal computation cost.
+A single **Decision Tree** (using `rpart`) served as a foundational model in our project. A decision tree splits the dataset into smaller subsets by repeatedly choosing the best feature and threshold to isolate more homogenous groups. Each node in the tree poses a simple question (e.g., “Is BMI > 30?”), and the data branches accordingly.
 
-```{r decision tree, echo=FALSE}
+We tuned the **complexity parameter** (\(cp\)) in the range \([0.0005, 0.02]\), which controls how aggressively the tree prunes its branches. Smaller \(cp\) values allow deeper, more complex trees, while larger \(cp\) values prune more aggressively to avoid overfitting. To select the optimal \(cp\), we performed a grid search combined with **5-fold cross-validation**, using **parallel backends** so each fold could be processed simultaneously. This parallelization sped up our training significantly, especially with tens of thousands of records.
+
+Despite being a relatively simple method, decision trees are valued for their interpretability. Each split corresponds to a clear, human-readable rule. In a medical setting, following the path from the root to a leaf can help clinicians understand exactly why the model classifies a patient as diabetic or not, adding a layer of transparency that’s often missing in more complex models.
+
+Below is the decision tree model:
+
+```{r decision tree, echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("~/Desktop/625_Final/Figures/decision_tree.png")
 ```
 
-### Random Forest
-Random Forest improves upon single Decision Trees by combining multiple bootstrapped trees to form a robust ensemble. Initially, we used the standard `randomForest` package but encountered significant runtime issues on such a large dataset. Switching to the **ranger** package, which supports **multi-threading**, dramatically improved efficiency. Ranger reduced the training time from **362 seconds to 3.42 seconds** while maintaining strong predictive performance.  
+### **Random Forest**
 
-### XGBoost
-XGBoost is a gradient-boosted tree algorithm that includes parallel training and regularization. The objective function penalizes model complexity:
+**Random Forest** is like having a whole team of decision trees vote on an answer. Each tree in the forest is built on a random subset of the data and uses a random subset of features at each split. This randomness helps the ensemble avoid the overfitting that often plagues a single decision tree.
+
+To train the forest, we experimented with parameters like the number of trees and the number of features randomly chosen at each split. Since our dataset was quite large, the standard `randomForest` package struggled with runtime. We switched to **ranger**, which supports multi-threading and handles big data more efficiently. During training, each tree grows independently, which is where parallelization really helps. 
+
+After the forest is built, it makes predictions by combining (“voting”) the outputs of all the individual trees. This voting tends to produce more stable and accurate results compared to just one tree. The main upside of Random Forest is that it requires minimal tuning yet typically achieves strong performance for many types of data, especially structured health indicators like ours.
+
+
+### **XGBoost**
+
+XGBoost (eXtreme Gradient Boosting) extends traditional gradient boosting by applying a more regularized model framework to avoid overfitting while preserving strong predictive accuracy. In each iteration, XGBoost builds a new tree to correct the residual errors from the previous round. The algorithm’s objective function is given by:
+
 \[
-\mathcal{L} = \sum_{i=1}^n l(y_i, \hat{y}_i) + \sum_{k=1}^K \Omega(f_k)
-\]  
-To optimize XGBoost, we tested both **dense** and **sparse matrix** formats. Sparse matrices provided significant memory savings by ignoring zero entries, which is particularly useful when dealing with categorical features. We further utilized **parallel tree building** through XGBoost’s built-in multi-threading capabilities. Hyperparameter tuning was conducted over learning rates (\(\eta = 0.01, 0.1, 0.3\)) and tree depths, with **early stopping** at 10 rounds to prevent overfitting.  
+\mathcal{L} = \sum_{i=1}^n l(y_i, \hat{y}_i) + \sum_{k=1}^K \Omega(f_k),
+\]
 
-## Results
-Below is a bar chart comparing accuracy across all the methods we tried:
+where the first term measures how well the model fits the data, and the second term imposes a penalty on model complexity to prevent overfitting. Specifically, the regularization term is:
+
+\[
+\Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2,
+\]
+
+with \(T\) representing the number of leaves, \(w_j\) the leaf weights, \(\gamma\) controlling minimum loss reduction for splitting, and \(\lambda\) handling L2 regularization on those leaf weights.
+
+Given our dataset’s large size, we tested four implementations of XGBoost to handle memory and computational demands. First, we compared **dense** matrices (straightforward but memory-intensive) vs. **sparse** matrices (efficient for datasets with many zero entries, like one-hot categorical variables). Second, we explored **sequential** vs. **parallel** processing strategies, leading to four distinct configurations: **dense-sequential**, **dense-parallel**, **sparse-sequential**, and **sparse-parallel**. Across all variants, we kept consistent hyperparameters—maximum tree depth of 6, subsample ratio of 0.8, and column sampling ratio of 0.8—and performed grid search over learning rates \(\{0.01, 0.1, 0.3\}\). We also applied **early stopping** at 10 rounds, up to a maximum of 100 rounds, to guard against overfitting.
+
+The sparse matrix approach cut down on memory usage by ignoring zero elements, which was especially helpful for categorical variables converted into dummy variables. Parallel XGBoost utilized multi-threading to distribute the computational load, dramatically reducing training time. All versions were evaluated using **5-fold cross-validation**, with **AUC** serving as our main performance metric, since it handles potential class imbalance well in medical datasets. By combining memory-friendly data structures and parallel tree building with early stopping, XGBoost balanced computational efficiency and model quality without sacrificing accuracy.
+
+
+## **Results**
+Below is a table comparing runtime and accuracy for unoptimized and optimized models:
+
+\begin{table}[ht]
+\centering
+\caption{Runtime and Accuracy Comparison for Unoptimized and Optimized Models}
+\label{tab:benchmark_results}
+\begin{tabular}{|l|cc|cc|}
+\hline
+\textbf{Model}         & \multicolumn{2}{c|}{\textbf{Unoptimized}} & \multicolumn{2}{c|}{\textbf{Optimized}} \\
+\cline{2-5}
+                       & \textbf{Runtime} & \textbf{Accuracy}     & \textbf{Runtime} & \textbf{Accuracy} \\
+\hline
+Decision Tree          & 15.5s          & 73.8\%                 & 12.4s           & 73.8\%              \\
+KNN                    & 85s          & 72\%                 & 32s          & 72\%              \\
+Logistic Regression    & 7.44s          & 74.5\%                 & \textbf{3.25s}           & 74.5\%              \\
+XGBoost                & 38.3s          & 75.0\%                 & 14.1s          & \textbf{75.1\%}              \\
+Random Forest          & 362s            &  74.8\% &3.42s &74.81\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Below is a bar chart comparing the final **accuracy** of each model on our balanced **CDC Diabetes** test set:
 ```{r comparison-plot, echo=FALSE, fig.align='center', out.width="70%"}
 library(ggplot2)
 
@@ -91,15 +145,25 @@ ggplot(model_accuracy, aes(x = Model, y = Accuracy, fill = Model)) +
     label.padding = unit(0.25, "lines"),
     show.legend = FALSE
   )
-
 ```
-XGBoost ended up on top at **75% accuracy** (AUC around 0.82), followed by Random Forest at **74.81%** (AUC ~0.82 as well). Both ensemble methods were quite efficient after parallelization. The single Decision Tree gave us 73.76% accuracy, which was surprisingly high given how simple the model is. KNN reached **72%** accuracy after we did dimensionality reduction, rewrote distance calculations in C++, and parallelized predictions. That process cut KNN’s runtime by about **62%** compared to a naive approach. Meanwhile, Logistic Regression ended up at **74.5%** accuracy and benefitted from parallel cross-validation, making it about **3x faster** to train than the naive version. Although Logistic Regression was the least accurate, it was the quickest model overall, showing that sometimes there’s a trade-off between interpretability/speed and top-tier accuracy.
 
-## Conclusion
-Our project highlights the importance of optimizing machine learning models for large-scale datasets, especially in critical applications like diabetes prediction. By implementing strategies such as dimensionality reduction, sparse representations, parallel computing, and algorithm-specific optimizations, we achieved significant improvements in runtime while maintaining strong predictive accuracy. Even classic algorithms, like KNN or Logistic Regression, can work efficiently if you add dimensionality reduction, parallel computing, and specialized C++ routines. Random Forest (via ranger) and XGBoost, each near 75% accuracy and AUC ~0.82, gave the strongest performances across the board. The Decision Tree was simpler, but still got about 73.76%, which was pretty competitive given how easy it is to interpret.
+From the chart and Table \ref{tab:benchmark_results}, XGBoost comes out on top with 75% accuracy (AUC around 0.82), closely followed by Random Forest at 74.8% (AUC ~0.82). Logistic Regression also performed well, achieving 74.5% accuracy, which is higher than we initially expected. This boost is thanks to parallelizing the cross-validation process, making it about 3x faster than the sequential version.
 
-Going forward, we’d like to compare runtime and memory usage in more detail, and maybe try further optimizations or ensemble methods for KNN or Logistic Regression. We believe these approaches can help identify people at high risk for diabetes sooner, potentially reducing medical costs and improving patient outcomes in real-world healthcare environments.
+Our Decision Tree reached 73.8% accuracy and was about 20% faster due to the parallel grid search for the complexity parameter. This speedup made training the Decision Tree much more efficient without sacrificing too much accuracy. Finally, KNN achieved 72% accuracy after significant optimizations like dimensionality reduction, rewriting distance calculations in C++, and parallelizing predictions. These changes reduced KNN’s runtime by approximately 62% compared to the naive approach.
 
-## References
+Overall, while XGBoost and Random Forest led in both accuracy and efficiency, Logistic Regression proved to be a strong contender with its balanced performance and speed. The Decision Tree also showed competitive accuracy with improved training times, making it a viable option for interpretable models. KNN, despite being the least accurate, became much more feasible with the applied optimizations.
+
+## **Conclusion**
+Our project highlights how crucial optimization techniques like dimensionality reduction, parallel computing, and specialized algorithm implementations are when working with large-scale datasets for early diabetes detection. Even simpler models like KNN and Logistic Regression can perform efficiently and effectively with the right tweaks.
+
+XGBoost and Random Forest delivered the best balance of accuracy (~75%) and training speed, both achieving an AUC around 0.82. These ensemble methods proved to be both powerful and scalable, making them excellent choices for handling large, balanced datasets.
+
+The Decision Tree was surprisingly competitive, reaching 73.8% accuracy while becoming ~20% faster through parallel grid search. Its ease of interpretation makes it particularly valuable in healthcare settings where understanding the decision-making process is essential.
+
+While KNN had the lowest accuracy at 72%, the extensive optimizations we implemented—such as PCA/MCA for dimensionality reduction, C++ for distance calculations, and parallel processing—made it a practical option by reducing runtime by ~62%.
+
+Going forward, we plan to delve deeper into benchmarking runtime and memory usage for each model and explore additional ensemble or sampling techniques to further enhance diabetes prediction. These efforts aim to improve model reliability and speed, ultimately contributing to better early detection and intervention strategies in real-world healthcare environments.
+
+## **References**
 - Rios Burrows, N., Hora, I., Geiss, L. S., Gregg, E. W., & Albright, A. (2017). Incidence of End-Stage Renal Disease Attributed to Diabetes Among Persons with Diagnosed Diabetes—United States and Puerto Rico, 2000–2014. Morbidity and Mortality Weekly Report, 66(43), 1165–1170.
 - Detrano, R., Jánosi, A., Steinbrunn, W., Pfisterer, M., Schmid, J., Sandhu, S., Guppy, K., Lee, S., & Froelicher, V. (1989). International application of a new probability algorithm for the diagnosis of coronary artery disease. American Journal of Cardiology.

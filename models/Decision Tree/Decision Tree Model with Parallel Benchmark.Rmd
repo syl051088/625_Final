@@ -1,0 +1,108 @@
+---
+title: "Decision Tree Model with Parallel Benchmark"
+author: "yana xu"
+date: "2024-12-17"
+output: html_document
+---
+```{r}
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+library(dplyr)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(pROC)
+library(doParallel)
+set.seed(123)
+```
+
+```{r}
+train_data <- read.csv("~/Desktop/625_Final/data/train_data.csv")
+test_data  <- read.csv("~/Desktop/625_Final/data/test_data.csv")
+
+train_data$Diabetes_binary <- factor(train_data$Diabetes_binary, levels = c("0", "1"), labels = c("No", "Yes"))
+test_data$Diabetes_binary  <- factor(test_data$Diabetes_binary,  levels = c("0", "1"), labels = c("No", "Yes"))
+```
+
+```{r}
+control_no_parallel <- trainControl(
+  method = "cv",
+  number = 5,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary,
+  allowParallel = FALSE  # No parallel
+)
+
+cp_grid <- expand.grid(cp = seq(0.0005, 0.02, by = 0.0005))
+
+# Benchmark training time
+time_non_parallel <- system.time({
+  dt_model_no_parallel <- train(
+    Diabetes_binary ~ .,
+    data      = train_data,
+    method    = "rpart",
+    metric    = "ROC",
+    trControl = control_no_parallel,
+    tuneGrid  = cp_grid
+  )
+})
+
+cat("Non-Parallel Decision Tree Training Time (seconds):", time_non_parallel["elapsed"], "\n")
+```
+
+```{r}
+num_cores <- parallel::detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+cat("Parallel backend registered with", num_cores, "cores.\n")
+
+control_parallel <- trainControl(
+  method = "cv",
+  number = 5,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary,
+  allowParallel = TRUE  # Enable parallel
+)
+
+time_parallel <- system.time({
+  dt_model_parallel <- train(
+    Diabetes_binary ~ .,
+    data      = train_data,
+    method    = "rpart",
+    metric    = "ROC",
+    trControl = control_parallel,
+    tuneGrid  = cp_grid
+  )
+})
+
+cat("Parallel Decision Tree Training Time (seconds):", time_parallel["elapsed"], "\n")
+
+stopCluster(cl)
+registerDoSEQ()
+```
+```{r}
+speedup <- round(time_non_parallel["elapsed"] / time_parallel["elapsed"], 2)
+cat("Speedup Factor:", speedup, "x faster with parallel.\n")
+```
+
+```{r}
+dt_preds <- predict(dt_model_parallel, newdata = test_data)
+dt_probs <- predict(dt_model_parallel, newdata = test_data, type = "prob")[, "Yes"]
+
+dt_conf_mat <- confusionMatrix(dt_preds, test_data$Diabetes_binary, positive = "Yes")
+print(dt_conf_mat)
+
+accuracy    <- dt_conf_mat$overall["Accuracy"]
+sensitivity <- dt_conf_mat$byClass["Sensitivity"]
+specificity <- dt_conf_mat$byClass["Specificity"]
+precision   <- dt_conf_mat$byClass["Pos Pred Value"]
+f1_score    <- 2 * (precision * sensitivity) / (precision + sensitivity)
+
+cat("Accuracy:",    round(accuracy, 4), "\n")
+cat("Sensitivity:", round(sensitivity, 4), "\n")
+cat("Specificity:", round(specificity, 4), "\n")
+cat("Precision:",   round(precision, 4), "\n")
+cat("F1 Score:",    round(f1_score, 4), "\n")
+
+roc_obj <- roc(test_data$Diabetes_binary, dt_probs)
+cat("AUC:", round(auc(roc_obj), 4), "\n")
+```
