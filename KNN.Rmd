@@ -13,6 +13,7 @@ library(class)        # Basic implementation of the KNN algorithm
 library(Rcpp)         # High-performance computing and C++ integration
 library(parallel)     # Parallel computing and multicore acceleration
 library(pROC)         # Model performance evaluation.
+library(microbenchmark) # Used for Benchmark
 ```
 
 
@@ -67,6 +68,7 @@ test_mca_scores <- as.data.frame(mca_result_combined$ind$coord[(nrow(cat_vars_tr
 # 3. Combine PCA and MCA principal components
 train_final <- cbind(train_pca_scores, train_mca_scores)
 test_final <- cbind(test_pca_scores, test_mca_scores)
+rm(list = setdiff(ls(), c("data_train","data_test","train_final", "test_final")))
 ```
 
 
@@ -210,4 +212,90 @@ png(output_path, width = 800, height = 600)
 plot(roc_obj, col = "blue", main = "ROC Curve")  
 auc(roc_obj)  
 
+```
+
+```{r Comparison}
+# Realizing KNN algorithm manually
+knn_baseline_manual <- function(train, test, cl, k) {
+  n_test <- nrow(test)
+  n_train <- nrow(train)
+  predictions <- vector("integer", n_test)  
+  for (i in 1:n_test) {
+    # The calculation of the Euclidean distance from test sample \(i\) to all training samples
+    distances <- sqrt(rowSums((train - matrix(test[i, ], n_train, ncol(train), byrow = TRUE))^2))
+    # Get the indices of the nearest k neighbors
+    nearest_indices <- order(distances)[1:k]
+    nearest_labels <- cl[nearest_indices]
+    # Vote to determine the label
+    predictions[i] <- names(sort(table(nearest_labels), decreasing = TRUE))[1]
+  }
+  return(as.factor(predictions))  
+}
+
+# Set the data and parameters for comparison
+test_subset <- test_final[1:10000, ]    
+train_labels <- data_train$Diabetes_binary  
+
+knn_baseline <- function() {
+  knn_baseline_manual(
+    train = as.matrix(train_final),
+    test = as.matrix(test_subset),
+    cl = as.integer(train_labels),
+    k = best_k
+  )
+}
+knn_optimized <- function() {
+  knn_parallel_rcpp(
+    train_data = as.matrix(train_final),
+    train_labels = as.integer(train_labels),
+    test_data = as.matrix(test_subset),
+    train_sq = rowSums(as.matrix(train_final)^2),
+    k = best_k,
+    block_size = 1000
+  )
+}
+# Benchmarking
+benchmark_results <- microbenchmark(
+  baseline = knn_baseline(),
+  optimized = knn_optimized(),
+  times = 5
+)
+
+print(benchmark_results)
+```
+
+
+```{r Visualizing the results of comparison}
+benchmark_df <- as.data.frame(benchmark_results)
+benchmark_df$time <- benchmark_df$time / 1e9  # Convert nanoseconds to seconds
+
+# Draw a box plot
+box_plot = ggplot(benchmark_df, aes(x = expr, y = time)) +
+  geom_boxplot(fill = c("skyblue", "orange")) +
+  labs(
+    title = "Comparison of KNN Methods",
+    x = "Method",
+    y = "Execution Time (seconds)"
+  ) +
+  theme_minimal()
+box_plot
+library(ggplot2)
+
+# Calculate the average time
+avg_times <- aggregate(time ~ expr, data = as.data.frame(benchmark_df), mean)
+
+# Draw a bar plot
+bar_plot = ggplot(avg_times, aes(x = expr, y = time, fill = expr)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Average Execution Time Comparison",
+    x = "Method",
+    y = "Execution Time (seconds)"
+  ) +
+  theme_minimal()
+bar_plot
+
+# save the plots
+ggsave("bar_plot.png", plot = bar_plot, width = 8, height = 6, dpi = 300)
+ggsave("box_plot.png", plot = box_plot, width = 8, height = 6, dpi = 300)
 ```
