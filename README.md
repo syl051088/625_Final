@@ -67,8 +67,8 @@ The dataset initially showed a significant imbalance between the diabetic (label
 Due to the large sample size of the dataset, we attempted the following optimization methods: 
 
 - **Parallel computing** and **Data partitioning**: Improve model performance efficiency.  
-- **RCPP**: Implement complex computations using C++, with R for scheduling and organization.  
-- **Dimensionality reduction**: Use PCA (Principal Component Analysis) and MCA (Multiple Correspondence Analysis) to reduce feature dimensionality and improve computational performance.
+- **RCPP**: Implement complex computations using C++, with R for scheduling and organization(used in the KNN model).  
+- **Dimensionality reduction**: Use PCA (Principal Component Analysis) and MCA (Multiple Correspondence Analysis) to reduce feature dimensionality and improve computational performance(used in the KNN model).
 
 ---
 
