@@ -264,7 +264,7 @@ knn_optimized <- function() {
 benchmark_results <- microbenchmark(
   baseline = knn_baseline(),
   optimized = knn_optimized(),
-  times = 5
+  times = 3
 )
 
 print(benchmark_results)
